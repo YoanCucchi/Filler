@@ -1,42 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   filler.h                                           :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycucchi <yoan066@yahoo.fr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/21 14:32:36 by ycucchi           #+#    #+#             */
-/*   Updated: 2022/06/21 14:32:37 by ycucchi          ###   ########.fr       */
+/*   Created: 2022/01/12 11:34:03 by ycucchi           #+#    #+#             */
+/*   Updated: 2022/01/28 18:03:54 by ycucchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILLER_H
-# define FILLER_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-/*
-** Headers
-*/
+# include <unistd.h>
+# include <stdlib.h>
+# include "libft.h"
 
-# include "../libft/includes/libft.h"
-# include "../libft/includes/ft_printf.h"
-# include "../libft/includes/get_next_line.h"
+# define BUFF_SIZE 42
+# define FD_SIZE 4096
 
-/*
-** Structure
-*/
-
-typedef struct s_board
-{
-	int		x;
-	int		y;
-	int		grid_x;
-	int		grid_y;
-	int		player_piece;
-	char	**grid;
-}			t_board;
-
-/*
-** Prototypes
-*/
+int	get_next_line(const int fd, char **line);
 
 #endif

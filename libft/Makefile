@@ -24,7 +24,7 @@ ft_strjoin.c ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c ft_strncat.c\
 ft_strncmp.c ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c ft_strrchr.c\
 ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c\
 ft_toupper.c ft_long_itoa.c ft_unsigned_long_itoa.c ft_nbrlen.c \
-ft_print_char.c ft_putnstr.c ft_octal_itoa.c \
+ft_print_char.c ft_putnstr.c ft_octal_itoa.c get_next_line.c\
 ./ft_printf/ft_printf.c ./ft_printf/ft_print_utils.c ./ft_printf/ft_parse.c \
 ./ft_printf/ft_initialize_parameter.c ./ft_printf/ft_print_str.c \
 ./ft_printf/ft_print_nbr.c ./ft_printf/ft_print_hex.c \
@@ -54,21 +54,21 @@ WHITE = \033[0;97m
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	#echo "$(PURPLE)Creating libft..$(DEFAULT)"
-	ar rcs $(NAME) $(OBJECTS)
+	@echo "$(PURPLE)Creating libft..$(DEFAULT)"
+	@ar rcs $(NAME) $(OBJECTS)
 	@echo "$(GREEN)libft created!$(DEFAULT)"
 
 $(DIR_OBJ)%.o:$(DIR_SRC)%.c
-	mkdir -p $(dir $@)
-	gcc $(FLAGS) -c $< -o $@
+	@mkdir -p $(dir $@)
+	@gcc $(FLAGS) -c $< -o $@
 
 clean:
 	@echo "$(PURPLE)Cleaning all objects..$(DEFAULT)"
-	rm -rf $(DIR_OBJ)
+	@rm -rf $(DIR_OBJ)
 	@echo "$(GRAY)$(OBJECTS) cleaned!$(DEFAULT)"
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 	@echo "$(GRAY)$(NAME) cleaned!$(DEFAULT)"
 
 re: fclean all

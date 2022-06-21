@@ -12,13 +12,11 @@
 
 NAME = ycucchi.filler
 
-SRCS = main.c
+SRCS = filler.c
 
-OBJ = $(addprefix $(OBJ_DIR), $(SRCS:%.c=%.o))
 SRCS_PATH = $(addprefix $(SRCS_DIR), $(SRCS))
 
 SRCS_DIR = ./srcs/
-OBJ_DIR = ./objects/
 
 INCLUDES = -I ./includes/
 
@@ -39,7 +37,7 @@ all: $(NAME)
 
 $(NAME):
 	@make -C $(LIBFT_PATH)
-	$(CC) $(FLAGS) $(INCLUDES) $(SRCS_PATH) $(LIBFT) -o $(NAME)
+	@$(CC) $(FLAGS) $(INCLUDES) $(SRCS_PATH) $(LIBFT) -o $(NAME)
 	@echo "$(CYAN) $(NAME) compiled!$(DEFAULT)"
 
 git:
@@ -48,10 +46,8 @@ git:
 	git push
 
 clean:
-	@rm -rf $(OBJ)
-	@echo "$(GRAY)$(OBJ) cleaned!$(DEFAULT)"
-	@rm -rf $(LIBFT_PRINTF)
-	@echo "$(GRAY)$(LIBFT_PRINTF) cleaned!$(DEFAULT)"
+	@rm -rf filler.trace
+	@echo "$(GRAY) filler.trace cleaned!$(DEFAULT)"
 	@make clean -C libft/
 
 fclean: clean
