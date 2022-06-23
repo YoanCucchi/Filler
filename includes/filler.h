@@ -59,4 +59,11 @@ void	make_map(int ret, int fd, char *line, t_board *p);
 void	read_piece(int ret, int fd, char *line, t_board *p);
 void	make_piece(int ret, int fd, char *line, t_board *p);
 
+/*
+** struct.c
+*/
+
+void	init_struct(t_board *p);
+void	free_struct(t_board *p);
+
 #endif

@@ -53,7 +53,6 @@ static void	struc_print(t_board *p)
 static void	player_piece(int ret, int fd, char *line, t_board *p)
 {
 	ret = get_next_line(fd, &line);
-	// ft_printf("line to check player = %s\n", line);
 	if (ret == 0)
 		exit(0);
 	if (ft_strstr(line, "$$$"))
@@ -63,7 +62,7 @@ static void	player_piece(int ret, int fd, char *line, t_board *p)
 		else if (ft_strstr(line, "p2"))
 			p->player_piece = 'X';
 	}
-	line++;
+	free(line);
 }
 
 int main(void)
@@ -75,25 +74,26 @@ int main(void)
 
 	line = NULL;
 	fd = 0;
+	p = NULL;
 	p = (t_board *)malloc(sizeof(t_board));
 	if (!p)
 		exit(EXIT_FAILURE);
+	init_struct(p);
 	ret = get_next_line(fd, &line);
-	// ft_printf("line at the beginning= %s\n", line);
 	if (ret == 0)
 		exit(EXIT_SUCCESS);
 	player_piece(ret, fd, line, p);
 	map_size(ret, fd, line, p);
 	make_map(ret, fd, line, p);
-	read_piece(ret, fd, line, p);
-	make_piece(ret, fd, line, p);
+	// read_piece(ret, fd, line, p);
+	// make_piece(ret, fd, line, p);
 	// solver();
 	// return_token();
-	print_map(p);
-	print_piece(p);
-	struc_print(p);
+	// print_map(p);
+	// print_piece(p);
+	// struc_print(p);
 	ft_putstr("12 14\n");
-	free(p);
-	// system("leaks ycucchi.filler");
+	free_struct(p);
+	system("leaks ycucchi.filler");
 	return (0);
 }

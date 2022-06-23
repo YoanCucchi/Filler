@@ -25,6 +25,8 @@ static void	make_line(int ret, int fd, char *line, t_board *p)
 	y = 0;
 	while (line[0] != '0')
 		ret = get_next_line(fd, &line);
+	if (ret > 0)
+		free (line);
 	// ft_printf("line to check grid_helper = %s\n", line);
 	p->grid_helper = ft_strnew(p->grid_y);
 	while (*line && *line != '.' && *line != 'X' &&
@@ -32,17 +34,17 @@ static void	make_line(int ret, int fd, char *line, t_board *p)
 		line++;
 	p->grid_helper = ft_strcpy(p->grid_helper, line);
 	y++;
-	// ft_printf("p->grid_helper = %s\n", p->grid_helper);
-	// ft_printf("line to check grid_helper = %s\n", line);
 	token_coord(p, line, y);
 }
 
 void	map_size(int ret, int fd, char *line, t_board *p)
 {
-	int	len;
+	char	*temp;
+	int		len;
 
 	len = 0;
 	ret = get_next_line(fd, &line);
+	temp = line;
 	// ft_printf("line to check map size = %s\n", line);
 	while(!ft_isdigit(*line))
 		line++;
@@ -53,6 +55,8 @@ void	map_size(int ret, int fd, char *line, t_board *p)
 	while(!ft_isdigit(*line))
 		line++;
 	p->grid_y = ft_atoi(line);
+	if (ret > 0)
+		free(temp);
 }
 
 void	make_map(int ret, int fd, char *line, t_board *p)
