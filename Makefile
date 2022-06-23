@@ -12,7 +12,7 @@
 
 NAME = ycucchi.filler
 
-SRCS = filler.c
+SRCS = filler.c map.c
 
 SRCS_PATH = $(addprefix $(SRCS_DIR), $(SRCS))
 

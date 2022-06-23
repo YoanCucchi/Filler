@@ -1,7 +1,5 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/yoancucchi/Hive/Filler'
-make -C ./libft/
-gcc -Wall -Wextra  -I ./includes/ ./srcs/filler.c ./libft/libft.a -o ycucchi.filler
-echo "\033[0;96m ycucchi.filler compiled!\033[0;39m"
+make: Nothing to be done for `all'.
 make: Leaving directory `/Users/yoancucchi/Hive/Filler'
  

@@ -29,14 +29,23 @@ typedef struct s_board
 {
 	int		x;
 	int		y;
+	int		line_helper;
 	int		grid_x;
 	int		grid_y;
 	int		player_piece;
 	char	**grid;
+	char	*grid_helper;
 }			t_board;
 
 /*
 ** Prototypes
 */
+
+/*
+** map.c
+*/
+
+void	map_size(int ret, int fd, char *line, t_board *p);
+void	make_map(int ret, int fd, char *line, t_board *p);
 
 #endif
