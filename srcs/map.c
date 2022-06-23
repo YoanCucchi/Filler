@@ -66,5 +66,4 @@ void	make_map(int ret, int fd, char *line, t_board *p)
 		p->line_helper++;
 	}
 	p->grid[p->line_helper] = NULL;
-	// token_coord(p);
 }
