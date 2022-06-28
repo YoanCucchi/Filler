@@ -1,7 +1,10 @@
 #include ".././includes/filler.h"
 
-static void	token_coord(t_board *p, char *line, int y)
+static void	token_coord(t_board *p, char *line)
 {
+	int	y;
+
+	y = 0;
 	while (line[y])
 	{
 		if (line[y] == 'O' && p->player_piece == 'O')
@@ -18,23 +21,21 @@ static void	token_coord(t_board *p, char *line, int y)
 	}
 }
 
-static void	make_line(int ret, int fd, char *line, t_board *p)
+static char	*make_line(int ret, int fd, char *line, t_board *p)
 {
 	int	y;
 
 	y = 0;
-	while (line[0] != '0')
-		ret = get_next_line(fd, &line);
-	if (ret > 0)
-		free (line);
-	// ft_printf("line to check grid_helper = %s\n", line);
+	ft_printf("line to check grid_helper = %s\n", line);
 	p->grid_helper = ft_strnew(p->grid_y);
 	while (*line && *line != '.' && *line != 'X' &&
 		*line != 'x' && *line != 'O' && *line != 'o')
 		line++;
 	p->grid_helper = ft_strcpy(p->grid_helper, line);
 	y++;
-	token_coord(p, line, y);
+	if (p->x == 0 && p->y == 0)
+		token_coord(p, line);
+	return (p->grid_helper);
 }
 
 void	map_size(int ret, int fd, char *line, t_board *p)
@@ -62,12 +63,16 @@ void	map_size(int ret, int fd, char *line, t_board *p)
 void	make_map(int ret, int fd, char *line, t_board *p)
 {
 	p->line_helper = 0;
+	ret = get_next_line(fd, &line);
+	free(line);
 	p->grid = (char **)malloc(sizeof(char*) * (p->grid_x + 1));
 	while (ret > 0 && p->grid_x > p->line_helper)
 	{
-		make_line(ret, fd, line, p);
-		p->grid[p->line_helper] = p->grid_helper;
+		ret = get_next_line(fd, &line);
+		p->grid[p->line_helper] = make_line(ret, fd, line, p);
+		// ft_printf("test : %s\n", p->grid[p->line_helper]);
 		p->line_helper++;
+		free(line);
 	}
 	p->grid[p->line_helper] = NULL;
 }

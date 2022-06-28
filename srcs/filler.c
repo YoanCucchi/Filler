@@ -12,6 +12,32 @@
 
 #include ".././includes/filler.h"
 
+static void	free_grid(t_board *p)
+{
+	int	i;
+
+	i = 0;
+	while (i < p->grid_x)
+	{
+		ft_strdel(&p->grid[i]);
+		i++;
+	}
+	free(p->grid);
+}
+
+static void	free_piece(t_board *p)
+{
+	int	i;
+
+	i = 0;
+	while (i < p->piece_x)
+	{
+		ft_strdel(&p->piece[i]);
+		i++;
+	}
+	free(p->piece);
+}
+
 static void	print_piece(t_board *p)
 {
 	int	i;
@@ -89,11 +115,14 @@ int main(void)
 	// make_piece(ret, fd, line, p);
 	// solver();
 	// return_token();
-	// print_map(p);
+	print_map(p);
 	// print_piece(p);
-	// struc_print(p);
+	struc_print(p);
 	ft_putstr("12 14\n");
-	free_struct(p);
+	free_grid(p);
+	// free_piece(p);
+	// free_struct(p);
+	free(p);
 	system("leaks ycucchi.filler");
 	return (0);
 }
