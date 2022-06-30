@@ -49,7 +49,7 @@ static void	print_piece(t_board *p)
 	ft_printf("------------------------------------------------------------\n");
 }
 
-static void	print_map(t_board *p)
+static void	print_grid(t_board *p)
 {
 	int	i;
 
@@ -116,24 +116,25 @@ int main(void)
 	data = (t_board *)malloc(sizeof(t_board));
 	if (!data)
 		return (0);
-	// init_struct(data); 
+	init_struct(data);
 	player_piece(data);
-	map_size(data);
-	while (1)
-	{
-		make_map(data);
+	grid_size(data);
+	// while (1)
+	// {
+		make_grid(data);
 		make_piece(data);
-		ft_printf("12 14\n");
+		// ft_printf("%d ", data->x);
+		// ft_printf("%d\n", data->y);
 		// solver();
 		// return_token();
-		// print_map(data);
+		// print_grid(data);
 		// print_piece(data);
 		// struc_print(data);
-		skip_line();
-	}
+	// 	skip_line();
+	// }
 	free_grid(data);
 	free_piece(data);
 	free(data);
-	// system("leaks ycucchi.filler >> leak.out");
+	system("leaks ycucchi.filler");
 	return (0);
 }

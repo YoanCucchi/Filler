@@ -1,6 +1,6 @@
 #include ".././includes/filler.h"
 
-void	read_piece(t_board *p)
+void	read_piece(t_board *data)
 {
 	int		len;
 	int		ret;
@@ -9,51 +9,51 @@ void	read_piece(t_board *p)
 
 	line = NULL;
 	len = 0;
-	tmp = line;
 	ret = get_next_line(0, &line);
+	tmp = line;
 	// ft_printf("line to check read piece = %s\n", line);
 	while(!ft_isdigit(*line))
 		line++;
 	// ft_printf("line to afeterererr = %s\n", line);
-	p->piece_x = ft_atoi(line);
-	len = ft_nbrlen(p->piece_x, 10) + 1;
+	data->piece_x = ft_atoi(line);
+	len = ft_nbrlen(data->piece_x, 10) + 1;
 	while (len--)
 		line++;
 	while(!ft_isdigit(*line))
 		line++;
-	p->piece_y = ft_atoi(line);
+	data->piece_y = ft_atoi(line);
 	free(tmp);
 }
 
-static void	piece_helper(int ret, char *line, t_board *p)
+static void	piece_helper(int ret, char *line, t_board *data)
 {
 	int	y;
 
 	y = 0;
-	p->piece_helper = ft_strnew(p->piece_y);
+	data->piece_helper = ft_strnew(data->piece_y);
 	while (*line && *line != '.' && *line != '*')
 		line++;
-	p->piece_helper = ft_strcpy(p->piece_helper, line);
+	data->piece_helper = ft_strcpy(data->piece_helper, line);
 	y++;
 }
 
-int	make_piece(t_board *p)
+int	make_piece(t_board *data)
 {
 	int		ret;
 	char	*line;
 
 	line =  NULL;
-	p->line_helper = 0;
-	read_piece(p);
-	p->piece = (char **)malloc(sizeof(char*) * (p->piece_x + 1));
-	while (p->piece_x > p->line_helper)
+	data->line_helper = 0;
+	read_piece(data);
+	data->piece = (char **)malloc(sizeof(char*) * (data->piece_x + 1));
+	while (data->piece_x > data->line_helper)
 	{
 		ret = get_next_line(0, &line);
-		piece_helper(ret, line, p);
-		p->piece[p->line_helper] = p->piece_helper;
-		p->line_helper++;
-		// free(line);
+		piece_helper(ret, line, data);
+		data->piece[data->line_helper] = data->piece_helper;
+		data->line_helper++;
+		free(line);
 	}
-	p->piece[p->line_helper] = NULL;
+	data->piece[data->line_helper] = NULL;
 	return(1);
 }

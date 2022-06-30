@@ -52,18 +52,18 @@ typedef struct s_board
 void	skip_line(void);
 
 /*
-** map.c
+** grid.c
 */
 
-void	map_size(t_board *p);
-int		make_map(t_board *p);
+void	grid_size(t_board *data);
+int		make_grid(t_board *data);
 
 /*
 ** piece.c
 */
 
-void	read_piece(t_board *p);
-int		make_piece(t_board *p);
+void	read_piece(t_board *data);
+int		make_piece(t_board *data);
 
 /*
 ** struct.c
