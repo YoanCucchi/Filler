@@ -46,18 +46,24 @@ typedef struct s_board
 */
 
 /*
+** filler.c
+*/
+
+void	skip_line(void);
+
+/*
 ** map.c
 */
 
-void	map_size(int ret, int fd, char *line, t_board *p);
-void	make_map(int ret, int fd, char *line, t_board *p);
+void	map_size(t_board *p);
+int		make_map(t_board *p);
 
 /*
 ** piece.c
 */
 
-void	read_piece(int ret, int fd, char *line, t_board *p);
-void	make_piece(int ret, int fd, char *line, t_board *p);
+void	read_piece(t_board *p);
+int		make_piece(t_board *p);
 
 /*
 ** struct.c

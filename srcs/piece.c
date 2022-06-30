@@ -1,15 +1,20 @@
 #include ".././includes/filler.h"
 
-void	read_piece(int ret, int fd, char *line, t_board *p)
+void	read_piece(t_board *p)
 {
-	int	len;
+	int		len;
+	int		ret;
+	char	*tmp;
+	char	*line;
 
+	line = NULL;
 	len = 0;
-	// ret = get_next_line(fd, &line);
-	ft_printf("line to check read piece = %s\n", line);
+	tmp = line;
+	ret = get_next_line(0, &line);
+	// ft_printf("line to check read piece = %s\n", line);
 	while(!ft_isdigit(*line))
 		line++;
-	ft_printf("line to afeterererr = %s\n", line);
+	// ft_printf("line to afeterererr = %s\n", line);
 	p->piece_x = ft_atoi(line);
 	len = ft_nbrlen(p->piece_x, 10) + 1;
 	while (len--)
@@ -17,9 +22,10 @@ void	read_piece(int ret, int fd, char *line, t_board *p)
 	while(!ft_isdigit(*line))
 		line++;
 	p->piece_y = ft_atoi(line);
+	free(tmp);
 }
 
-static void	piece_helper(int ret, int fd, char *line, t_board *p)
+static void	piece_helper(int ret, char *line, t_board *p)
 {
 	int	y;
 
@@ -31,20 +37,23 @@ static void	piece_helper(int ret, int fd, char *line, t_board *p)
 	y++;
 }
 
-void	make_piece(int ret, int fd, char *line, t_board *p)
+int	make_piece(t_board *p)
 {
+	int		ret;
+	char	*line;
+
+	line =  NULL;
 	p->line_helper = 0;
-	ret = get_next_line(fd, &line);
-	read_piece(ret, fd, line, p);
-	free(line);
+	read_piece(p);
 	p->piece = (char **)malloc(sizeof(char*) * (p->piece_x + 1));
-	while (ret > 0 && p->piece_x > p->line_helper)
+	while (p->piece_x > p->line_helper)
 	{
-		ret = get_next_line(fd, &line);
-		piece_helper(ret, fd, line, p);
+		ret = get_next_line(0, &line);
+		piece_helper(ret, line, p);
 		p->piece[p->line_helper] = p->piece_helper;
 		p->line_helper++;
-		free(line);
+		// free(line);
 	}
 	p->piece[p->line_helper] = NULL;
+	return(1);
 }

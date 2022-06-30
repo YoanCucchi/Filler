@@ -21,12 +21,12 @@ static void	token_coord(t_board *p, char *line)
 	}
 }
 
-static char	*make_line(int ret, int fd, char *line, t_board *p)
+static char	*make_line(int ret, char *line, t_board *p)
 {
 	int	y;
 
 	y = 0;
-	ft_printf("line to check grid_helper = %s\n", line);
+	// ft_printf("line to check grid_helper = %s\n", line);
 	p->grid_helper = ft_strnew(p->grid_y);
 	while (*line && *line != '.' && *line != 'X' &&
 		*line != 'x' && *line != 'O' && *line != 'o')
@@ -38,14 +38,17 @@ static char	*make_line(int ret, int fd, char *line, t_board *p)
 	return (p->grid_helper);
 }
 
-void	map_size(int ret, int fd, char *line, t_board *p)
+void	map_size(t_board *p)
 {
-	char	*temp;
+	int		ret;
 	int		len;
+	char	*tmp;
+	char	*line;
 
+	line = NULL;
 	len = 0;
-	ret = get_next_line(fd, &line);
-	temp = line;
+	tmp = line;
+	ret = get_next_line(0, &line);
 	// ft_printf("line to check map size = %s\n", line);
 	while(!ft_isdigit(*line))
 		line++;
@@ -56,23 +59,28 @@ void	map_size(int ret, int fd, char *line, t_board *p)
 	while(!ft_isdigit(*line))
 		line++;
 	p->grid_y = ft_atoi(line);
-	if (ret > 0)
-		free(temp);
+	free(tmp);
 }
 
-void	make_map(int ret, int fd, char *line, t_board *p)
+int	make_map(t_board *p)
 {
+	int		ret;
+	char	*line;
+
+	line = NULL;
 	p->line_helper = 0;
-	ret = get_next_line(fd, &line);
-	free(line);
+	skip_line();
 	p->grid = (char **)malloc(sizeof(char*) * (p->grid_x + 1));
-	while (ret > 0 && p->grid_x > p->line_helper)
+	while (p->grid_x > p->line_helper)
 	{
-		ret = get_next_line(fd, &line);
-		p->grid[p->line_helper] = make_line(ret, fd, line, p);
+		// ft_printf("p->grix_x = %d\n", p->grid_x);
+		// ft_printf("line helper = %d\n", p->line_helper);
+		ret = get_next_line(0, &line);
+		p->grid[p->line_helper] = make_line(ret, line, p);
 		// ft_printf("test : %s\n", p->grid[p->line_helper]);
 		p->line_helper++;
 		free(line);
 	}
 	p->grid[p->line_helper] = NULL;
+	return(1);
 }

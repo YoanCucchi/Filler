@@ -1,0 +1,126 @@
+Process:         ycucchi.filler [45337]
+Path:            /Users/USER/*/ycucchi.filler
+Load Address:    0x1026a0000
+Identifier:      ycucchi.filler
+Version:         ???
+Code Type:       ARM64
+Platform:        macOS
+Parent Process:  zsh [23852]
+
+Date/Time:       2022-06-30 10:55:06.843 +0300
+Launch Time:     2022-06-30 10:55:06.144 +0300
+OS Version:      macOS 12.4 (21F79)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 13.4.1 (13F100)
+
+Physical footprint:         1073K
+Physical footprint (peak):  1073K
+----
+
+leaks Report Version: 4.0
+Process 45337: 205 nodes malloced for 12 KB
+Process 45337: 0 leaks for 0 total leaked bytes.
+
+Process:         ycucchi.filler [45436]
+Path:            /Users/USER/*/ycucchi.filler
+Load Address:    0x104fa0000
+Identifier:      ycucchi.filler
+Version:         ???
+Code Type:       ARM64
+Platform:        macOS
+Parent Process:  zsh [23852]
+
+Date/Time:       2022-06-30 11:04:12.389 +0300
+Launch Time:     2022-06-30 11:03:05.165 +0300
+OS Version:      macOS 12.4 (21F79)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 13.4.1 (13F100)
+
+Physical footprint:         1041K
+Physical footprint (peak):  1041K
+----
+
+leaks Report Version: 4.0
+Process 45436: 205 nodes malloced for 12 KB
+Process 45436: 0 leaks for 0 total leaked bytes.
+
+Process:         ycucchi.filler [45460]
+Path:            /Users/USER/*/ycucchi.filler
+Load Address:    0x1007cc000
+Identifier:      ycucchi.filler
+Version:         ???
+Code Type:       ARM64
+Platform:        macOS
+Parent Process:  zsh [23852]
+
+Date/Time:       2022-06-30 11:04:29.009 +0300
+Launch Time:     2022-06-30 11:04:28.284 +0300
+OS Version:      macOS 12.4 (21F79)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 13.4.1 (13F100)
+
+Physical footprint:         1041K
+Physical footprint (peak):  1041K
+----
+
+leaks Report Version: 4.0
+Process 45460: 205 nodes malloced for 12 KB
+Process 45460: 0 leaks for 0 total leaked bytes.
+
+Process:         ycucchi.filler [50673]
+Path:            /Users/USER/*/ycucchi.filler
+Load Address:    0x1006b8000
+Identifier:      ycucchi.filler
+Version:         ???
+Code Type:       ARM64
+Platform:        macOS
+Parent Process:  zsh [23852]
+
+Date/Time:       2022-06-30 11:18:12.369 +0300
+Launch Time:     2022-06-30 11:18:10.664 +0300
+OS Version:      macOS 12.4 (21F79)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 13.4.1 (13F100)
+
+Physical footprint:         1057K
+Physical footprint (peak):  1057K
+----
+
+leaks Report Version: 4.0
+Process 50673: 205 nodes malloced for 12 KB
+Process 50673: 0 leaks for 0 total leaked bytes.
+
+Process:         ycucchi.filler [52064]
+Path:            /Users/USER/*/ycucchi.filler
+Load Address:    0x102224000
+Identifier:      ycucchi.filler
+Version:         ???
+Code Type:       ARM64
+Platform:        macOS
+Parent Process:  zsh [18737]
+
+Date/Time:       2022-06-30 13:35:44.211 +0300
+Launch Time:     2022-06-30 13:35:43.198 +0300
+OS Version:      macOS 12.4 (21F79)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 13.4.1 (13F100)
+
+Physical footprint:         1041K
+Physical footprint (peak):  1041K
+----
+
+leaks Report Version: 4.0
+Process 52064: 208 nodes malloced for 12 KB
+Process 52064: 4 leaks for 64 total leaked bytes.
+
+    4 (64 bytes) << TOTAL >>
+      1 (16 bytes) ROOT LEAK: 0x600002c28020 [16]
+      1 (16 bytes) ROOT LEAK: 0x600002c28030 [16]
+      1 (16 bytes) ROOT LEAK: 0x600002c28040 [16]
+      1 (16 bytes) ROOT LEAK: 0x600002c2c020 [16]
+

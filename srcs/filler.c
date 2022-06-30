@@ -76,11 +76,15 @@ static void	struc_print(t_board *p)
 	ft_printf("------------------------------------------------------------\n");
 }
 
-static void	player_piece(int ret, int fd, char *line, t_board *p)
+static void	player_piece(t_board *p)
 {
-	ret = get_next_line(fd, &line);
-	if (ret == 0)
-		exit(0);
+	int		ret;
+	char	*line;
+
+	line = NULL;
+	ret = get_next_line(0, &line);
+	if (ret < 1)
+		exit(EXIT_FAILURE);
 	if (ft_strstr(line, "$$$"))
 	{
 		if (ft_strstr(line, "p1"))
@@ -88,40 +92,48 @@ static void	player_piece(int ret, int fd, char *line, t_board *p)
 		else if (ft_strstr(line, "p2"))
 			p->player_piece = 'X';
 	}
-	free(line);
+	ft_strdel(&line);
+}
+
+void	skip_line(void)
+{
+	int		ret;
+	char	*line;
+
+	line = NULL;
+	ret = get_next_line(0, &line);
+	// ft_printf("line skipped was : %s\n", line);
+	if (ret < 1)
+		exit(EXIT_FAILURE);
+	ft_strdel(&line);
 }
 
 int main(void)
 {
-	int	fd;
-	char *line;
-	int	ret;
-	t_board	*p;
+	t_board	*data;
 
-	line = NULL;
-	fd = 0;
-	p = NULL;
-	p = (t_board *)malloc(sizeof(t_board));
-	if (!p)
-		exit(EXIT_FAILURE);
-	init_struct(p);
-	ret = get_next_line(fd, &line);
-	if (ret == 0)
-		exit(EXIT_SUCCESS);
-	player_piece(ret, fd, line, p);
-	map_size(ret, fd, line, p);
-	make_map(ret, fd, line, p);
-	make_piece(ret, fd, line, p);
-	// solver();
-	// return_token();
-	print_map(p);
-	print_piece(p);
-	struc_print(p);
-	ft_putstr("12 14\n");
-	free_grid(p);
-	free_piece(p);
-	// free_struct(p);
-	free(p);
-	system("leaks ycucchi.filler");
+	data = NULL;
+	data = (t_board *)malloc(sizeof(t_board));
+	if (!data)
+		return (0);
+	// init_struct(data); 
+	player_piece(data);
+	map_size(data);
+	while (1)
+	{
+		make_map(data);
+		make_piece(data);
+		ft_printf("12 14\n");
+		// solver();
+		// return_token();
+		// print_map(data);
+		// print_piece(data);
+		// struc_print(data);
+		skip_line();
+	}
+	free_grid(data);
+	free_piece(data);
+	free(data);
+	// system("leaks ycucchi.filler >> leak.out");
 	return (0);
 }
