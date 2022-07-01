@@ -14,8 +14,10 @@
 
 void	init_struct(t_board *p)
 {
-	p->x = 0;
-	p->y = 0;
+	p->player_x = 0;
+	p->player_y = 0;
+	p->ennemy_x = 0;
+	p->ennemy_y = 0;
 	p->line_helper = 0;
 	p->grid_x = 0;
 	p->grid_y = 0;

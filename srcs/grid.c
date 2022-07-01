@@ -19,15 +19,31 @@ static void	token_coord(t_board *data, char *line)
 	y = 0;
 	while (line[y])
 	{
-		if (line[y] == 'O' && data->player_piece == 'O')
+		if (line[y] == 'O')
 		{
-			data->x = data->line_helper;
-			data->y = y;
+			if (data->player_piece == 'O')
+			{
+				data->player_x = data->line_helper;
+				data->player_y = y;
+			}
+			else if (data->player_piece == 'X')
+			{
+				data->ennemy_x = data->line_helper;
+				data->ennemy_y = y;
+			}
 		}
-		else if (line[y] == 'X' && data->player_piece == 'X')
+		else if (line[y] == 'X')
 		{
-			data->x = data->line_helper;
-			data->y = y;
+			if (data->player_piece == 'X')
+			{
+				data->player_x = data->line_helper;
+				data->player_y = y;
+			}
+			else if (data->player_piece == 'O')
+			{
+				data->ennemy_x = data->line_helper;
+				data->ennemy_y = y;
+			}
 		}
 		y++;
 	}
@@ -45,7 +61,7 @@ static char	*make_line(int ret, char *line, t_board *data)
 		line++;
 	data->grid_helper = ft_strcpy(data->grid_helper, line);
 	y++;
-	if (data->x == 0 && data->y == 0)
+	if (data->player_x == 0 && data->player_y == 0)
 		token_coord(data, line);
 	return (data->grid_helper);
 }

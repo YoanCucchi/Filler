@@ -63,8 +63,11 @@ static void	print_grid(t_board *p)
 static void	struc_print(t_board *p)
 {
 	ft_printf("------------------------------------------------------------\n");
-	ft_printf("p->x = %d\n", p->x);
-	ft_printf("p->y = %d\n", p->y);
+	ft_printf("p->player_x = %d\n", p->player_x);
+	ft_printf("p->player_y = %d\n", p->player_y);
+	ft_printf("------------------------------------------------------------\n");
+	ft_printf("p->ennemy_x = %d\n", p->ennemy_x);
+	ft_printf("p->ennemy_y = %d\n", p->ennemy_y);
 	ft_printf("------------------------------------------------------------\n");
 	ft_printf("p->grid_x = %d\n", p->grid_x);
 	ft_printf("p->grid_y = %d\n", p->grid_y);
@@ -102,7 +105,7 @@ void	skip_line(void)
 
 	line = NULL;
 	ret = get_next_line(0, &line);
-	// ft_printf("line skipped was : %s\n", line);
+	ft_printf("line skipped was : %s\n", line);
 	if (ret < 1)
 		exit(EXIT_FAILURE);
 	ft_strdel(&line);
@@ -119,22 +122,22 @@ int main(void)
 	init_struct(data);
 	player_piece(data);
 	grid_size(data);
-	// while (1)
-	// {
+	while (1)
+	{
 		make_grid(data);
 		make_piece(data);
-		// ft_printf("%d ", data->x);
-		// ft_printf("%d\n", data->y);
+		ft_printf("%d ", data->player_x);
+		ft_printf("%d\n", data->player_y);
 		// solver();
 		// return_token();
-		// print_grid(data);
-		// print_piece(data);
-		// struc_print(data);
-	// 	skip_line();
-	// }
+		print_grid(data);
+		print_piece(data);
+		struc_print(data);
+		skip_line();
+	}
 	free_grid(data);
 	free_piece(data);
 	free(data);
-	system("leaks ycucchi.filler");
+	// system("leaks ycucchi.filler");
 	return (0);
 }

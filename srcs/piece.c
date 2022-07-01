@@ -34,6 +34,8 @@ void	read_piece(t_board *data)
 	while(!ft_isdigit(*line))
 		line++;
 	data->piece_y = ft_atoi(line);
+	// ft_printf("data->piece_x = %d\n", data->piece_x);
+	// ft_printf("data->piece_y = %d\n", data->piece_y);
 	free(tmp);
 }
 

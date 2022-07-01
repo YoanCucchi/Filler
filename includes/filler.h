@@ -27,8 +27,10 @@
 
 typedef struct s_board
 {
-	int		x;
-	int		y;
+	int		player_x;
+	int		player_y;
+	int		ennemy_x;
+	int		ennemy_y;
 	int		line_helper;
 	int		grid_x;
 	int		grid_y;
