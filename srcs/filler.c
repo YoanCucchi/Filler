@@ -60,6 +60,17 @@ static void	print_grid(t_board *p)
 	ft_printf("------------------------------------------------------------\n");
 }
 
+static void	print_solving_grid(t_board *p)
+{
+	int	i;
+
+	i = -1;
+	ft_printf("------------------------------------------------------------\n");
+	while (p->solving_grid[++i])
+		ft_printf("%s\n", p->solving_grid[i]);
+	ft_printf("------------------------------------------------------------\n");
+}
+
 static void	struc_print(t_board *p)
 {
 	ft_printf("------------------------------------------------------------\n");
@@ -76,10 +87,11 @@ static void	struc_print(t_board *p)
 	ft_printf("p->piece_y = %d\n", p->piece_y);
 	ft_printf("------------------------------------------------------------\n");
 	ft_printf("p->player_piece = %c\n", p->player_piece);
+	ft_printf("p->ennemy_piece = %c\n", p->ennemy_piece);
 	ft_printf("------------------------------------------------------------\n");
 }
 
-static void	player_piece(t_board *p)
+static void	player_piece(t_board *data)
 {
 	int		ret;
 	char	*line;
@@ -91,9 +103,15 @@ static void	player_piece(t_board *p)
 	if (ft_strstr(line, "$$$"))
 	{
 		if (ft_strstr(line, "p1"))
-			p->player_piece = 'O';
+		{
+			data->player_piece = 'O';
+			data->ennemy_piece = 'X';
+		}
 		else if (ft_strstr(line, "p2"))
-			p->player_piece = 'X';
+		{
+			data->player_piece = 'X';
+			data->ennemy_piece = 'O';
+		}
 	}
 	ft_strdel(&line);
 }
@@ -128,9 +146,10 @@ int main(void)
 		make_piece(data);
 		ft_printf("%d ", data->player_x);
 		ft_printf("%d\n", data->player_y);
-		// solver();
+		solving_grid(data);
 		// return_token();
-		print_grid(data);
+		// print_grid(data);
+		print_solving_grid(data);
 		print_piece(data);
 		struc_print(data);
 		skip_line();
