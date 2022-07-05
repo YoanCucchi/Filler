@@ -60,8 +60,6 @@ static t_pos	closest(t_pos pos1, t_pos pos2, t_board *data)
 
 	i = pos1.x;
 	j = pos1.y;
-	ft_printf("i inside closest = %d\n", i);
-	ft_printf("j inside closest = %d\n", j);
 	n = 1;
 	ft_printf("data grid = %c\n", data->grid[i][j]);
 	// pos1 == where am i checking
@@ -72,54 +70,36 @@ static t_pos	closest(t_pos pos1, t_pos pos2, t_board *data)
 		{
 			// check left
 			ft_printf("inside left\n");
-			ft_printf("data->grid left = %c\n", data->grid[i][j - n]);
-			if (data->grid[i][j - n] == 'O')
-			{
-				pos2.x = i;
-				pos2.y = j - n;
-				return(pos2);
-			}
+			pos2.x = i;
+			pos2.y = j - n;
+			return(pos2);
 		}
 		// check top
 		if (i - n >= 0 && j >= 0 && data->grid[i - n][1] == 'O')
 		{
 			ft_printf("inside top\n");
-			ft_printf("data->grid top = %c\n", data->grid[i - n][j]);
-			if (data->grid[i - n][j] == 'O')
-			{
-				pos2.x = i - n;
-				pos2.y = j;
-				return(pos2);
-			}
+			pos2.x = i - n;
+			pos2.y = j;
+			return(pos2);
 		}
 		// check right
 		if (i >= 0 && j >= 0 && data->grid[i][j + n] == 'O')
 		{
 			ft_printf("inside right\n");
-			ft_printf("data->grid right = %c\n", data->grid[i][j + n]);
-			if (data->grid[i][j + n] == 'O')
-			{
-				pos2.x = i;
-				pos2.y = j + n;
-				return(pos2);
-			}
+			pos2.x = i;
+			pos2.y = j + n;
+			return(pos2);
 		}
 		// check bottom
 		if (i >= 0 && j >= 0 && data->grid[i + n][j] == 'O')
 		{
 			ft_printf("inside bottom\n");
-			ft_printf("data->grid bottom = %c\n", data->grid[i + n][j]);
-			if (data->grid[i + n][j] == 'O')
-			{
-				pos2.x = i + n;
-				pos2.y = j;
-				return(pos2);
-			}
+			pos2.x = i + n;
+			pos2.y = j;
+			return(pos2);
 		}
 		n++;
 	}
-	ft_printf("data test = %c\n", data->grid[0][0]);
-	ft_printf("test\n");
 	return(pos2);
 }
 
