@@ -13,7 +13,6 @@
 #ifndef FILLER_H
 # define FILLER_H
 
-#define N = '30'
 /*
 ** Headers
 */

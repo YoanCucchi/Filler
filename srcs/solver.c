@@ -60,50 +60,66 @@ static t_pos	closest(t_pos pos1, t_pos pos2, t_board *data)
 
 	i = pos1.x;
 	j = pos1.y;
+	ft_printf("i inside closest = %d\n", i);
+	ft_printf("j inside closest = %d\n", j);
 	n = 1;
 	ft_printf("data grid = %c\n", data->grid[i][j]);
 	// pos1 == where am i checking
-	while (data->grid[i + n][j] != 'O' || data->grid[i][j + n] != 'O' || \
-	data->grid[i - n][j] != 'O' || data->grid[i][j - n] != 'O')
+	while (i + n < data->grid_x && j + n < data->grid_y)
 	{
-		if (i >= 0 && j - n >= 0 && data->grid_x >= i && data->grid_y >= j \
-		&& data->grid[i][j - n] == 'O')
+		ft_printf("n = %d\n", n);
+		if (i >= 0 && j - n >= 0 && data->grid[i][j - n] == 'O')
 		{
+			// check left
 			ft_printf("inside left\n");
-			pos2.x = i;
-			pos2.y = j - n;
-			return(pos2);
+			ft_printf("data->grid left = %c\n", data->grid[i][j - n]);
+			if (data->grid[i][j - n] == 'O')
+			{
+				pos2.x = i;
+				pos2.y = j - n;
+				return(pos2);
+			}
 		}
 		// check top
-		if (i - n >= 0 && j >= 0 && data->grid_x >= i && data->grid_y >= j && \
-		data->grid[i - n][1] == 'O')
+		if (i - n >= 0 && j >= 0 && data->grid[i - n][1] == 'O')
 		{
 			ft_printf("inside top\n");
-			pos2.x = i - n;
-			pos2.y = j;
-			return(pos2);
+			ft_printf("data->grid top = %c\n", data->grid[i - n][j]);
+			if (data->grid[i - n][j] == 'O')
+			{
+				pos2.x = i - n;
+				pos2.y = j;
+				return(pos2);
+			}
 		}
 		// check right
-		if (i >= 0 && j >= 0 && data->grid_x >= i && data->grid_y >= j - n && \
-		data->grid[i][j + n] == 'O')
+		if (i >= 0 && j >= 0 && data->grid[i][j + n] == 'O')
 		{
 			ft_printf("inside right\n");
-			pos2.x = i;
-			pos2.y = j + n;
-			return(pos2);
+			ft_printf("data->grid right = %c\n", data->grid[i][j + n]);
+			if (data->grid[i][j + n] == 'O')
+			{
+				pos2.x = i;
+				pos2.y = j + n;
+				return(pos2);
+			}
 		}
 		// check bottom
-		if (i >= 0 && j >= 0 && data->grid_x >= i - n && data->grid_y >= j && \
-		data->grid[i + n][j] == 'O')
+		if (i >= 0 && j >= 0 && data->grid[i + n][j] == 'O')
 		{
 			ft_printf("inside bottom\n");
-			pos2.x = i + n;
-			pos2.y = j;
-			return(pos2);
+			ft_printf("data->grid bottom = %c\n", data->grid[i + n][j]);
+			if (data->grid[i + n][j] == 'O')
+			{
+				pos2.x = i + n;
+				pos2.y = j;
+				return(pos2);
+			}
 		}
 		n++;
-		// then diagonals
 	}
+	ft_printf("data test = %c\n", data->grid[0][0]);
+	ft_printf("test\n");
 	return(pos2);
 }
 
@@ -129,7 +145,7 @@ void	solving_grid(t_board *data)
 	{
 		data->solving_grid_helper = ft_strnew(data->grid_y);
 		data->solving_grid_helper = ft_strcpy(data->solving_grid_helper, data->grid[i]);
-	// 	// ft_printf("cpy worked : %s\n", data->solving_grid_helper);
+		j = 0;
 		while(data->grid[i][j] != '\0') // column ++ a chaque ligne
 		{
 			if (data->solving_grid_helper[j] == '.')
@@ -145,10 +161,13 @@ void	solving_grid(t_board *data)
 				ft_printf("dist = %d\n", dist);
 				data->solving_grid_helper[j] = dist + '0'; // convert to char
 			}
-				j++;
+			j++;
 		}
 		data->solving_grid[i] = data->solving_grid_helper;
+		ft_printf("data->solving grid i = %s\n", data->solving_grid[i]);
+		ft_printf("i = %d\n", i);
 		i++;
 	}
+	data->solving_grid[i] = NULL;
 	// ft_printf("value = %d\n", data->solving_grid[5][5] - '0'); // return the value
 }
