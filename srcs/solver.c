@@ -52,11 +52,12 @@ static int	is_inside_map(int i, int j, t_board *data)
 	return (1);
 }
 
-static t_pos	closest(t_pos pos1, t_pos pos2, t_board *data)
+static int	closest(t_pos pos1, t_pos *pos2, t_board *data)
 {
 	int	i;
 	int	j;
 	int	n;
+	int	tmp;
 
 	i = pos1.x;
 	j = pos1.y;
@@ -66,48 +67,89 @@ static t_pos	closest(t_pos pos1, t_pos pos2, t_board *data)
 	while (i + n < data->grid_x && j + n < data->grid_y)
 	{
 		ft_printf("n = %d\n", n);
+		tmp = 0;
 		if (i >= 0 && j - n >= 0 && data->grid[i][j - n] == 'O')
 		{
 			// check left
 			ft_printf("inside left\n");
-			pos2.x = i;
-			pos2.y = j - n;
-			return(pos2);
+			pos2->x = i;
+			pos2->y = j - n;
+			return(ft_absolute_distance(pos1, *pos2));
 		}
 		// check top
-		if (i - n >= 0 && j >= 0 && data->grid[i - n][1] == 'O')
+		if (i - n >= 0 && j >= 0 && data->grid[i - n][j] == 'O')
 		{
 			ft_printf("inside top\n");
-			pos2.x = i - n;
-			pos2.y = j;
-			return(pos2);
+			// ft_printf("hum ... = %c\n", data->grid[i - n][])
+			pos2->x = i - n;
+			pos2->y = j;
+			return(ft_absolute_distance(pos1, *pos2));
 		}
 		// check right
 		if (i >= 0 && j >= 0 && data->grid[i][j + n] == 'O')
 		{
 			ft_printf("inside right\n");
-			pos2.x = i;
-			pos2.y = j + n;
-			return(pos2);
+			pos2->x = i;
+			pos2->y = j + n;
+			return(ft_absolute_distance(pos1, *pos2));
 		}
 		// check bottom
 		if (i >= 0 && j >= 0 && data->grid[i + n][j] == 'O')
 		{
 			ft_printf("inside bottom\n");
-			pos2.x = i + n;
-			pos2.y = j;
-			return(pos2);
+			pos2->x = i + n;
+			pos2->y = j;
+			return(ft_absolute_distance(pos1, *pos2));
+		}
+		tmp = n;
+		if (tmp == 2 || tmp == 4 || tmp == 6 || tmp == 8 || tmp == 10 || tmp == 12 || tmp == 14)
+		{
+			tmp = tmp / 2;
+			ft_printf("tmp = %d", tmp);
+			ft_printf("n = %d\n", n);
+			// check top left
+			if (i - tmp >= 0 && j - tmp >= 0 && data->grid[i - tmp][j - tmp] == 'O')
+			{
+				ft_printf("inside top left\n");
+				pos2->x = i - n;
+				pos2->y = j - n;
+				return(n);
+			}
+			// check top right
+			if (i - tmp >= 0 && j + tmp >= 0 && data->grid[i - tmp][j + tmp] == 'O')
+			{
+				ft_printf("inside top right\n");
+				pos2->x = i - n;
+				pos2->y = j + n;
+				return(n);
+			}
+			// check bot right
+			if (i + tmp >= 0 && j + tmp >= 0 && data->grid[i + tmp][j + tmp] == 'O')
+			{
+				ft_printf("inside bottom right\n");
+				pos2->x = i + n;
+				pos2->y = j + n;
+				return(n);
+			}
+			// check bot left
+			if (i + tmp >= 0 && j - tmp >= 0 && data->grid[i + tmp][j - tmp] == 'O')
+			{
+				ft_printf("inside bottom left\n");
+				pos2->x = i + n;
+				pos2->y = j - n;
+				return(n);
+			}
 		}
 		n++;
 	}
-	return(pos2);
+	ft_printf("test\n");
+	return(ft_absolute_distance(pos1, *pos2));
 }
 
-void	solving_grid(t_board *data)
+void	solving_grid(t_board *data, t_pos *pos2)
 {
 	int	dist;
 	t_pos	pos1 = {0,0};
-	t_pos	pos2 = {0,0};
 	// ft_printf("pos1x = %d\n", pos1.x);
 	// ft_printf("pos1y = %d\n", pos1.y);
 	// ft_printf("pos2x = %d\n", pos2.x);
@@ -134,10 +176,9 @@ void	solving_grid(t_board *data)
 				pos1.y = j;
 				ft_printf("pos1.x = %d\n", pos1.x);
 				ft_printf("pos1.y = %d\n", pos1.y);
-				pos2 = closest(pos1, pos2, data);
-				ft_printf("pos2.x = %d\n", pos2.x);
-				ft_printf("pos2.y = %d\n", pos2.y);
-				dist = ft_absolute_distance(pos1, pos2);
+				dist = closest(pos1, pos2, data);
+				ft_printf("pos2.x = %d\n", pos2->x);
+				ft_printf("pos2.y = %d\n", pos2->y);
 				ft_printf("dist = %d\n", dist);
 				data->solving_grid_helper[j] = dist + '0'; // convert to char
 			}

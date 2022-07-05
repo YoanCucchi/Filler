@@ -87,7 +87,7 @@ void	free_struct(t_board *p);
 ** solver.c
 */
 
-void	solving_grid(t_board *data);
+void	solving_grid(t_board *data, t_pos *pos2);
 
 /*
 ** solver_help.c

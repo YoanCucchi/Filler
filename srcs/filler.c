@@ -132,9 +132,12 @@ void	skip_line(void)
 int main(void)
 {
 	t_board	*data;
+	t_pos	*pos2;
 
 	data = NULL;
 	data = (t_board *)malloc(sizeof(t_board));
+	pos2 = NULL;
+	pos2 = (t_pos *)malloc(sizeof(t_pos));
 	if (!data)
 		return (0);
 	init_struct(data);
@@ -146,10 +149,11 @@ int main(void)
 		make_piece(data);
 		ft_printf("%d ", data->player_x);
 		ft_printf("%d\n", data->player_y);
-		solving_grid(data);
+		solving_grid(data, pos2);
 		// return_token();
 		// print_grid(data);
 		print_solving_grid(data);
+		ft_printf("12/15 = %d\n", data->solving_grid[12][15] - '0');
 		print_piece(data);
 		struc_print(data);
 		skip_line();
@@ -157,6 +161,7 @@ int main(void)
 	free_grid(data);
 	free_piece(data);
 	free(data);
-	// system("leaks ycucchi.filler");
+	free(pos2);
+	// system("leaks ycucchi.filler >> leaks.out");
 	return (0);
 }
