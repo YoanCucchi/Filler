@@ -142,6 +142,8 @@ static int	closest(t_pos pos1, t_pos *pos2, t_board *data)
 		n++;
 	}
 	ft_printf("test\n");
+	pos2->x = data->ennemy_x;
+	pos2->y = data->ennemy_y;
 	return(ft_absolute_distance(pos1, *pos2));
 }
 
