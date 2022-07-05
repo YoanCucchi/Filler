@@ -80,7 +80,6 @@ static int	closest(t_pos pos1, t_pos *pos2, t_board *data)
 		if (i - n >= 0 && j >= 0 && data->grid[i - n][j] == 'O')
 		{
 			ft_printf("inside top\n");
-			// ft_printf("hum ... = %c\n", data->grid[i - n][])
 			pos2->x = i - n;
 			pos2->y = j;
 			return(ft_absolute_distance(pos1, *pos2));
