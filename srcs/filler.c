@@ -153,7 +153,7 @@ int main(void)
 		// return_token();
 		// print_grid(data);
 		print_solving_grid(data);
-		ft_printf("12/15 = %d\n", data->solving_grid[12][15] - '0');
+		// ft_printf("12/15 = %d\n", data->solving_grid[12][15] - '0');
 		print_piece(data);
 		struc_print(data);
 		skip_line();

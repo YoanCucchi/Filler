@@ -12,7 +12,7 @@
 
 NAME = ycucchi.filler
 
-SRCS = filler.c grid.c piece.c struct.c solver.c
+SRCS = filler.c grid.c piece.c struct.c solver.c solver_help.c
 
 SRCS_PATH = $(addprefix $(SRCS_DIR), $(SRCS))
 

@@ -24,7 +24,7 @@ static long				ft_pow(int nbr, int power)
 	return (result);
 }
 
-static unsigned long	ft_sqrt(long nbr)
+unsigned long	ft_sqrt(long nbr)
 {
 	unsigned long	result;
 
@@ -36,9 +36,9 @@ static unsigned long	ft_sqrt(long nbr)
 	return (result);
 }
 
-unsigned long			ft_absolute_distance(t_pos pos1, t_pos pos2)
+unsigned long			ft_absolute_distance(t_pos pos1, t_pos *pos2)
 {
-	return (ft_sqrt(ft_pow(pos1.x - pos2.x, 2) + ft_pow(pos1.y - pos2.y, 2)));
+	return (ft_sqrt(ft_pow(pos1.x - pos2->x, 2) + ft_pow(pos1.y - pos2->y, 2)));
 }
 
 static int	is_inside_map(int i, int j, t_board *data)
@@ -59,9 +59,9 @@ static int	closest(t_pos pos1, t_pos *pos2, t_board *data)
 	int	n;
 	int	tmp;
 
+	n = 1;
 	i = pos1.x;
 	j = pos1.y;
-	n = 1;
 	ft_printf("data grid = %c\n", data->grid[i][j]);
 	// pos1 == where am i checking
 	while (i + n < data->grid_x && j + n < data->grid_y)
@@ -69,82 +69,30 @@ static int	closest(t_pos pos1, t_pos *pos2, t_board *data)
 		ft_printf("n = %d\n", n);
 		tmp = 0;
 		if (i >= 0 && j - n >= 0 && data->grid[i][j - n] == 'O')
-		{
-			// check left
-			ft_printf("inside left\n");
-			pos2->x = i;
-			pos2->y = j - n;
-			return(ft_absolute_distance(pos1, *pos2));
-		}
-		// check top
+			return(check_left(pos2, pos1, n));
 		if (i - n >= 0 && j >= 0 && data->grid[i - n][j] == 'O')
-		{
-			ft_printf("inside top\n");
-			pos2->x = i - n;
-			pos2->y = j;
-			return(ft_absolute_distance(pos1, *pos2));
-		}
-		// check right
+			return(check_top(pos2, pos1, n));
 		if (i >= 0 && j >= 0 && data->grid[i][j + n] == 'O')
-		{
-			ft_printf("inside right\n");
-			pos2->x = i;
-			pos2->y = j + n;
-			return(ft_absolute_distance(pos1, *pos2));
-		}
-		// check bottom
+			return(check_right(pos2, pos1, n));
 		if (i >= 0 && j >= 0 && data->grid[i + n][j] == 'O')
+			return(check_bottom(pos2, pos1, n));
+		if (n % 2 == 0)
 		{
-			ft_printf("inside bottom\n");
-			pos2->x = i + n;
-			pos2->y = j;
-			return(ft_absolute_distance(pos1, *pos2));
-		}
-		tmp = n;
-		if (tmp == 2 || tmp == 4 || tmp == 6 || tmp == 8 || tmp == 10 || tmp == 12 || tmp == 14)
-		{
-			tmp = tmp / 2;
+			tmp = n / 2;
 			ft_printf("tmp = %d", tmp);
 			ft_printf("n = %d\n", n);
-			// check top left
 			if (i - tmp >= 0 && j - tmp >= 0 && data->grid[i - tmp][j - tmp] == 'O')
-			{
-				ft_printf("inside top left\n");
-				pos2->x = i - n;
-				pos2->y = j - n;
 				return(n);
-			}
-			// check top right
 			if (i - tmp >= 0 && j + tmp >= 0 && data->grid[i - tmp][j + tmp] == 'O')
-			{
-				ft_printf("inside top right\n");
-				pos2->x = i - n;
-				pos2->y = j + n;
 				return(n);
-			}
-			// check bot right
 			if (i + tmp >= 0 && j + tmp >= 0 && data->grid[i + tmp][j + tmp] == 'O')
-			{
-				ft_printf("inside bottom right\n");
-				pos2->x = i + n;
-				pos2->y = j + n;
 				return(n);
-			}
-			// check bot left
 			if (i + tmp >= 0 && j - tmp >= 0 && data->grid[i + tmp][j - tmp] == 'O')
-			{
-				ft_printf("inside bottom left\n");
-				pos2->x = i + n;
-				pos2->y = j - n;
 				return(n);
-			}
 		}
 		n++;
 	}
-	ft_printf("test\n");
-	pos2->x = data->ennemy_x;
-	pos2->y = data->ennemy_y;
-	return(ft_absolute_distance(pos1, *pos2));
+	return(ft_absolute_distance(pos1, pos2));
 }
 
 void	solving_grid(t_board *data, t_pos *pos2)
@@ -162,6 +110,8 @@ void	solving_grid(t_board *data, t_pos *pos2)
 
 	i = 0;
 	j = 0;
+	pos2->x = data->ennemy_x;
+	pos2->y = data->ennemy_y;
 	dist = 0;
 	data->solving_grid = (char **)malloc(sizeof(char*) * (data->grid_x + 1));
 	while (data->grid[i]) // ligne par ligne ++

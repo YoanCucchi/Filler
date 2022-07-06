@@ -1,50 +1,52 @@
 #include ".././includes/filler.h"
 
-t_pos	check_left(t_board *data, t_pos pos2, int i, int j)
+int	check_left(t_pos *pos2, t_pos pos1, int n)
 {
-	if (i >= 0 && j > 0 && data->grid_x >= i && data->grid_y >= j \
-	&& data->grid[i][j - 1] == 'O')
-	{
-		ft_printf("inside left\n");
-		pos2.x = i;
-		pos2.y = j - 1;
-		return(pos2);
-	}
+	int	i;
+	int	j;
+
+	i = pos1.x;
+	j = pos1.y;
+	ft_printf("inside left\n");
+	pos2->x = i;
+	pos2->y = j - n;
+	return(ft_absolute_distance(pos1, pos2));
 }
 
-t_pos	check_top(t_board *data, t_pos pos2, int i, int j)
+int	check_top(t_pos *pos2, t_pos pos1, int n)
 {
-	// check top
-	if (i > 0 && j >= 0 && data->grid_x >= i && data->grid_y >= j && \
-	data->grid[i - 1][1] == 'O')
-	{
-		ft_printf("inside top\n");
-		pos2.x = i - 1;
-		pos2.y = j;
-		return(pos2);
-	}
+	int	i;
+	int	j;
+
+	i = pos1.x;
+	j = pos1.y;
+	ft_printf("inside top\n");
+	pos2->x = i - n;
+	pos2->y = j;
+	return(ft_absolute_distance(pos1, pos2));
 }
-t_pos	check_right(t_board *data, t_pos pos2, int i, int j)
+int	check_right(t_pos *pos2, t_pos pos1, int n)
 {
-	// check right
-	if (i >= 0 && j >= 0 && data->grid_x >= i && data->grid_y > j && \
-	data->grid[i][j + 1] == 'O')
-	{
-		ft_printf("inside right\n");
-		pos2.x = i;
-		pos2.y = j + 1;
-		return(pos2);
-	}
+	int	i;
+	int	j;
+
+	i = pos1.x;
+	j = pos1.y;
+	ft_printf("inside right\n");
+	pos2->x = i;
+	pos2->y = j + n;
+	return(ft_absolute_distance(pos1, pos2));
 }
-t_pos	check_bottom(t_board *data, t_pos pos2, int i, int j)
+
+int	check_bottom(t_pos *pos2, t_pos pos1, int n)
 {
-	// check bottom
-	if (i >= 0 && j >= 0 && data->grid_x > i && data->grid_y >= j && \
-	data->grid[i + 1][j] == 'O')
-	{
-		ft_printf("inside bottom\n");
-		pos2.x = i + 1;
-		pos2.y = j;
-		return(pos2);
-	}
+	int	i;
+	int	j;
+
+	i = pos1.x;
+	j = pos1.y;
+	ft_printf("inside bottom\n");
+	pos2->x = i + n;
+	pos2->y = j;
+	return(ft_absolute_distance(pos1, pos2));
 }

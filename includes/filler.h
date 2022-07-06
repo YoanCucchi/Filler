@@ -87,15 +87,17 @@ void	free_struct(t_board *p);
 ** solver.c
 */
 
-void	solving_grid(t_board *data, t_pos *pos2);
+unsigned long	ft_sqrt(long nbr);
+unsigned long	ft_absolute_distance(t_pos pos1, t_pos *pos2);
+void			solving_grid(t_board *data, t_pos *pos2);
 
 /*
 ** solver_help.c
 */
 
-// t_pos	check_left(t_board *data, t_pos pos2, int i, int j);
-// t_pos	check_top(t_board *data, t_pos pos2, int i, int j);
-// t_pos	check_right(t_board *data, t_pos pos2, int i, int j);
-// t_pos	check_bottom(t_board *data, t_pos pos2, int i, int j);
+int	check_left(t_pos *pos2, t_pos pos1, int n);
+int	check_top(t_pos *pos2, t_pos pos1, int n);
+int	check_right(t_pos *pos2, t_pos pos1, int n);
+int	check_bottom(t_pos *pos2, t_pos pos1, int n);
 
 #endif
