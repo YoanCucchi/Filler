@@ -14,6 +14,7 @@
 
 void	init_struct(t_board *data)
 {
+	data->turn = 0;
 	data->player_x = 0;
 	data->player_y = 0;
 	data->ennemy_x = 0;
@@ -23,6 +24,7 @@ void	init_struct(t_board *data)
 	data->grid_y = 0;
 	data->piece_x = 0;
 	data->piece_y = 0;
+	data->piece_offset = 0;
 	data->player_piece = 0;
 	data->ennemy_piece = 0;
 	data->grid = NULL;

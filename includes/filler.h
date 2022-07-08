@@ -27,6 +27,7 @@
 
 typedef struct s_board
 {
+	int		turn;
 	int		player_x;
 	int		player_y;
 	int		ennemy_x;
@@ -36,6 +37,7 @@ typedef struct s_board
 	int		grid_y;
 	int		piece_x;
 	int		piece_y;
+	int		piece_offset;
 	int		player_piece;
 	int		ennemy_piece;
 	char	**grid;
@@ -51,6 +53,13 @@ typedef struct s_pos
 	int	x;
 	int	y;
 }			t_pos;
+
+typedef struct s_solved
+{
+	int	x;
+	int	y;
+	int	sum;
+}			t_solved;
 
 /*
 ** Prototypes
@@ -75,6 +84,8 @@ int		make_grid(t_board *data);
 
 void	read_piece(t_board *data);
 int		make_piece(t_board *data);
+void	piece_offset(t_board *data, t_solved *sol);
+void	put_piece(t_board *data, t_solved *sol);
 
 /*
 ** struct.c

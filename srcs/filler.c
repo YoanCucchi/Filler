@@ -133,11 +133,14 @@ int main(void)
 {
 	t_board	*data;
 	t_pos	*pos2;
-
+	t_solved *sol;
+// problem with pos2 or sol = null
 	data = NULL;
 	data = (t_board *)malloc(sizeof(t_board));
 	pos2 = NULL;
 	pos2 = (t_pos *)malloc(sizeof(t_pos));
+	sol = NULL;
+	sol = (t_solved *)malloc(sizeof(t_solved));
 	if (!data)
 		return (0);
 	init_struct(data);
@@ -147,16 +150,15 @@ int main(void)
 	{
 		make_grid(data);
 		make_piece(data);
-		ft_printf("%d ", data->player_x);
-		ft_printf("%d\n", data->player_y);
 		solving_grid(data, pos2);
-		// return_token();
+		piece_offset(data, sol);
 		// print_grid(data);
 		print_solving_grid(data);
 		// ft_printf("12/15 = %d\n", data->solving_grid[12][15] - '0');
 		print_piece(data);
 		struc_print(data);
 		skip_line();
+		data->turn++;
 	}
 	free_grid(data);
 	free_piece(data);

@@ -71,3 +71,82 @@ int	make_piece(t_board *data)
 	data->piece[data->line_helper] = NULL;
 	return(1);
 }
+
+void	put_piece(t_board *data, t_solved *sol)
+{
+	int	i;
+	int	j;
+	int	k;
+	int	l;
+	int	sum;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	l = 0;
+	sum = 0;
+	sol->sum = 0;
+	while (data->solving_grid[i] != NULL) // check line / line
+	{
+		ft_printf("first while\n");
+		j = 0;
+		while (data->solving_grid[i][j] != '\0') // check column / column
+		{
+			ft_printf("second while\n");
+			if (data->solving_grid[i][j] == 'X') // if we find X
+			{
+				// check piece
+				ft_printf("inside if 'X'\n");
+				while (data->piece[k] != NULL)
+				{
+					ft_printf("thrid while\n");
+					l = 0;
+					while (data->piece[k][l] != '\0' && \
+					i + k <= data->grid_x && j + l <= data->grid_y)
+					{
+						ft_printf("4th while\n");
+						ft_printf("====>[%c]<=====\n", data->solving_grid[i][j]);
+						if (data->piece[k][l] == '*')
+						{
+							ft_printf("data->piece[k][l] = [%c]\n", data->piece[k][l]);
+							ft_printf("solving grid = [%c]\n", data->solving_grid[i + k][j + l - data->piece_offset]);
+							if (data->solving_grid[i + k][j + l - data->piece_offset] != 'X')
+								sum += data->solving_grid[i + k][j + l - data->piece_offset] - '0';
+						}
+						l++;
+					}
+					k++;
+				}
+				if (sum < sol->sum || sol->sum == 0)
+				{
+					sol->x = i;
+					sol->y = j;
+					sol->sum = sum;
+				}
+				i++;
+			}
+			j++;
+		}
+		i++;
+	}
+	ft_printf("sol sum = [%d]\n", sol->sum);
+	ft_printf("sol x = [%d]\n", sol->x);
+	ft_printf("sol y = [%d]\n", sol->y);
+}
+
+void	piece_offset(t_board *data, t_solved *sol)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (j < data->piece_y && data->piece[i][j] != '\0')
+	{
+		if (data->piece[i][j] != '*')
+			data->piece_offset++;
+		j++;
+	}
+	ft_printf("data offset = %d\n", data->piece_offset);
+	put_piece(data, sol);
+}
