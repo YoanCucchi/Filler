@@ -86,6 +86,7 @@ void	read_piece(t_board *data);
 int		make_piece(t_board *data);
 void	piece_offset(t_board *data, t_solved *sol);
 void	put_piece(t_board *data, t_solved *sol);
+int		is_placable(t_board *data, int i, int j);
 
 /*
 ** struct.c

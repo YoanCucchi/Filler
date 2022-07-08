@@ -93,6 +93,7 @@ void	put_piece(t_board *data, t_solved *sol)
 		while (data->solving_grid[i][j] != '\0') // check column / column
 		{
 			ft_printf("second while\n");
+			ft_printf("====> is placable = [%d]<====\n", is_placable(data, i, j));
 			if (data->solving_grid[i][j] == 'X') // if we find X
 			{
 				// check piece
@@ -149,4 +150,40 @@ void	piece_offset(t_board *data, t_solved *sol)
 	}
 	ft_printf("data offset = %d\n", data->piece_offset);
 	put_piece(data, sol);
+}
+
+int	is_placable(t_board *data, int i, int j)
+{
+	int	k;
+	int	l;
+	int	x_count;
+
+	k = -1;
+	l = -1;
+	x_count = 0;
+	ft_printf("i = [%d]\n", i);
+	ft_printf("j = [%d]\n", j);
+	// ça reste dans la map
+	while (++k < data->piece_x) // ligne++
+	{
+		if (i + data->piece_x > data->grid_x)
+			return (0);
+		l = -1;
+		ft_printf("k = [%d]\n", k);
+		while (++l < data->piece_y) // column++
+		{
+			if (j + data->piece_y > data->grid_y)
+				return (0);
+			if (i + k > data->grid_x || j + l > data->grid_y)
+				return (0);
+			if (data->solving_grid[i + k][j + l] == 'O') // piece collision
+				return (0);
+			if (data->solving_grid[i + k][j + l] == 'X')
+				x_count++;
+			if (x_count > 1) // too much X
+				return (0);
+			ft_printf("l = [%d]\n", l);
+		}
+	}
+	return (1);
 }
