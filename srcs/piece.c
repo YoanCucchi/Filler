@@ -79,12 +79,14 @@ void	put_piece(t_board *data, t_solved *sol)
 	int	k;
 	int	l;
 	int	sum;
+	int	test;
 
 	i = 0;
 	j = 0;
 	k = 0;
 	l = 0;
 	sum = 0;
+	test = 0;
 	sol->sum = 0;
 	while (data->solving_grid[i] != NULL) // check line / line
 	{
@@ -93,14 +95,14 @@ void	put_piece(t_board *data, t_solved *sol)
 		while (data->solving_grid[i][j] != '\0') // check column / column
 		{
 			ft_printf("second while\n");
-			ft_printf("====> is placable = [%d]<====\n", is_placable(data, i, j));
-			if (data->solving_grid[i][j] == 'X') // if we find X
+			test = is_placable(data, i, j);
+			ft_printf("====> is placable = [%d]<====\n", test);
+			if (test == 1)
 			{
 				// check piece
-				ft_printf("inside if 'X'\n");
 				while (data->piece[k] != NULL)
 				{
-					ft_printf("thrid while\n");
+					ft_printf("third while\n");
 					l = 0;
 					while (data->piece[k][l] != '\0' && \
 					i + k <= data->grid_x && j + l <= data->grid_y)
@@ -110,9 +112,9 @@ void	put_piece(t_board *data, t_solved *sol)
 						if (data->piece[k][l] == '*')
 						{
 							ft_printf("data->piece[k][l] = [%c]\n", data->piece[k][l]);
-							ft_printf("solving grid = [%c]\n", data->solving_grid[i + k][j + l - data->piece_offset]);
-							if (data->solving_grid[i + k][j + l - data->piece_offset] != 'X')
-								sum += data->solving_grid[i + k][j + l - data->piece_offset] - '0';
+							ft_printf("solving grid = [%c]\n", data->solving_grid[i + k][j + l]);
+							if (data->solving_grid[i + k][j + l] != 'X')
+								sum += data->solving_grid[i + k][j + l] - '0';
 						}
 						l++;
 					}
@@ -154,6 +156,7 @@ void	piece_offset(t_board *data, t_solved *sol)
 
 int	is_placable(t_board *data, int i, int j)
 {
+	// DO I NEED TO CHECK TO TRIM THE . IF NO * after
 	int	k;
 	int	l;
 	int	x_count;
@@ -167,23 +170,46 @@ int	is_placable(t_board *data, int i, int j)
 	while (++k < data->piece_x) // ligne++
 	{
 		if (i + data->piece_x > data->grid_x)
+		{
+			ft_printf("1\n");
 			return (0);
+		}
 		l = -1;
 		ft_printf("k = [%d]\n", k);
 		while (++l < data->piece_y) // column++
 		{
 			if (j + data->piece_y > data->grid_y)
+			{
+				ft_printf("2\n");
 				return (0);
+			}
 			if (i + k > data->grid_x || j + l > data->grid_y)
+			{
+				ft_printf("3\n");
 				return (0);
+			}
 			if (data->solving_grid[i + k][j + l] == 'O') // piece collision
+			{
+				ft_printf("4\n");
 				return (0);
-			if (data->solving_grid[i + k][j + l] == 'X')
+			}
+			if (data->solving_grid[i + k][j + l] == 'X' && data->piece[k][l] == '*')
+			{
+				ft_printf("data solving grid value : [%c]\n", data->solving_grid[i + k][j + l]);
+				ft_printf("i = [%d]\n", i);
+				ft_printf("j = [%d]\n", j);
+				ft_printf("k = [%d]\n", k);
+				ft_printf("l = [%d]\n", l);
+				ft_printf("5\n");
 				x_count++;
-			if (x_count > 1) // too much X
-				return (0);
+			}
 			ft_printf("l = [%d]\n", l);
 		}
+	}
+	if (x_count != 1) // too much X
+	{
+		ft_printf("6\n");
+		return (0);
 	}
 	return (1);
 }
