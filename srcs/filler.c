@@ -12,82 +12,95 @@
 
 #include ".././includes/filler.h"
 
-static void	free_grid(t_board *p)
+static void	free_solving_grid(t_board *data)
 {
 	int	i;
 
 	i = 0;
-	while (i < p->grid_x)
+	while (i < data->grid_x)
 	{
-		ft_strdel(&p->grid[i]);
+		ft_strdel(&data->solving_grid[i]);
 		i++;
 	}
-	free(p->grid);
+	free(data->solving_grid);
 }
 
-static void	free_piece(t_board *p)
+static void	free_grid(t_board *data)
 {
 	int	i;
 
 	i = 0;
-	while (i < p->piece_x)
+	while (i < data->grid_x)
 	{
-		ft_strdel(&p->piece[i]);
+		ft_strdel(&data->grid[i]);
 		i++;
 	}
-	free(p->piece);
+	free(data->grid);
 }
 
-static void	print_piece(t_board *p)
+static void	free_piece(t_board *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->piece_x)
+	{
+		ft_strdel(&data->piece[i]);
+		i++;
+	}
+	free(data->piece);
+}
+
+static void	print_piece(t_board *data)
 {
 	int	i;
 
 	i = -1;
 	ft_printf("------------------------------------------------------------\n");
-	while (p->piece[++i])
-		ft_printf("%s\n", p->piece[i]);
+	while (data->piece[++i])
+		ft_printf("%s\n", data->piece[i]);
 	ft_printf("------------------------------------------------------------\n");
 }
 
-static void	print_grid(t_board *p)
+static void	print_grid(t_board *data)
 {
 	int	i;
 
 	i = -1;
 	ft_printf("------------------------------------------------------------\n");
-	while (p->grid[++i])
-		ft_printf("%s\n", p->grid[i]);
+	while (data->grid[++i])
+		ft_printf("%s\n", data->grid[i]);
 	ft_printf("------------------------------------------------------------\n");
 }
 
-static void	print_solving_grid(t_board *p)
+static void	print_solving_grid(t_board *data)
 {
 	int	i;
 
 	i = -1;
 	ft_printf("------------------------------------------------------------\n");
-	while (p->solving_grid[++i])
-		ft_printf("%s\n", p->solving_grid[i]);
+	while (data->solving_grid[++i])
+		ft_printf("%s\n", data->solving_grid[i]);
 	ft_printf("------------------------------------------------------------\n");
 }
 
-static void	struc_print(t_board *p)
+static void	struc_print(t_board *data)
 {
 	ft_printf("------------------------------------------------------------\n");
-	ft_printf("p->player_x = %d\n", p->player_x);
-	ft_printf("p->player_y = %d\n", p->player_y);
+	ft_printf("data->player_x = %d\n", data->player_x);
+	ft_printf("data->player_y = %d\n", data->player_y);
 	ft_printf("------------------------------------------------------------\n");
-	ft_printf("p->ennemy_x = %d\n", p->ennemy_x);
-	ft_printf("p->ennemy_y = %d\n", p->ennemy_y);
+	ft_printf("data->ennemy_x = %d\n", data->ennemy_x);
+	ft_printf("data->ennemy_y = %d\n", data->ennemy_y);
 	ft_printf("------------------------------------------------------------\n");
-	ft_printf("p->grid_x = %d\n", p->grid_x);
-	ft_printf("p->grid_y = %d\n", p->grid_y);
+	ft_printf("data->grid_x = %d\n", data->grid_x);
+	ft_printf("data->grid_y = %d\n", data->grid_y);
 	ft_printf("------------------------------------------------------------\n");
-	ft_printf("p->piece_x = %d\n", p->piece_x);
-	ft_printf("p->piece_y = %d\n", p->piece_y);
+	ft_printf("data->piece_x = %d\n", data->piece_x);
+	ft_printf("data->piece_y = %d\n", data->piece_y);
 	ft_printf("------------------------------------------------------------\n");
-	ft_printf("p->player_piece = %c\n", p->player_piece);
-	ft_printf("p->ennemy_piece = %c\n", p->ennemy_piece);
+	ft_printf("data->player_piece = %c\n", data->player_piece);
+	ft_printf("data->ennemy_piece = %c\n", data->ennemy_piece);
 	ft_printf("------------------------------------------------------------\n");
 }
 
@@ -123,9 +136,12 @@ void	skip_line(void)
 
 	line = NULL;
 	ret = get_next_line(0, &line);
-	ft_printf("line skipped was : %s\n", line);
 	if (ret < 1)
+	{
+		ft_printf("ret error \n");
 		exit(EXIT_FAILURE);
+	}
+	// ft_printf("line skipped was : %s\n", line);
 	ft_strdel(&line);
 }
 
@@ -134,36 +150,42 @@ int main(void)
 	t_board	*data;
 	t_pos	*pos2;
 	t_solved *sol;
-// problem with pos2 or sol = null
+
 	data = NULL;
 	data = (t_board *)malloc(sizeof(t_board));
 	pos2 = NULL;
 	pos2 = (t_pos *)malloc(sizeof(t_pos));
 	sol = NULL;
 	sol = (t_solved *)malloc(sizeof(t_solved));
-	if (!data)
+	if (!data || !pos2 || !sol)
+	{
+		ft_printf("malloc error\n");
 		return (0);
+	}
 	init_struct(data);
 	player_piece(data);
 	grid_size(data);
 	while (1)
 	{
-		make_grid(data);
+		data->turn++;
+		make_grid(data); // BUG !!!!!
+		ft_printf("inside while\n");
 		make_piece(data);
 		solving_grid(data, pos2);
-		piece_offset(data, sol);
+		put_piece(data, sol);
 		// print_grid(data);
-		print_solving_grid(data);
-		// ft_printf("12/15 = %d\n", data->solving_grid[12][15] - '0');
-		print_piece(data);
-		struc_print(data);
-		skip_line();
-		data->turn++;
+		// print_solving_grid(data);
+		// print_piece(data);
+		// struc_print(data);
+		ft_printf("%d", sol->x);
+		ft_printf(" %d\n", sol->y);
+		free_grid(data);
+		free_piece(data);
+		free_solving_grid(data);
+		free(pos2);
+		skip_line(); // skip line plateau x y
 	}
-	free_grid(data);
-	free_piece(data);
 	free(data);
-	free(pos2);
-	// system("leaks ycucchi.filler >> leaks.out");
+	// system("leaks ycucchi.filler");
 	return (0);
 }

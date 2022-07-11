@@ -99,6 +99,11 @@ int	make_grid(t_board *data)
 	data->line_helper = 0;
 	skip_line();
 	data->grid = (char **)malloc(sizeof(char*) * (data->grid_x + 1));
+	if (!data->grid)
+	{
+		ft_printf("Malloc error\n");
+		return (0);
+	}
 	while (data->grid_x > data->line_helper)
 	{
 		// ft_printf("data->grix_x = %d\n", data->grid_x);

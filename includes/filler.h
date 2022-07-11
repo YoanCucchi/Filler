@@ -92,8 +92,8 @@ int		is_placable(t_board *data, int i, int j);
 ** struct.c
 */
 
-void	init_struct(t_board *p);
-void	free_struct(t_board *p);
+void	init_struct(t_board *data);
+void	free_struct(t_board *data);
 
 /*
 ** solver.c
