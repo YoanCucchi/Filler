@@ -16,13 +16,13 @@ void	read_piece(t_board *data)
 {
 	int		len;
 	int		ret;
-	char	*tmp;
+	// char	*tmp;
 	char	*line;
 
 	line = NULL;
 	len = 0;
 	ret = get_next_line(0, &line);
-	tmp = line;
+	// tmp = line;
 	// ft_printf("line to check read piece = %s\n", line);
 	while(!ft_isdigit(*line))
 		line++;
@@ -36,7 +36,7 @@ void	read_piece(t_board *data)
 	data->piece_y = ft_atoi(line);
 	// ft_printf("data->piece_x = %d\n", data->piece_x);
 	// ft_printf("data->piece_y = %d\n", data->piece_y);
-	free(tmp);
+	// free(tmp);
 }
 
 static void	piece_helper(int ret, char *line, t_board *data)
@@ -58,7 +58,6 @@ int	make_piece(t_board *data)
 
 	line =  NULL;
 	data->line_helper = 0;
-	read_piece(data);
 	data->piece = (char **)malloc(sizeof(char*) * (data->piece_x + 1));
 	if (!data->piece)
 	{
@@ -74,7 +73,7 @@ int	make_piece(t_board *data)
 		free(line);
 	}
 	data->piece[data->line_helper] = NULL;
-	return(1);
+	return (1);
 }
 
 void	put_piece(t_board *data, t_solved *sol)

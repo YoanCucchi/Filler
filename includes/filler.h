@@ -70,6 +70,7 @@ typedef struct s_solved
 */
 
 void	skip_line(void);
+void	skip_line_print(void);
 
 /*
 ** grid.c

@@ -108,24 +108,29 @@ static void	player_piece(t_board *data)
 {
 	int		ret;
 	char	*line;
+	int		player;
 
+	player = 0;
 	line = NULL;
 	ret = get_next_line(0, &line);
 	if (ret < 1)
 		exit(EXIT_FAILURE);
-	if (ft_strstr(line, "$$$"))
+	player = ft_atoi(line + 10);
+	if (ft_strncmp(line, "$$$ exec p", 10 || !(player == 1 || player == 2)))
+		ft_printf("error player\n");
+	if (player == 1)
 	{
-		if (ft_strstr(line, "p1"))
-		{
-			data->player_piece = 'O';
-			data->ennemy_piece = 'X';
-		}
-		else if (ft_strstr(line, "p2"))
-		{
-			data->player_piece = 'X';
-			data->ennemy_piece = 'O';
-		}
+		data->player_piece = 'O';
+		data->ennemy_piece = 'X';
 	}
+	else if (player == 2)
+	{
+		data->player_piece = 'X';
+		data->ennemy_piece = 'O';
+	}
+	if (ft_strncmp(line + 11, " : [./ycucchi.filler]", 21) || \
+	line[ft_strlen(line) - 1] != ']')
+		ft_printf("error player\n");
 	ft_strdel(&line);
 }
 
@@ -137,11 +142,23 @@ void	skip_line(void)
 	line = NULL;
 	ret = get_next_line(0, &line);
 	if (ret < 1)
+		exit(EXIT_FAILURE);
+	ft_strdel(&line);
+}
+
+void	skip_line_print(void)
+{
+	int		ret;
+	char	*line;
+
+	line = NULL;
+	ret = get_next_line(0, &line);
+	if (ret < 1)
 	{
-		ft_printf("ret error \n");
+		ft_printf("ret error\n");
 		exit(EXIT_FAILURE);
 	}
-	// ft_printf("line skipped was : %s\n", line);
+	ft_printf("lineskippedwas: %s\n", line);
 	ft_strdel(&line);
 }
 
@@ -162,30 +179,34 @@ int main(void)
 		ft_printf("malloc error\n");
 		return (0);
 	}
+	ft_bzero(data, sizeof (t_board));
+	ft_bzero(pos2, sizeof (t_pos));
+	ft_bzero(sol, sizeof (t_solved));
 	init_struct(data);
 	player_piece(data);
 	grid_size(data);
 	while (1)
 	{
-		data->turn++;
 		make_grid(data); // BUG !!!!!
-		ft_printf("inside while\n");
+		ft_printf("got ya\n");
+		read_piece(data);
 		make_piece(data);
 		solving_grid(data, pos2);
-		put_piece(data, sol);
 		// print_grid(data);
 		// print_solving_grid(data);
 		// print_piece(data);
-		// struc_print(data);
+		struc_print(data);
+		put_piece(data, sol);
 		ft_printf("%d", sol->x);
 		ft_printf(" %d\n", sol->y);
-		free_grid(data);
-		free_piece(data);
-		free_solving_grid(data);
-		free(pos2);
 		skip_line(); // skip line plateau x y
 	}
+	// free_grid(data);
+	// free_piece(data);
+	// free_solving_grid(data);
+	// free(pos2);
 	free(data);
+	ft_printf("0, 0\n");
 	// system("leaks ycucchi.filler");
 	return (0);
 }
