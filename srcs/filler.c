@@ -114,7 +114,10 @@ static void	player_piece(t_board *data)
 	line = NULL;
 	ret = get_next_line(0, &line);
 	if (ret < 1)
+	{
+		ft_printf("ret neg\n");
 		exit(EXIT_FAILURE);
+	}
 	player = ft_atoi(line + 10);
 	if (ft_strncmp(line, "$$$ exec p", 10 || !(player == 1 || player == 2)))
 		ft_printf("error player\n");

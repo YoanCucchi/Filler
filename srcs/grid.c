@@ -70,24 +70,28 @@ void	grid_size(t_board *data)
 {
 	int		ret;
 	char	*line;
-	char	*temp;
 	int		len;
 
 	line = NULL;
 	len = 0;
 	ret = get_next_line(0, &line);
-	temp = line;
-	// ft_printf("line to check map size = %s\n", line);
-	while(!ft_isdigit(*line))
-		line++;
-	data->grid_x = ft_atoi(line);
+	if (ret < 1)
+	{
+		ft_printf("ret neg\n");
+		exit(EXIT_FAILURE);
+	}
+	if (ft_strncmp(line, "Plateau ", 8) || !ft_isdigit(*(line + 8)))
+		ft_printf("grid error\n");
+	data->grid_x = ft_atoi(line + 8);
 	len = ft_nbrlen(data->grid_x, 10) + 1;
-	while (len--)
-		line++;
-	while(!ft_isdigit(*line))
-		line++;
-	data->grid_y = ft_atoi(line);
-	// free(temp);
+	if (!ft_isdigit(*(line + 8 + len)))
+		ft_printf("grid error\n");
+	data->grid_y = ft_atoi(line + 8 + len);
+	if (line[ft_strlen(line) - 1] != ':')
+		ft_printf("grid error\n");
+	if (data->grid_x < 1 || data->grid_y < 1)
+		ft_printf("grid error\n");
+	ft_strdel(&line);
 }
 
 int	make_grid(t_board *data)
@@ -109,7 +113,7 @@ int	make_grid(t_board *data)
 		data->grid[data->line_helper] = make_line(ret, line, data);
 		// ft_printf("test : %s\n", data->grid[data->line_helper]);
 		data->line_helper++;
-		free(line);
+		ft_strdel(&line);
 	}
 	data->grid[data->line_helper] = NULL;
 	return(1);

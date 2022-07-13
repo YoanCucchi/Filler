@@ -70,7 +70,7 @@ int	make_piece(t_board *data)
 		piece_helper(ret, line, data);
 		data->piece[data->line_helper] = data->piece_helper;
 		data->line_helper++;
-		free(line);
+		ft_strdel(&line);
 	}
 	data->piece[data->line_helper] = NULL;
 	return (1);
