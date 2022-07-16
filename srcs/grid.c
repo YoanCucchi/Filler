@@ -51,16 +51,14 @@ static void	token_coord(t_board *data, char *line)
 
 static char	*make_line(int ret, char *line, t_board *data)
 {
-	int	y;
-
-	y = 0;
+	// dprintf(2, "line to check grid_helper = %s\n", line);
 	// ft_printf("line to check grid_helper = %s\n", line);
 	data->grid_helper = ft_strnew(data->grid_y);
-	while (*line && *line != '.' && *line != 'X' &&
-		*line != 'x' && *line != 'O' && *line != 'o')
-		line++;
-	data->grid_helper = ft_strcpy(data->grid_helper, line);
-	y++;
+	// while (*line && *line != '.' && *line != 'X' &&
+	// 	*line != 'x' && *line != 'O' && *line != 'o')
+	// 	line++;
+	data->grid_helper = ft_memcpy(data->grid_helper, (const char *)(line + 4), data->grid_y);
+	dprintf(2, "data grid_helper = [%s]\n", data->grid_helper);
 	if (data->player_x == 0 && data->player_y == 0)
 		token_coord(data, line);
 	return (data->grid_helper);
@@ -101,16 +99,19 @@ int	make_grid(t_board *data)
 
 	line = NULL;
 	data->line_helper = 0;
-	skip_line();
 	data->grid = (char **)malloc(sizeof(char*) * (data->grid_x + 1));
 	if (!data->grid)
+	{
+		ft_printf("datagrid error\n");
 		return (0);
-	while (data->grid_x > data->line_helper)
+	}
+	while (data->line_helper < data->grid_x)
 	{
 		// ft_printf("data->grix_x = %d\n", data->grid_x);
 		// ft_printf("line helper = %d\n", data->line_helper);
 		ret = get_next_line(0, &line);
 		data->grid[data->line_helper] = make_line(ret, line, data);
+		// dprintf(2, "right after new line added to the grid = %d", data->line_helper);
 		// ft_printf("test : %s\n", data->grid[data->line_helper]);
 		data->line_helper++;
 		ft_strdel(&line);

@@ -23,7 +23,7 @@ void	read_piece(t_board *data)
 	len = 0;
 	ret = get_next_line(0, &line);
 	// tmp = line;
-	// ft_printf("line to check read piece = %s\n", line);
+	dprintf(2, "line to check read piece = %s\n", line);
 	while(!ft_isdigit(*line))
 		line++;
 	// ft_printf("line to afeterererr = %s\n", line);
@@ -34,8 +34,8 @@ void	read_piece(t_board *data)
 	while(!ft_isdigit(*line))
 		line++;
 	data->piece_y = ft_atoi(line);
-	// ft_printf("data->piece_x = %d\n", data->piece_x);
-	// ft_printf("data->piece_y = %d\n", data->piece_y);
+	dprintf(2, "data->piece_x = %d\n", data->piece_x);
+	dprintf(2, "data->piece_y = %d\n", data->piece_y);
 	// free(tmp);
 }
 

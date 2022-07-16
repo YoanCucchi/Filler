@@ -73,6 +73,18 @@ static void	print_grid(t_board *data)
 	ft_printf("------------------------------------------------------------\n");
 }
 
+static void	dprint_grid(t_board *data)
+{
+	int	i;
+
+	i = -1;
+
+	dprintf(2, "\n------------------------------------------------------------\n");
+	while (data->grid[++i])
+		dprintf(2, "[%s]\n", data->grid[i]);
+	dprintf(2, "------------------------------------------------------------\n");
+}
+
 static void	print_solving_grid(t_board *data)
 {
 	int	i;
@@ -182,34 +194,38 @@ int main(void)
 		ft_printf("malloc error\n");
 		return (0);
 	}
-	ft_bzero(data, sizeof (t_board));
-	ft_bzero(pos2, sizeof (t_pos));
-	ft_bzero(sol, sizeof (t_solved));
-	init_struct(data);
+	// ft_bzero(data, sizeof (t_board));
+	// ft_bzero(pos2, sizeof (t_pos));
+	// ft_bzero(sol, sizeof (t_solved));
+	// init_struct(data);
 	player_piece(data);
 	grid_size(data);
 	while (1)
 	{
+		skip_line();
+	//	bzero grid every turn
 		make_grid(data); // BUG !!!!!
-		ft_printf("got ya\n");
+		// dprint_grid(data);
+		// ft_printf("got ya\n");
 		read_piece(data);
 		make_piece(data);
 		solving_grid(data, pos2);
 		// print_grid(data);
 		// print_solving_grid(data);
 		// print_piece(data);
-		struc_print(data);
+		// struc_print(data);
 		put_piece(data, sol);
-		ft_printf("%d", sol->x);
-		ft_printf(" %d\n", sol->y);
+		ft_putnbr(sol->x);
+		ft_putchar(' ');
+		ft_putnbr(sol->y);
+		ft_putchar('\n');
 		skip_line(); // skip line plateau x y
 	}
-	// free_grid(data);
-	// free_piece(data);
-	// free_solving_grid(data);
-	// free(pos2);
+	free_grid(data);
+	free_piece(data);
+	free_solving_grid(data);	
+	free(pos2);
 	free(data);
-	ft_printf("0, 0\n");
 	// system("leaks ycucchi.filler");
 	return (0);
 }
