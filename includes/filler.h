@@ -46,6 +46,7 @@ typedef struct s_board
 	char	*piece_helper;
 	char	**solving_grid;
 	char	*solving_grid_helper;
+	FILE	*read_log;
 }			t_board;
 
 typedef struct s_pos
@@ -69,7 +70,7 @@ typedef struct s_solved
 ** filler.c
 */
 
-void	skip_line(void);
+void	skip_line(t_board *data);
 void	skip_line_print(void);
 
 /*

@@ -125,6 +125,7 @@ static void	player_piece(t_board *data)
 	player = 0;
 	line = NULL;
 	ret = get_next_line(0, &line);
+	fprintf(data->read_log, "%s\n", line);
 	if (ret < 1)
 	{
 		ft_printf("ret neg\n");
@@ -149,13 +150,14 @@ static void	player_piece(t_board *data)
 	ft_strdel(&line);
 }
 
-void	skip_line(void)
+void	skip_line(t_board *data)
 {
 	int		ret;
 	char	*line;
 
 	line = NULL;
 	ret = get_next_line(0, &line);
+	fprintf(data->read_log, "%s", line);
 	if (ret < 1)
 		exit(EXIT_FAILURE);
 	ft_strdel(&line);
@@ -198,15 +200,18 @@ int main(void)
 	// ft_bzero(pos2, sizeof (t_pos));
 	// ft_bzero(sol, sizeof (t_solved));
 	// init_struct(data);
+	data->read_log = fopen("log.txt", "a+");
 	player_piece(data);
 	grid_size(data);
 	while (1)
 	{
-		skip_line();
+		skip_line(data);
 	//	bzero grid every turn
+		// usleep(100000);
 		make_grid(data); // BUG !!!!!
 		// dprint_grid(data);
 		// ft_printf("got ya\n");
+		// usleep(100000);
 		read_piece(data);
 		make_piece(data);
 		solving_grid(data, pos2);
@@ -219,7 +224,7 @@ int main(void)
 		ft_putchar(' ');
 		ft_putnbr(sol->y);
 		ft_putchar('\n');
-		skip_line(); // skip line plateau x y
+		skip_line(data); // skip line plateau x y
 	}
 	free_grid(data);
 	free_piece(data);

@@ -73,6 +73,7 @@ void	grid_size(t_board *data)
 	line = NULL;
 	len = 0;
 	ret = get_next_line(0, &line);
+	fprintf(data->read_log, "%s\n", line);
 	if (ret < 1)
 	{
 		ft_printf("ret neg\n");
@@ -109,8 +110,12 @@ int	make_grid(t_board *data)
 	{
 		// ft_printf("data->grix_x = %d\n", data->grid_x);
 		// ft_printf("line helper = %d\n", data->line_helper);
-		ret = get_next_line(0, &line);
+		dprintf(2, "1");
+		ret = get_next_line(0, &line); // it stops there apparently
+		// usleep(100000);
+		fprintf(data->read_log, "%s\n", line);
 		data->grid[data->line_helper] = make_line(ret, line, data);
+		// usleep(100000);
 		// dprintf(2, "right after new line added to the grid = %d", data->line_helper);
 		// ft_printf("test : %s\n", data->grid[data->line_helper]);
 		data->line_helper++;

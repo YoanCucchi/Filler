@@ -22,6 +22,7 @@ void	read_piece(t_board *data)
 	line = NULL;
 	len = 0;
 	ret = get_next_line(0, &line);
+	fprintf(data->read_log, "%s", line);
 	// tmp = line;
 	dprintf(2, "line to check read piece = %s\n", line);
 	while(!ft_isdigit(*line))
@@ -67,6 +68,7 @@ int	make_piece(t_board *data)
 	while (data->piece_x > data->line_helper)
 	{
 		ret = get_next_line(0, &line);
+		fprintf(data->read_log, "%s\n", line);
 		piece_helper(ret, line, data);
 		data->piece[data->line_helper] = data->piece_helper;
 		data->line_helper++;

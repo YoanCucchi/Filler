@@ -59,7 +59,6 @@ static int	remove_new_line(char **line, char **array, const int fd)
 	}
 	else
 	{
-		array[fd][i] = '\n';
 		*line = ft_strdup(array[fd]);
 		ft_strdel(&array[fd]);
 	}
