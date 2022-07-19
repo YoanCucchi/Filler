@@ -113,7 +113,6 @@ void	solving_grid(t_board *data, t_pos *pos2)
 	pos2->x = data->ennemy_x;
 	pos2->y = data->ennemy_y;
 	dist = 0;
-	data->solving_grid = (char **)malloc(sizeof(char*) * (data->grid_x + 1));
 	while (data->grid[i]) // ligne par ligne ++
 	{
 		data->solving_grid_helper = ft_strnew(data->grid_y);

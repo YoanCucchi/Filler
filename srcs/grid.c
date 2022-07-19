@@ -17,7 +17,6 @@ static void	token_coord(t_board *data, char *line)
 	int	y;
 
 	y = 0;
-	dprintf(2, "HERE\n");
 	while (line[y])
 	{
 		if (line[y] == 'O')
@@ -78,19 +77,13 @@ void	grid_size(t_board *data)
 	ft_strdel(&line);
 }
 
-int	make_grid(t_board *data)
+void	make_grid(t_board *data)
 {
 	int		ret;
 	char	*line;
 
 	line = NULL;
 	data->line_helper = 0;
-	data->grid = (char **)malloc(sizeof(char*) * (data->grid_x + 1));
-	if (!data->grid)
-	{
-		ft_printf("datagrid error\n");
-		return (0);
-	}
 	while (data->line_helper < data->grid_x)
 	{
 		ret = get_next_line(0, &line);
@@ -103,5 +96,4 @@ int	make_grid(t_board *data)
 		ft_strdel(&line);
 	}
 	data->grid[data->line_helper] = NULL;
-	return(1);
 }

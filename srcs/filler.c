@@ -23,6 +23,7 @@ static void	free_solving_grid(t_board *data)
 		i++;
 	}
 	free(data->solving_grid);
+	data->solving_grid = NULL;
 }
 
 static void	free_grid(t_board *data)
@@ -36,6 +37,7 @@ static void	free_grid(t_board *data)
 		i++;
 	}
 	free(data->grid);
+	data->grid = NULL;
 }
 
 static void	free_piece(t_board *data)
@@ -49,6 +51,7 @@ static void	free_piece(t_board *data)
 		i++;
 	}
 	free(data->piece);
+	data->piece = NULL;
 }
 
 static void	print_piece(t_board *data)
@@ -149,6 +152,25 @@ static void	player_piece(t_board *data)
 	ft_strdel(&line);
 }
 
+static void	clean_all(t_board *data, t_pos *pos2, t_solved *sol)
+{
+	if (!data)
+		exit (0);
+	if (data->piece)
+		free_piece(data);
+	if (data->grid)
+		free_grid(data);
+	if (data->solving_grid)
+		free_solving_grid(data);
+	if (pos2)
+		free(pos2);
+	if (sol)
+		free(sol);
+	if (data)
+		free(data);
+	// exit (0);
+}
+
 void	skip_line(t_board *data)
 {
 	int		ret;
@@ -177,6 +199,28 @@ void	skip_line_print(void)
 	ft_strdel(&line);
 }
 
+static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
+{
+	// if problem return 0 and free what was assigned before and inside loop
+	skip_line(data);
+	make_grid(data);
+	read_piece(data);
+	make_piece(data); // malloc chaque tour
+	solving_grid(data, pos2);
+	// print_grid(data);
+	// print_solving_grid(data);
+	// print_piece(data);
+	// struc_print(data);
+	put_piece(data, sol);
+	ft_printf("%d ", sol->x);
+	ft_printf("%d\n", sol->y);
+	if (data->piece)
+		free_piece(data);
+	data->turn++;
+	skip_line(data); // skip line plateau x y
+	return (1);
+}
+
 int main(void)
 {
 	t_board	*data;
@@ -184,52 +228,24 @@ int main(void)
 	t_solved *sol;
 
 	data = NULL;
-	data = (t_board *)malloc(sizeof(t_board));
 	pos2 = NULL;
-	pos2 = (t_pos *)malloc(sizeof(t_pos));
 	sol = NULL;
+	data = (t_board *)malloc(sizeof(t_board));
+	pos2 = (t_pos *)malloc(sizeof(t_pos));
 	sol = (t_solved *)malloc(sizeof(t_solved));
 	if (!data || !pos2 || !sol)
-	{
-		ft_printf("malloc error\n");
-		return (0);
-	}
-	ft_bzero(data, sizeof (t_board));
-	ft_bzero(pos2, sizeof (t_pos));
-	ft_bzero(sol, sizeof (t_solved));
-	init_struct(data);
+		clean_all(data, pos2, sol);
+	init_struct(data, pos2, sol);
 	player_piece(data);
 	grid_size(data);
-
+	data->grid = (char **)malloc(sizeof(char*) * (data->grid_x + 1));
+	data->solving_grid = (char **)malloc(sizeof(char*) * (data->grid_x + 1));
+	if (!data->grid || !data->solving_grid)
+		clean_all(data, pos2, sol);
 // need to fix when no pos are possible it will returns the previous one (should be 0)
-// need to take care of memory pb. also heatmap should be malloced only once
-// 
-
-	while (1)
-	{
-		skip_line(data);
-		make_grid(data); // malloc chaque tour
-		read_piece(data);
-		make_piece(data); // malloc chaque tour
-		solving_grid(data, pos2); // malloc chaque tour
-		// print_grid(data);
-		// print_solving_grid(data);
-		// print_piece(data);
-		// struc_print(data);
-		put_piece(data, sol);
-		ft_putnbr(sol->x);
-		ft_putchar(' ');
-		ft_putnbr(sol->y);
-		ft_putchar('\n');
-		free_grid(data);
-		free_piece(data);
-		free_solving_grid(data);
-		data->turn++;
-		skip_line(data); // skip line plateau x y
-	}
-	free(pos2);
-	free(data);
-	free(sol);
+	while(1)
+		filler_loop(data, pos2, sol);
+	clean_all(data, pos2, sol);
 	// system("leaks ycucchi.filler > leaks.out");
 	return (0);
 }

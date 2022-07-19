@@ -77,7 +77,7 @@ void	skip_line_print(void);
 */
 
 void	grid_size(t_board *data);
-int		make_grid(t_board *data);
+void	make_grid(t_board *data);
 
 /*
 ** piece.c
@@ -93,7 +93,7 @@ int		is_placable(t_board *data, int i, int j);
 ** struct.c
 */
 
-void	init_struct(t_board *data);
+void	init_struct(t_board *data, t_pos *pos2, t_solved *sol);
 void	free_struct(t_board *data);
 
 /*

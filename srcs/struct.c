@@ -12,8 +12,11 @@
 
 #include ".././includes/filler.h"
 
-void	init_struct(t_board *data)
+void	init_struct(t_board *data, t_pos *pos2, t_solved *sol)
 {
+	ft_bzero(data, sizeof (t_board));
+	ft_bzero(pos2, sizeof (t_pos));
+	ft_bzero(sol, sizeof (t_solved));
 	data->turn = 0;
 	data->player_x = 0;
 	data->player_y = 0;

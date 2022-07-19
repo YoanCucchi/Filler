@@ -1,24 +1,24 @@
-Process:         ycucchi.filler [69957]
+Process:         ycucchi.filler [21655]
 Path:            /Users/USER/*/ycucchi.filler
-Load Address:    0x102650000
+Load Address:    0x104988000
 Identifier:      ycucchi.filler
 Version:         ???
 Code Type:       ARM64
 Platform:        macOS
-Parent Process:  ruby [69952]
+Parent Process:  ruby [21650]
 
-Date/Time:       2022-07-19 15:59:13.218 +0300
-Launch Time:     2022-07-19 15:59:12.775 +0300
+Date/Time:       2022-07-19 16:49:06.584 +0300
+Launch Time:     2022-07-19 16:49:06.006 +0300
 OS Version:      macOS 12.4 (21F79)
 Report Version:  7
 Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
 Analysis Tool Version:  Xcode 13.4.1 (13F100)
 
-Physical footprint:         977K
-Physical footprint (peak):  977K
+Physical footprint:         1009K
+Physical footprint (peak):  1009K
 ----
 
 leaks Report Version: 4.0
-Process 69957: 207 nodes malloced for 12 KB
-Process 69957: 0 leaks for 0 total leaked bytes.
+Process 21655: 207 nodes malloced for 12 KB
+Process 21655: 0 leaks for 0 total leaked bytes.
 
