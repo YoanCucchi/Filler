@@ -58,7 +58,7 @@ static char	*make_line(int ret, char *line, t_board *data)
 	// 	*line != 'x' && *line != 'O' && *line != 'o')
 	// 	line++;
 	data->grid_helper = ft_memcpy(data->grid_helper, (const char *)(line + 4), data->grid_y);
-	dprintf(2, "data grid_helper = [%s]\n", data->grid_helper);
+	// dprintf(2, "data grid_helper = [%s]\n", data->grid_helper);
 	if (data->player_x == 0 && data->player_y == 0)
 		token_coord(data, line);
 	return (data->grid_helper);
@@ -110,7 +110,6 @@ int	make_grid(t_board *data)
 	{
 		// ft_printf("data->grix_x = %d\n", data->grid_x);
 		// ft_printf("line helper = %d\n", data->line_helper);
-		dprintf(2, "1");
 		ret = get_next_line(0, &line); // it stops there apparently
 		// usleep(100000);
 		fprintf(data->read_log, "%s\n", line);

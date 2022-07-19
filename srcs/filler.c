@@ -203,6 +203,11 @@ int main(void)
 	data->read_log = fopen("log.txt", "a+");
 	player_piece(data);
 	grid_size(data);
+
+// need to fix when no pos are possible it will returns the previous one (should be 0)
+// need to take care of memory pb. also heatmap should be malloced only once
+// 
+
 	while (1)
 	{
 		skip_line(data);
@@ -224,6 +229,7 @@ int main(void)
 		ft_putchar(' ');
 		ft_putnbr(sol->y);
 		ft_putchar('\n');
+		data->turn++;
 		skip_line(data); // skip line plateau x y
 	}
 	free_grid(data);

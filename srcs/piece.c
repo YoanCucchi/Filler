@@ -24,7 +24,7 @@ void	read_piece(t_board *data)
 	ret = get_next_line(0, &line);
 	fprintf(data->read_log, "%s", line);
 	// tmp = line;
-	dprintf(2, "line to check read piece = %s\n", line);
+	// dprintf(2, "line to check read piece = %s\n", line);
 	while(!ft_isdigit(*line))
 		line++;
 	// ft_printf("line to afeterererr = %s\n", line);
@@ -35,8 +35,8 @@ void	read_piece(t_board *data)
 	while(!ft_isdigit(*line))
 		line++;
 	data->piece_y = ft_atoi(line);
-	dprintf(2, "data->piece_x = %d\n", data->piece_x);
-	dprintf(2, "data->piece_y = %d\n", data->piece_y);
+	// dprintf(2, "data->piece_x = %d\n", data->piece_x);
+	// dprintf(2, "data->piece_y = %d\n", data->piece_y);
 	// free(tmp);
 }
 
@@ -126,7 +126,26 @@ void	put_piece(t_board *data, t_solved *sol)
 				}
 				// ft_printf("sum in put piece = %d\n", sum);
 				// if (sum = sol->sum) 2 solutions possible faut chosir
-				if (sum < sol->sum || sol->sum == 0)
+				// need to finish X to the right to block the opponent
+				if ((j < sol->y || sol->sum == 0) && data->turn < 20 && j > 0)
+				{
+					sol->x = i;
+					sol->y = j;
+					sol->sum = sum;
+				}
+				else if ((j < sol->y && i < sol->x) && data->turn < 20)
+				{
+					sol->x = i;
+					sol->y = j;
+					sol->sum = sum;
+				}
+				else if ((sum - 5 <= sol->sum && sum - 5 > 0 && i <= sol->x && j <= sol->y && data->turn < 30))
+				{
+					sol->x = i;
+					sol->y = j;
+					sol->sum = sum;
+				}
+				else if ((sum < sol->sum || sol->sum == 0) && data->turn >= 20)
 				{
 					sol->x = i;
 					sol->y = j;
