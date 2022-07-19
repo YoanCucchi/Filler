@@ -12,44 +12,9 @@
 
 #include ".././includes/filler.h"
 
-static long				ft_pow(int nbr, int power)
-{
-	long	result;
-
-	if (power < 0)
-		return (-1);
-	result = 1;
-	while (power--)
-		result *= nbr;
-	return (result);
-}
-
-unsigned long	ft_sqrt(long nbr)
-{
-	unsigned long	result;
-
-	if (nbr <= 0)
-		return (0);
-	result = 1;
-	while (result * result < (unsigned long)nbr)
-		result++;
-	return (result);
-}
-
-unsigned long			ft_absolute_distance(t_pos pos1, t_pos *pos2)
+long		ft_absolute_distance(t_pos pos1, t_pos *pos2)
 {
 	return (ft_sqrt(ft_pow(pos1.x - pos2->x, 2) + ft_pow(pos1.y - pos2->y, 2)));
-}
-
-static int	is_inside_map(int i, int j, t_board *data)
-{
-	ft_printf("i inside map = %d\n", i);
-	ft_printf("j inside map = %d\n", j);
-	ft_printf("data->grid_x = %d\n", data->grid_x);
-	ft_printf("data->grid_y = %d\n", data->grid_y);
-	if (i > data->grid_x || i > 0 || j < 0 || j > data->grid_y)
-		return (0);
-	return (1);
 }
 
 static int	closest(t_pos pos1, t_pos *pos2, t_board *data)
@@ -95,7 +60,7 @@ static int	closest(t_pos pos1, t_pos *pos2, t_board *data)
 	return(ft_absolute_distance(pos1, pos2));
 }
 
-void	solving_grid(t_board *data, t_pos *pos2)
+void		solving_grid(t_board *data, t_pos *pos2)
 {
 	int	dist;
 	t_pos	pos1 = {0,0};

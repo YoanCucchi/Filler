@@ -33,7 +33,8 @@ ft_print_char.c ft_putnstr.c ft_octal_itoa.c get_next_line.c\
 ./ft_printf/ft_hex_helper.c ./ft_printf/ft_print_unbr.c \
 ./ft_printf/ft_nbr_helper.c ./ft_printf/ft_print_float.c \
 ./ft_printf/ft_float_helper.c ./ft_printf/ft_initialize_float.c \
-./ft_printf/ft_float_rounding.c ./ft_printf/ft_float_helper_print.c
+./ft_printf/ft_float_rounding.c ./ft_printf/ft_float_helper_print.c \
+./ft_sqrt.c ./ft_pow.c
 
 OBJECTS = $(SOURCES:%.c=$(DIR_OBJ)%.o)
 

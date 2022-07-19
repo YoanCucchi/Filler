@@ -152,7 +152,7 @@ static void	player_piece(t_board *data)
 	ft_strdel(&line);
 }
 
-static void	clean_all(t_board *data, t_pos *pos2, t_solved *sol)
+void	clean_all(t_board *data, t_pos *pos2, t_solved *sol)
 {
 	if (!data)
 		exit (0);

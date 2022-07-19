@@ -75,9 +75,11 @@ void	put_piece(t_board *data, t_solved *sol)
 	int	l;
 	int	sum;
 	int	test;
+	int	not_placable;
 
 	i = 0;
 	test = 0;
+	not_placable = 0;
 	sol->sum = 0;
 	while (data->solving_grid[i] != NULL) // check line / line
 	{
@@ -91,6 +93,7 @@ void	put_piece(t_board *data, t_solved *sol)
 			if (test == 1)
 			{
 				// check piece
+				not_placable = 1;
 				sum = 0;
 				k = 0;
 				while (data->piece[k] != NULL)
@@ -144,6 +147,11 @@ void	put_piece(t_board *data, t_solved *sol)
 			j++;
 		}
 		i++;
+	}
+	if (!not_placable)
+	{
+		sol->x = 0;
+		sol->y = 0;
 	}
 	// ft_printf("sol sum = [%d]\n", sol->sum);
 }
