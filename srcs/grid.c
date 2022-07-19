@@ -17,6 +17,7 @@ static void	token_coord(t_board *data, char *line)
 	int	y;
 
 	y = 0;
+	dprintf(2, "HERE\n");
 	while (line[y])
 	{
 		if (line[y] == 'O')
@@ -49,21 +50,6 @@ static void	token_coord(t_board *data, char *line)
 	}
 }
 
-static char	*make_line(int ret, char *line, t_board *data)
-{
-	// dprintf(2, "line to check grid_helper = %s\n", line);
-	// ft_printf("line to check grid_helper = %s\n", line);
-	data->grid_helper = ft_strnew(data->grid_y);
-	// while (*line && *line != '.' && *line != 'X' &&
-	// 	*line != 'x' && *line != 'O' && *line != 'o')
-	// 	line++;
-	data->grid_helper = ft_memcpy(data->grid_helper, (const char *)(line + 4), data->grid_y);
-	// dprintf(2, "data grid_helper = [%s]\n", data->grid_helper);
-	if (data->player_x == 0 && data->player_y == 0)
-		token_coord(data, line);
-	return (data->grid_helper);
-}
-
 void	grid_size(t_board *data)
 {
 	int		ret;
@@ -73,7 +59,6 @@ void	grid_size(t_board *data)
 	line = NULL;
 	len = 0;
 	ret = get_next_line(0, &line);
-	fprintf(data->read_log, "%s\n", line);
 	if (ret < 1)
 	{
 		ft_printf("ret neg\n");
@@ -108,15 +93,12 @@ int	make_grid(t_board *data)
 	}
 	while (data->line_helper < data->grid_x)
 	{
-		// ft_printf("data->grix_x = %d\n", data->grid_x);
-		// ft_printf("line helper = %d\n", data->line_helper);
-		ret = get_next_line(0, &line); // it stops there apparently
-		// usleep(100000);
-		fprintf(data->read_log, "%s\n", line);
-		data->grid[data->line_helper] = make_line(ret, line, data);
-		// usleep(100000);
-		// dprintf(2, "right after new line added to the grid = %d", data->line_helper);
-		// ft_printf("test : %s\n", data->grid[data->line_helper]);
+		ret = get_next_line(0, &line);
+		data->grid_helper = ft_strnew(data->grid_y);
+		data->grid_helper = ft_memcpy(data->grid_helper, (const char *)(line + 4), data->grid_y);
+		if (data->turn == 0 && data->player_x == 0 && data->player_y == 0)
+			token_coord(data, line);
+		data->grid[data->line_helper] = data->grid_helper;
 		data->line_helper++;
 		ft_strdel(&line);
 	}

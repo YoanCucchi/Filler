@@ -46,7 +46,6 @@ typedef struct s_board
 	char	*piece_helper;
 	char	**solving_grid;
 	char	*solving_grid_helper;
-	FILE	*read_log;
 }			t_board;
 
 typedef struct s_pos

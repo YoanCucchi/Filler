@@ -1,41 +1,24 @@
-Process:         ycucchi.filler [93157]
+Process:         ycucchi.filler [69957]
 Path:            /Users/USER/*/ycucchi.filler
-Load Address:    0x102b38000
+Load Address:    0x102650000
 Identifier:      ycucchi.filler
 Version:         ???
 Code Type:       ARM64
 Platform:        macOS
-Parent Process:  zsh [5279]
+Parent Process:  ruby [69952]
 
-Date/Time:       2022-07-05 17:15:30.940 +0300
-Launch Time:     2022-07-05 17:15:26.799 +0300
+Date/Time:       2022-07-19 15:59:13.218 +0300
+Launch Time:     2022-07-19 15:59:12.775 +0300
 OS Version:      macOS 12.4 (21F79)
 Report Version:  7
 Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
 Analysis Tool Version:  Xcode 13.4.1 (13F100)
 
-Physical footprint:         1297K
-Physical footprint (peak):  1297K
+Physical footprint:         977K
+Physical footprint (peak):  977K
 ----
 
 leaks Report Version: 4.0
-Process 93157: 220 nodes malloced for 12 KB
-Process 93157: 16 leaks for 608 total leaked bytes.
-
-    16 (608 bytes) ROOT LEAK: 0x600002a20000 [128]
-       1 (32 bytes) 0x600000420000 [32]
-       1 (32 bytes) 0x600000424000 [32]
-       1 (32 bytes) 0x600000424020 [32]
-       1 (32 bytes) 0x600000430000 [32]
-       1 (32 bytes) 0x600000430020 [32]
-       1 (32 bytes) 0x600000430040 [32]
-       1 (32 bytes) 0x600000430060 [32]
-       1 (32 bytes) 0x600000430080 [32]
-       1 (32 bytes) 0x600000438000 [32]
-       1 (32 bytes) 0x60000043c000 [32]
-       1 (32 bytes) 0x60000043c020 [32]
-       1 (32 bytes) 0x60000043c040 [32]
-       1 (32 bytes) 0x60000043c060 [32]
-       1 (32 bytes) 0x60000043c080 [32]
-       1 (32 bytes) 0x60000043c0a0 [32]
+Process 69957: 207 nodes malloced for 12 KB
+Process 69957: 0 leaks for 0 total leaked bytes.
 

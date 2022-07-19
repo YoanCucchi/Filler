@@ -16,14 +16,13 @@ void	read_piece(t_board *data)
 {
 	int		len;
 	int		ret;
-	// char	*tmp;
+	char	*tmp;
 	char	*line;
 
 	line = NULL;
 	len = 0;
 	ret = get_next_line(0, &line);
-	fprintf(data->read_log, "%s", line);
-	// tmp = line;
+	tmp = line;
 	// dprintf(2, "line to check read piece = %s\n", line);
 	while(!ft_isdigit(*line))
 		line++;
@@ -37,19 +36,7 @@ void	read_piece(t_board *data)
 	data->piece_y = ft_atoi(line);
 	// dprintf(2, "data->piece_x = %d\n", data->piece_x);
 	// dprintf(2, "data->piece_y = %d\n", data->piece_y);
-	// free(tmp);
-}
-
-static void	piece_helper(int ret, char *line, t_board *data)
-{
-	int	y;
-
-	y = 0;
-	data->piece_helper = ft_strnew(data->piece_y);
-	while (*line && *line != '.' && *line != '*')
-		line++;
-	data->piece_helper = ft_strcpy(data->piece_helper, line);
-	y++;
+	free(tmp);
 }
 
 int	make_piece(t_board *data)
@@ -68,8 +55,10 @@ int	make_piece(t_board *data)
 	while (data->piece_x > data->line_helper)
 	{
 		ret = get_next_line(0, &line);
-		fprintf(data->read_log, "%s\n", line);
-		piece_helper(ret, line, data);
+		data->piece_helper = ft_strnew(data->piece_y);
+		while (*line && *line != '.' && *line != '*')
+			line++;
+		data->piece_helper = ft_strcpy(data->piece_helper, line);
 		data->piece[data->line_helper] = data->piece_helper;
 		data->line_helper++;
 		ft_strdel(&line);

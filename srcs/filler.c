@@ -125,7 +125,6 @@ static void	player_piece(t_board *data)
 	player = 0;
 	line = NULL;
 	ret = get_next_line(0, &line);
-	fprintf(data->read_log, "%s\n", line);
 	if (ret < 1)
 	{
 		ft_printf("ret neg\n");
@@ -157,7 +156,6 @@ void	skip_line(t_board *data)
 
 	line = NULL;
 	ret = get_next_line(0, &line);
-	fprintf(data->read_log, "%s", line);
 	if (ret < 1)
 		exit(EXIT_FAILURE);
 	ft_strdel(&line);
@@ -196,11 +194,10 @@ int main(void)
 		ft_printf("malloc error\n");
 		return (0);
 	}
-	// ft_bzero(data, sizeof (t_board));
-	// ft_bzero(pos2, sizeof (t_pos));
-	// ft_bzero(sol, sizeof (t_solved));
-	// init_struct(data);
-	data->read_log = fopen("log.txt", "a+");
+	ft_bzero(data, sizeof (t_board));
+	ft_bzero(pos2, sizeof (t_pos));
+	ft_bzero(sol, sizeof (t_solved));
+	init_struct(data);
 	player_piece(data);
 	grid_size(data);
 
@@ -211,15 +208,10 @@ int main(void)
 	while (1)
 	{
 		skip_line(data);
-	//	bzero grid every turn
-		// usleep(100000);
-		make_grid(data); // BUG !!!!!
-		// dprint_grid(data);
-		// ft_printf("got ya\n");
-		// usleep(100000);
+		make_grid(data); // malloc chaque tour
 		read_piece(data);
-		make_piece(data);
-		solving_grid(data, pos2);
+		make_piece(data); // malloc chaque tour
+		solving_grid(data, pos2); // malloc chaque tour
 		// print_grid(data);
 		// print_solving_grid(data);
 		// print_piece(data);
@@ -229,14 +221,15 @@ int main(void)
 		ft_putchar(' ');
 		ft_putnbr(sol->y);
 		ft_putchar('\n');
+		free_grid(data);
+		free_piece(data);
+		free_solving_grid(data);
 		data->turn++;
 		skip_line(data); // skip line plateau x y
 	}
-	free_grid(data);
-	free_piece(data);
-	free_solving_grid(data);	
 	free(pos2);
 	free(data);
-	// system("leaks ycucchi.filler");
+	free(sol);
+	// system("leaks ycucchi.filler > leaks.out");
 	return (0);
 }
