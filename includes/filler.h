@@ -44,6 +44,7 @@ typedef struct s_board
 	int		placable;
 	int		not_placable;
 	int		dist;
+	int		im_bottom_right;
 	char	**grid;
 	char	*grid_helper;
 	char	**piece;
@@ -110,10 +111,10 @@ void	solving_grid(t_board *data, t_pos *pos2, t_pos pos1);
 ** solver_help.c
 */
 
-void	check_left(t_board *data, t_pos *pos2, t_pos pos1, int n);
-void	check_top(t_board *data, t_pos *pos2, t_pos pos1, int n);
-void	check_right(t_board *data, t_pos *pos2, t_pos pos1, int n);
-void	check_bottom(t_board *data, t_pos *pos2, t_pos pos1, int n);
+int		check_left(t_board *data, t_pos *pos2, t_pos pos1, int n);
+int		check_top(t_board *data, t_pos *pos2, t_pos pos1, int n);
+int		check_right(t_board *data, t_pos *pos2, t_pos pos1, int n);
+int		check_bottom(t_board *data, t_pos *pos2, t_pos pos1, int n);
 
 void	clean_all(t_board *data, t_pos *pos2, t_solved *sol, char *str);
 void		do_sum(t_board *data, int i, int j);

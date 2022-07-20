@@ -40,33 +40,45 @@ static void	check_corners(t_board *data, int i, int j, int n)
 		data->dist = n;
 }
 
-static void	closest(t_pos pos1, t_pos *pos2, t_board *data, int i)
+static int	closest(t_pos pos1, t_pos *pos2, t_board *data, int i)
 {
 	int	j;
 	int	n;
 	int	p;
+	int	tmp;
 
 	n = 0;
+	tmp = 0;
 	j = pos1.y;
-	p = data->ennemy_piece;
+	p = data->ennemy_piece;;
 	while (i + ++n < data->grid_x && j + n < data->grid_y)
 	{
 		if (i >= 0 && j - n >= 0 && \
 		(data->grid[i][j - n] == p || data->grid[i][j - n] == ft_tolower(p)))
-			check_left(data, pos2, pos1, n);
-		else if (i - n >= 0 && j >= 0 && \
+			return (check_left(data, pos2, pos1, n));
+		if (i - n >= 0 && j >= 0 && \
 		(data->grid[i - n][j] == p || data->grid[i - n][j] == ft_tolower(p)))
-			check_top(data, pos2, pos1, n);
-		else if (i >= 0 && j >= 0 && \
+			return (check_top(data, pos2, pos1, n));
+		if (i >= 0 && j >= 0 && \
 		(data->grid[i][j + n] == p || data->grid[i][j + n] == ft_tolower(p)))
-			check_right(data, pos2, pos1, n);
-		else if (i >= 0 && j >= 0 && \
+			return (check_right(data, pos2, pos1, n));
+		if (i >= 0 && j >= 0 && \
 		(data->grid[i + n][j] == p || data->grid[i + n][j] == ft_tolower(p)))
-			check_bottom(data, pos2, pos1, n);
-		if (n % 2 == 0 && data->dist == 0)
-			check_corners(data, i, j, n);
+			return (check_bottom(data, pos2, pos1, n));
+		if (n % 2 == 0)
+		{
+			tmp = n / 2;
+			if (i - tmp >= 0 && j - tmp >= 0 && (data->grid[i - tmp][j - tmp] == p || data->grid[i - tmp][j - tmp] == ft_tolower(p)))
+				return(n);
+			if (i - tmp >= 0 && j + tmp >= 0 && (data->grid[i - tmp][j + tmp] == p || data->grid[i - tmp][j + tmp] == ft_tolower(p)))
+				return(n);
+			if (i + tmp >= 0 && j + tmp >= 0 && (data->grid[i + tmp][j + tmp] == p || data->grid[i + tmp][j + tmp] == ft_tolower(p)))
+				return(n);
+			if (i + tmp >= 0 && j - tmp >= 0 && (data->grid[i + tmp][j - tmp] == p || data->grid[i + tmp][j - tmp] == ft_tolower(p)))
+				return(n);
+		}
 	}
-	data->dist = ft_absolute_distance(pos1, pos2);
+	return (ft_absolute_distance(pos1, pos2));
 }
 
 void	solving_grid(t_board *data, t_pos *pos2, t_pos pos1)
@@ -89,8 +101,11 @@ void	solving_grid(t_board *data, t_pos *pos2, t_pos pos1)
 			{
 				pos1.x = i;
 				pos1.y = j;
-				closest(pos1, pos2, data, i);
-				data->solving_grid_helper[j] = data->dist + '0';
+				data->dist = closest(pos1, pos2, data, i);
+				if (data->dist + '0' == 79 || data->dist + '0' == 111 || data->dist + '0' == 88 || data->dist + '0' == 120)
+					data->solving_grid_helper[j] = data->dist + '1';
+				else
+					data->solving_grid_helper[j] = data->dist + '0';
 			}
 		}
 		data->solving_grid[i] = data->solving_grid_helper;

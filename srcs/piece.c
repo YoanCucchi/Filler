@@ -90,6 +90,11 @@ void	do_algo(t_board *data, t_solved *sol, int i, int j)
 	}
 }
 
+void	do_algo2(t_board *data, t_solved *sol, int i, int j)
+{
+
+}
+
 void	do_sum(t_board *data, int i, int j)
 {
 	int	k;

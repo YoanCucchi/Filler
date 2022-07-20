@@ -77,7 +77,7 @@ void	make_grid(t_board *data)
 		data->grid_helper = ft_strnew(data->grid_y);
 		data->grid_helper = \
 		ft_memcpy(data->grid_helper, (const char *)(line + 4), data->grid_y);
-		if (data->turn == 0 && (data->player_x == 0 || data->ennemy_x == 0) && \
+		if (data->turn == 1 && (data->player_x == 0 || data->ennemy_x == 0) && \
 		(data->player_y == 0 || data->ennemy_y == 0))
 			token_coord(data, line, y);
 		data->grid[data->line_helper] = data->grid_helper;
@@ -85,4 +85,7 @@ void	make_grid(t_board *data)
 		ft_strdel(&line);
 	}
 	data->grid[data->line_helper] = NULL;
+	if (data->ennemy_x < data->player_x && data->ennemy_y < data->player_y && \
+	data->turn == 1)
+		data->im_bottom_right = 1;
 }

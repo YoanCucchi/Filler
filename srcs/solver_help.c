@@ -12,7 +12,7 @@
 
 #include ".././includes/filler.h"
 
-void	check_left(t_board *data, t_pos *pos2, t_pos pos1, int n)
+int	check_left(t_board *data, t_pos *pos2, t_pos pos1, int n)
 {
 	int	i;
 	int	j;
@@ -21,10 +21,10 @@ void	check_left(t_board *data, t_pos *pos2, t_pos pos1, int n)
 	j = pos1.y;
 	pos2->x = i;
 	pos2->y = j - n;
-	data->dist = ft_absolute_distance(pos1, pos2);
+	return (ft_absolute_distance(pos1, pos2));
 }
 
-void	check_top(t_board *data, t_pos *pos2, t_pos pos1, int n)
+int	check_top(t_board *data, t_pos *pos2, t_pos pos1, int n)
 {
 	int	i;
 	int	j;
@@ -33,10 +33,10 @@ void	check_top(t_board *data, t_pos *pos2, t_pos pos1, int n)
 	j = pos1.y;
 	pos2->x = i - n;
 	pos2->y = j;
-	data->dist = ft_absolute_distance(pos1, pos2);
+	return (ft_absolute_distance(pos1, pos2));
 }
 
-void	check_right(t_board *data, t_pos *pos2, t_pos pos1, int n)
+int	check_right(t_board *data, t_pos *pos2, t_pos pos1, int n)
 {
 	int	i;
 	int	j;
@@ -45,10 +45,10 @@ void	check_right(t_board *data, t_pos *pos2, t_pos pos1, int n)
 	j = pos1.y;
 	pos2->x = i;
 	pos2->y = j + n;
-	data->dist = ft_absolute_distance(pos1, pos2);
+	return (ft_absolute_distance(pos1, pos2));
 }
 
-void	check_bottom(t_board *data, t_pos *pos2, t_pos pos1, int n)
+int	check_bottom(t_board *data, t_pos *pos2, t_pos pos1, int n)
 {
 	int	i;
 	int	j;
@@ -57,5 +57,5 @@ void	check_bottom(t_board *data, t_pos *pos2, t_pos pos1, int n)
 	j = pos1.y;
 	pos2->x = i + n;
 	pos2->y = j;
-	data->dist = ft_absolute_distance(pos1, pos2);
+	return (ft_absolute_distance(pos1, pos2));
 }

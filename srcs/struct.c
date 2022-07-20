@@ -17,7 +17,7 @@ void	init_struct(t_board *data, t_pos *pos2, t_solved *sol)
 	ft_bzero(data, sizeof (t_board));
 	ft_bzero(pos2, sizeof (t_pos));
 	ft_bzero(sol, sizeof (t_solved));
-	data->turn = 0;
+	data->turn = 1;
 	data->player_x = 0;
 	data->player_y = 0;
 	data->ennemy_x = 0;
@@ -34,6 +34,7 @@ void	init_struct(t_board *data, t_pos *pos2, t_solved *sol)
 	data->placable = 0;
 	data->not_placable = 0;
 	data->dist = 0;
+	data->im_bottom_right = 0;
 	data->grid = NULL;
 	data->grid_helper = NULL;
 	data->piece = NULL;
