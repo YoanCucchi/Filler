@@ -17,9 +17,9 @@ static void	token_coord(t_board *data, char *line)
 	int	y;
 
 	y = 0;
-	while (line[y])
+	while ((line + 4)[y])
 	{
-		if (line[y] == 'O')
+		if ((line + 4)[y] == 'O')
 		{
 			if (data->player_piece == 'O')
 			{
@@ -32,7 +32,7 @@ static void	token_coord(t_board *data, char *line)
 				data->ennemy_y = y;
 			}
 		}
-		else if (line[y] == 'X')
+		else if ((line + 4)[y] == 'X')
 		{
 			if (data->player_piece == 'X')
 			{
@@ -49,7 +49,7 @@ static void	token_coord(t_board *data, char *line)
 	}
 }
 
-void	grid_size(t_board *data)
+void	grid_size(t_board *data, t_pos *pos2, t_solved *sol)
 {
 	int		ret;
 	char	*line;
@@ -58,22 +58,17 @@ void	grid_size(t_board *data)
 	line = NULL;
 	len = 0;
 	ret = get_next_line(0, &line);
-	if (ret < 1)
-	{
-		ft_printf("ret neg\n");
-		exit(EXIT_FAILURE);
-	}
 	if (ft_strncmp(line, "Plateau ", 8) || !ft_isdigit(*(line + 8)))
-		ft_printf("grid error\n");
+		clean_all(data, pos2, sol, "Grid size error\n");
 	data->grid_x = ft_atoi(line + 8);
 	len = ft_nbrlen(data->grid_x, 10) + 1;
 	if (!ft_isdigit(*(line + 8 + len)))
-		ft_printf("grid error\n");
+		clean_all(data, pos2, sol, "Grid size error\n");
 	data->grid_y = ft_atoi(line + 8 + len);
 	if (line[ft_strlen(line) - 1] != ':')
-		ft_printf("grid error\n");
+		clean_all(data, pos2, sol, "Grid size error\n");
 	if (data->grid_x < 1 || data->grid_y < 1)
-		ft_printf("grid error\n");
+		clean_all(data, pos2, sol, "Grid size error\n");
 	ft_strdel(&line);
 }
 
@@ -89,7 +84,7 @@ void	make_grid(t_board *data)
 		ret = get_next_line(0, &line);
 		data->grid_helper = ft_strnew(data->grid_y);
 		data->grid_helper = ft_memcpy(data->grid_helper, (const char *)(line + 4), data->grid_y);
-		if (data->turn == 0 && data->player_x == 0 && data->player_y == 0)
+		if (data->turn == 0 && (data->player_x == 0 || data->ennemy_x == 0) && (data->player_y == 0 || data->ennemy_y == 0))
 			token_coord(data, line);
 		data->grid[data->line_helper] = data->grid_helper;
 		data->line_helper++;

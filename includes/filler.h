@@ -69,21 +69,20 @@ typedef struct s_solved
 ** filler.c
 */
 
-void	skip_line(t_board *data);
-void	skip_line_print(void);
+void	skip_line(void);
 
 /*
 ** grid.c
 */
 
-void	grid_size(t_board *data);
+void	grid_size(t_board *data, t_pos *pos2, t_solved *sol);
 void	make_grid(t_board *data);
 
 /*
 ** piece.c
 */
 
-void	read_piece(t_board *data);
+void	read_piece(t_board *data, t_pos *pos2, t_solved *sol);
 int		make_piece(t_board *data);
 void	piece_offset(t_board *data, t_solved *sol);
 void	put_piece(t_board *data, t_solved *sol);
@@ -101,17 +100,17 @@ void	free_struct(t_board *data);
 */
 
 long	ft_absolute_distance(t_pos pos1, t_pos *pos2);
-void			solving_grid(t_board *data, t_pos *pos2);
+void	solving_grid(t_board *data, t_pos *pos2);
 
 /*
 ** solver_help.c
 */
 
-int	check_left(t_pos *pos2, t_pos pos1, int n);
-int	check_top(t_pos *pos2, t_pos pos1, int n);
-int	check_right(t_pos *pos2, t_pos pos1, int n);
-int	check_bottom(t_pos *pos2, t_pos pos1, int n);
+int		check_left(t_pos *pos2, t_pos pos1, int n);
+int		check_top(t_pos *pos2, t_pos pos1, int n);
+int		check_right(t_pos *pos2, t_pos pos1, int n);
+int		check_bottom(t_pos *pos2, t_pos pos1, int n);
 
-void	clean_all(t_board *data, t_pos *pos2, t_solved *sol);
+void	clean_all(t_board *data, t_pos *pos2, t_solved *sol, char *str);
 
 #endif

@@ -33,26 +33,26 @@ static int	closest(t_pos pos1, t_pos *pos2, t_board *data)
 	{
 		// ft_printf("n = %d\n", n);
 		tmp = 0;
-		if (i >= 0 && j - n >= 0 && (data->grid[i][j - n] == 'O' || data->grid[i][j - n] == 'o'))
+		if (i >= 0 && j - n >= 0 && (data->grid[i][j - n] == data->ennemy_piece || data->grid[i][j - n] == ft_tolower(data->ennemy_piece)))
 			return(check_left(pos2, pos1, n));
-		if (i - n >= 0 && j >= 0 && (data->grid[i - n][j] == 'O' || data->grid[i - n][j] == 'o'))
+		if (i - n >= 0 && j >= 0 && (data->grid[i - n][j] == data->ennemy_piece || data->grid[i - n][j] == ft_tolower(data->ennemy_piece)))
 			return(check_top(pos2, pos1, n));
-		if (i >= 0 && j >= 0 && (data->grid[i][j + n] == 'O' || data->grid[i][j + n] == 'o'))
+		if (i >= 0 && j >= 0 && (data->grid[i][j + n] == data->ennemy_piece || data->grid[i][j + n] == ft_tolower(data->ennemy_piece)))
 			return(check_right(pos2, pos1, n));
-		if (i >= 0 && j >= 0 && (data->grid[i + n][j] == 'O' || data->grid[i + n][j] == 'o'))
+		if (i >= 0 && j >= 0 && (data->grid[i + n][j] == data->ennemy_piece || data->grid[i + n][j] == ft_tolower(data->ennemy_piece)))
 			return(check_bottom(pos2, pos1, n));
 		if (n % 2 == 0)
 		{
 			tmp = n / 2;
 			// ft_printf("tmp = %d", tmp);
 			// ft_printf("n = %d\n", n);
-			if (i - tmp >= 0 && j - tmp >= 0 && (data->grid[i - tmp][j - tmp] == 'O' || data->grid[i - tmp][j - tmp] == 'o'))
+			if (i - tmp >= 0 && j - tmp >= 0 && (data->grid[i - tmp][j - tmp] == data->ennemy_piece || data->grid[i - tmp][j - tmp] == ft_tolower(data->ennemy_piece)))
 				return(n);
-			if (i - tmp >= 0 && j + tmp >= 0 && (data->grid[i - tmp][j + tmp] == 'O' || data->grid[i - tmp][j + tmp] == 'o'))
+			if (i - tmp >= 0 && j + tmp >= 0 && (data->grid[i - tmp][j + tmp] == data->ennemy_piece || data->grid[i - tmp][j + tmp] == ft_tolower(data->ennemy_piece)))
 				return(n);
-			if (i + tmp >= 0 && j + tmp >= 0 && (data->grid[i + tmp][j + tmp] == 'O' || data->grid[i + tmp][j + tmp] == 'o'))
+			if (i + tmp >= 0 && j + tmp >= 0 && (data->grid[i + tmp][j + tmp] == data->ennemy_piece || data->grid[i + tmp][j + tmp] == ft_tolower(data->ennemy_piece)))
 				return(n);
-			if (i + tmp >= 0 && j - tmp >= 0 && (data->grid[i + tmp][j - tmp] == 'O' || data->grid[i + tmp][j - tmp] == 'o'))
+			if (i + tmp >= 0 && j - tmp >= 0 && (data->grid[i + tmp][j - tmp] == data->ennemy_piece || data->grid[i + tmp][j - tmp] == ft_tolower(data->ennemy_piece)))
 				return(n);
 		}
 		n++;
@@ -77,6 +77,8 @@ void		solving_grid(t_board *data, t_pos *pos2)
 	j = 0;
 	pos2->x = data->ennemy_x;
 	pos2->y = data->ennemy_y;
+	// ft_printf("pos2x = %d\n", pos2->x);
+	// ft_printf("pos2y = %d\n", pos2->y);
 	dist = 0;
 	while (data->grid[i]) // ligne par ligne ++
 	{

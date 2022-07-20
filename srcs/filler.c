@@ -119,7 +119,7 @@ static void	struc_print(t_board *data)
 	ft_printf("------------------------------------------------------------\n");
 }
 
-static void	player_piece(t_board *data)
+static void	player_piece(t_board *data, t_pos *pos2, t_solved *sol)
 {
 	int		ret;
 	char	*line;
@@ -128,14 +128,9 @@ static void	player_piece(t_board *data)
 	player = 0;
 	line = NULL;
 	ret = get_next_line(0, &line);
-	if (ret < 1)
-	{
-		ft_printf("ret neg\n");
-		exit(EXIT_FAILURE);
-	}
 	player = ft_atoi(line + 10);
 	if (ft_strncmp(line, "$$$ exec p", 10 || !(player == 1 || player == 2)))
-		ft_printf("error player\n");
+		clean_all(data, pos2, sol, "Wrong player\n");
 	if (player == 1)
 	{
 		data->player_piece = 'O';
@@ -148,11 +143,11 @@ static void	player_piece(t_board *data)
 	}
 	if (ft_strncmp(line + 11, " : [./ycucchi.filler]", 21) || \
 	line[ft_strlen(line) - 1] != ']')
-		ft_printf("error player\n");
+		clean_all(data, pos2, sol, "Wrong player\n");
 	ft_strdel(&line);
 }
 
-void	clean_all(t_board *data, t_pos *pos2, t_solved *sol)
+void	clean_all(t_board *data, t_pos *pos2, t_solved *sol, char *str)
 {
 	if (!data)
 		exit (0);
@@ -168,43 +163,32 @@ void	clean_all(t_board *data, t_pos *pos2, t_solved *sol)
 		free(sol);
 	if (data)
 		free(data);
-	// exit (0);
-}
-
-void	skip_line(t_board *data)
-{
-	int		ret;
-	char	*line;
-
-	line = NULL;
-	ret = get_next_line(0, &line);
-	if (ret < 1)
-		exit(EXIT_FAILURE);
-	ft_strdel(&line);
-}
-
-void	skip_line_print(void)
-{
-	int		ret;
-	char	*line;
-
-	line = NULL;
-	ret = get_next_line(0, &line);
-	if (ret < 1)
+	if (ft_strcmp(str, ""))
 	{
-		ft_printf("ret error\n");
+		ft_putendl_fd(str, 2);
 		exit(EXIT_FAILURE);
 	}
-	ft_printf("lineskippedwas: %s\n", line);
+	exit(EXIT_SUCCESS);
+}
+
+void	skip_line(void)
+{
+	int		ret;
+	char	*line;
+
+	line = NULL;
+	ret = get_next_line(0, &line);
 	ft_strdel(&line);
 }
 
 static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 {
-	// if problem return 0 and free what was assigned before and inside loop
-	skip_line(data);
+	skip_line();
 	make_grid(data);
-	read_piece(data);
+	read_piece(data, pos2, sol);
+	data->piece = (char **)malloc(sizeof(char*) * (data->piece_x + 1));
+	if (!data->piece)
+		clean_all(data, pos2, sol, "Malloc error\n");
 	make_piece(data); // malloc chaque tour
 	solving_grid(data, pos2);
 	// print_grid(data);
@@ -216,8 +200,10 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	ft_printf("%d\n", sol->y);
 	if (data->piece)
 		free_piece(data);
+	if (sol->x == 0 && sol->y == 0)
+		clean_all(data, pos2, sol, "");
 	data->turn++;
-	skip_line(data); // skip line plateau x y
+	skip_line();
 	return (1);
 }
 
@@ -234,18 +220,17 @@ int main(void)
 	pos2 = (t_pos *)malloc(sizeof(t_pos));
 	sol = (t_solved *)malloc(sizeof(t_solved));
 	if (!data || !pos2 || !sol)
-		clean_all(data, pos2, sol);
+		clean_all(data, pos2, sol, "Struct malloc error\n");
 	init_struct(data, pos2, sol);
-	player_piece(data);
-	grid_size(data);
+	player_piece(data, pos2, sol);
+	grid_size(data, pos2, sol);
 	data->grid = (char **)malloc(sizeof(char*) * (data->grid_x + 1));
 	data->solving_grid = (char **)malloc(sizeof(char*) * (data->grid_x + 1));
 	if (!data->grid || !data->solving_grid)
-		clean_all(data, pos2, sol);
-// need to fix when no pos are possible it will returns the previous one (should be 0)
+		clean_all(data, pos2, sol, "Malloc error\n");
 	while(1)
 		filler_loop(data, pos2, sol);
-	clean_all(data, pos2, sol);
+	clean_all(data, pos2, sol, "");
 	// system("leaks ycucchi.filler > leaks.out");
 	return (0);
 }

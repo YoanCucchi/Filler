@@ -12,7 +12,7 @@
 
 #include ".././includes/filler.h"
 
-void	read_piece(t_board *data)
+void	read_piece(t_board *data, t_pos *pos2, t_solved *sol)
 {
 	int		len;
 	int		ret;
@@ -34,6 +34,8 @@ void	read_piece(t_board *data)
 	while(!ft_isdigit(*line))
 		line++;
 	data->piece_y = ft_atoi(line);
+	if (data->piece_x == 0 || data->piece_y == 0)
+		clean_all(data, pos2, sol, "Grid size error\n");
 	// dprintf(2, "data->piece_x = %d\n", data->piece_x);
 	// dprintf(2, "data->piece_y = %d\n", data->piece_y);
 	free(tmp);
@@ -46,12 +48,6 @@ int	make_piece(t_board *data)
 
 	line =  NULL;
 	data->line_helper = 0;
-	data->piece = (char **)malloc(sizeof(char*) * (data->piece_x + 1));
-	if (!data->piece)
-	{
-		ft_printf("Malloc error\n");
-		return (0);
-	}
 	while (data->piece_x > data->line_helper)
 	{
 		ret = get_next_line(0, &line);
@@ -109,7 +105,7 @@ void	put_piece(t_board *data, t_solved *sol)
 						{
 							// ft_printf("data->piece[k][l] = [%c]\n", data->piece[k][l]);
 							// ft_printf("solving grid = [%c]\n", data->solving_grid[i + k][j + l]);
-							if ((data->solving_grid[i + k][j + l] != 'X' || data->solving_grid[i + k][j + l] != 'x'))
+							if ((data->solving_grid[i + k][j + l] != data->player_piece || data->solving_grid[i + k][j + l] != ft_tolower(data->player_piece)))
 								sum += data->solving_grid[i + k][j + l] - '0';
 						}
 						l++;
@@ -156,23 +152,6 @@ void	put_piece(t_board *data, t_solved *sol)
 	// ft_printf("sol sum = [%d]\n", sol->sum);
 }
 
-void	piece_offset(t_board *data, t_solved *sol)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (j < data->piece_y && data->piece[i][j] != '\0')
-	{
-		if (data->piece[i][j] != '*')
-			data->piece_offset++;
-		j++;
-	}
-	// ft_printf("data offset = %d\n", data->piece_offset);
-	put_piece(data, sol);
-}
-
 int	is_placable(t_board *data, int i, int j)
 {
 	// DO I NEED TO CHECK TO TRIM THE . IF NO * after ==> looks like i don't need
@@ -198,10 +177,10 @@ int	is_placable(t_board *data, int i, int j)
 				return (0);
 			if (i + k > data->grid_x || j + l > data->grid_y)
 				return (0);
-			if (data->solving_grid[i + k][j + l] == 'O' || \
-			data->solving_grid[i + k][j + l] == 'o') // piece collision
+			if (data->solving_grid[i + k][j + l] == data->ennemy_piece || \
+			data->solving_grid[i + k][j + l] == ft_tolower(data->ennemy_piece)) // piece collision
 				return (0);
-			if ((data->solving_grid[i + k][j + l] == 'X' || data->solving_grid[i + k][j + l] == 'x') && data->piece[k][l] == '*')
+			if ((data->solving_grid[i + k][j + l] == data->player_piece || data->solving_grid[i + k][j + l] == ft_tolower(data->player_piece)) && data->piece[k][l] == '*')
 			{
 				// ft_printf("data solving grid value : [%c]\n", data->solving_grid[i + k][j + l]);
 				// ft_printf("i = [%d]\n", i);
