@@ -182,14 +182,16 @@ void	skip_line(void)
 
 static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 {
+	t_pos	pos1;
+
+	pos1.x = 0;
+	pos1.y = 0;
+	data->dist = 0;
 	skip_line();
 	make_grid(data);
 	read_piece(data, pos2, sol);
-	data->piece = (char **)malloc(sizeof(char *) * (data->piece_x + 1));
-	if (!data->piece)
-		clean_all(data, pos2, sol, "Malloc error\n");
-	make_piece(data); // malloc chaque tour
-	solving_grid(data, pos2);
+	make_piece(data);
+	solving_grid(data, pos2, pos1);
 	// print_grid(data);
 	// print_solving_grid(data);
 	// print_piece(data);

@@ -33,6 +33,7 @@ void	init_struct(t_board *data, t_pos *pos2, t_solved *sol)
 	data->sum = 0;
 	data->placable = 0;
 	data->not_placable = 0;
+	data->dist = 0;
 	data->grid = NULL;
 	data->grid_helper = NULL;
 	data->piece = NULL;

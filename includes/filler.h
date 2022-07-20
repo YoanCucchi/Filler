@@ -43,6 +43,7 @@ typedef struct s_board
 	int		sum;
 	int		placable;
 	int		not_placable;
+	int		dist;
 	char	**grid;
 	char	*grid_helper;
 	char	**piece;
@@ -103,16 +104,16 @@ void	free_struct(t_board *data);
 */
 
 long	ft_absolute_distance(t_pos pos1, t_pos *pos2);
-void	solving_grid(t_board *data, t_pos *pos2);
+void	solving_grid(t_board *data, t_pos *pos2, t_pos pos1);
 
 /*
 ** solver_help.c
 */
 
-int		check_left(t_pos *pos2, t_pos pos1, int n);
-int		check_top(t_pos *pos2, t_pos pos1, int n);
-int		check_right(t_pos *pos2, t_pos pos1, int n);
-int		check_bottom(t_pos *pos2, t_pos pos1, int n);
+void	check_left(t_board *data, t_pos *pos2, t_pos pos1, int n);
+void	check_top(t_board *data, t_pos *pos2, t_pos pos1, int n);
+void	check_right(t_board *data, t_pos *pos2, t_pos pos1, int n);
+void	check_bottom(t_board *data, t_pos *pos2, t_pos pos1, int n);
 
 void	clean_all(t_board *data, t_pos *pos2, t_solved *sol, char *str);
 void		do_sum(t_board *data, int i, int j);
