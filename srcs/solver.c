@@ -69,7 +69,8 @@ void	solving_grid(t_board *data, t_pos *pos2)
 
 	i = 0;
 	j = 0;
-	pos1 = {0, 0};
+	pos1.x = 0;
+	pos1.y= 0;
 	pos2->x = data->ennemy_x;
 	pos2->y = data->ennemy_y;
 	dist = 0;
