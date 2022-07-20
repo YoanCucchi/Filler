@@ -24,14 +24,14 @@ void	read_piece(t_board *data, t_pos *pos2, t_solved *sol)
 	ret = get_next_line(0, &line);
 	tmp = line;
 	// dprintf(2, "line to check read piece = %s\n", line);
-	while(!ft_isdigit(*line))
+	while (!ft_isdigit(*line))
 		line++;
 	// ft_printf("line to afeterererr = %s\n", line);
 	data->piece_x = ft_atoi(line);
 	len = ft_nbrlen(data->piece_x, 10) + 1;
 	while (len--)
 		line++;
-	while(!ft_isdigit(*line))
+	while (!ft_isdigit(*line))
 		line++;
 	data->piece_y = ft_atoi(line);
 	if (data->piece_x == 0 || data->piece_y == 0)
@@ -46,7 +46,7 @@ int	make_piece(t_board *data)
 	int		ret;
 	char	*line;
 
-	line =  NULL;
+	line = NULL;
 	data->line_helper = 0;
 	while (data->piece_x > data->line_helper)
 	{
@@ -63,98 +63,87 @@ int	make_piece(t_board *data)
 	return (1);
 }
 
+void	do_algo(t_board *data, t_solved *sol, int i, int j)
+{
+	if ((j < sol->y || sol->sum == 0) && data->turn < 20 && j > 0)
+	{
+		sol->x = i;
+		sol->y = j;
+		sol->sum = data->sum;
+	}
+	else if ((j < sol->y && i < sol->x) && data->turn < 20)
+	{
+		sol->x = i;
+		sol->y = j;
+		sol->sum = data->sum;
+	}
+	else if ((data->sum - 5 <= sol->sum && data->sum - 5 > 0 && i <= sol->x && j <= sol->y && data->turn < 30))
+	{
+		sol->x = i;
+		sol->y = j;
+		sol->sum = data->sum;
+	}
+	else if ((data->sum < sol->sum || sol->sum == 0) && data->turn >= 20)
+	{
+		sol->x = i;
+		sol->y = j;
+		sol->sum = data->sum;
+	}
+}
+
+void	do_sum(t_board *data, int i, int j)
+{
+	int	k;
+	int	l;
+
+	data->sum = 0;
+	k = 0;
+	while (data->piece[k] != NULL)
+	{
+		l = 0;
+		while (data->piece[k][l] != '\0' && \
+		i + k <= data->grid_x && j + l <= data->grid_y)
+		{
+			if (data->piece[k][l] == '*')
+			{
+				if ((data->solving_grid[i + k][j + l] != data->player_piece || data->solving_grid[i + k][j + l] != ft_tolower(data->player_piece)))
+					data->sum += data->solving_grid[i + k][j + l] - '0';
+			}
+			l++;
+		}
+		k++;
+	}
+}
+
 void	put_piece(t_board *data, t_solved *sol)
 {
 	int	i;
 	int	j;
-	int	k;
-	int	l;
-	int	sum;
-	int	test;
-	int	not_placable;
 
 	i = 0;
-	test = 0;
-	not_placable = 0;
+	data->placable = 0;
+	data->not_placable = 0;
 	sol->sum = 0;
 	while (data->solving_grid[i] != NULL) // check line / line
 	{
-		// ft_printf("first while\n");
 		j = 0;
 		while (data->solving_grid[i][j] != '\0') // check column / column
 		{
-			// ft_printf("second while\n");
-			test = is_placable(data, i, j);
-			// ft_printf("====> is placable = [%d]<====\n", test);
-			if (test == 1)
+			data->placable = is_placable(data, i, j);
+			if (data->placable == 1)
 			{
-				// check piece
-				not_placable = 1;
-				sum = 0;
-				k = 0;
-				while (data->piece[k] != NULL)
-				{
-					// ft_printf("third while\n");
-					l = 0;
-					while (data->piece[k][l] != '\0' && \
-					i + k <= data->grid_x && j + l <= data->grid_y)
-					{
-						// ft_printf("4th while\n");
-						// ft_printf("====>[%c]<=====\n", data->solving_grid[i][j]);
-						if (data->piece[k][l] == '*')
-						{
-							// ft_printf("data->piece[k][l] = [%c]\n", data->piece[k][l]);
-							// ft_printf("solving grid = [%c]\n", data->solving_grid[i + k][j + l]);
-							if ((data->solving_grid[i + k][j + l] != data->player_piece || data->solving_grid[i + k][j + l] != ft_tolower(data->player_piece)))
-								sum += data->solving_grid[i + k][j + l] - '0';
-						}
-						l++;
-					}
-					k++;
-				}
-				// ft_printf("sum in put piece = %d\n", sum);
-				// if (sum = sol->sum) 2 solutions possible faut chosir
-				// need to finish X to the right to block the opponent
-				if ((j < sol->y || sol->sum == 0) && data->turn < 20 && j > 0)
-				{
-					sol->x = i;
-					sol->y = j;
-					sol->sum = sum;
-				}
-				else if ((j < sol->y && i < sol->x) && data->turn < 20)
-				{
-					sol->x = i;
-					sol->y = j;
-					sol->sum = sum;
-				}
-				else if ((sum - 5 <= sol->sum && sum - 5 > 0 && i <= sol->x && j <= sol->y && data->turn < 30))
-				{
-					sol->x = i;
-					sol->y = j;
-					sol->sum = sum;
-				}
-				else if ((sum < sol->sum || sol->sum == 0) && data->turn >= 20)
-				{
-					sol->x = i;
-					sol->y = j;
-					sol->sum = sum;
-				}
+				data->not_placable = 1;
+				do_sum(data, i, j);
+				do_algo(data, sol, i, j);
 			}
 			j++;
 		}
 		i++;
 	}
-	if (!not_placable)
-	{
-		sol->x = 0;
-		sol->y = 0;
-	}
-	// ft_printf("sol sum = [%d]\n", sol->sum);
 }
 
 int	is_placable(t_board *data, int i, int j)
 {
-	// DO I NEED TO CHECK TO TRIM THE . IF NO * after ==> looks like i don't need
 	int	k;
 	int	l;
 	int	x_count;

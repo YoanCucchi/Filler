@@ -12,40 +12,30 @@
 
 #include ".././includes/filler.h"
 
-static void	token_coord(t_board *data, char *line)
+static void	token_coord(t_board *data, char *line, int y)
 {
-	int	y;
-
-	y = 0;
-	while ((line + 4)[y])
+	while ((line + 4)[y++])
 	{
-		if ((line + 4)[y] == 'O')
+		if ((line + 4)[y] == 'O' && data->player_piece == 'O')
 		{
-			if (data->player_piece == 'O')
-			{
-				data->player_x = data->line_helper;
-				data->player_y = y;
-			}
-			else if (data->player_piece == 'X')
-			{
-				data->ennemy_x = data->line_helper;
-				data->ennemy_y = y;
-			}
+			data->player_x = data->line_helper;
+			data->player_y = y;
 		}
-		else if ((line + 4)[y] == 'X')
+		else if ((line + 4)[y] == 'O' && data->player_piece == 'X')
 		{
-			if (data->player_piece == 'X')
-			{
-				data->player_x = data->line_helper;
-				data->player_y = y;
-			}
-			else if (data->player_piece == 'O')
-			{
-				data->ennemy_x = data->line_helper;
-				data->ennemy_y = y;
-			}
+			data->ennemy_x = data->line_helper;
+			data->ennemy_y = y;
 		}
-		y++;
+		else if ((line + 4)[y] == 'X' && data->player_piece == 'X')
+		{
+			data->player_x = data->line_helper;
+			data->player_y = y;
+		}
+		else if ((line + 4)[y] == 'X' && data->player_piece == 'O')
+		{
+			data->ennemy_x = data->line_helper;
+			data->ennemy_y = y;
+		}
 	}
 }
 
@@ -76,16 +66,20 @@ void	make_grid(t_board *data)
 {
 	int		ret;
 	char	*line;
+	int		y;
 
 	line = NULL;
 	data->line_helper = 0;
 	while (data->line_helper < data->grid_x)
 	{
+		y = 0;
 		ret = get_next_line(0, &line);
 		data->grid_helper = ft_strnew(data->grid_y);
-		data->grid_helper = ft_memcpy(data->grid_helper, (const char *)(line + 4), data->grid_y);
-		if (data->turn == 0 && (data->player_x == 0 || data->ennemy_x == 0) && (data->player_y == 0 || data->ennemy_y == 0))
-			token_coord(data, line);
+		data->grid_helper = \
+		ft_memcpy(data->grid_helper, (const char *)(line + 4), data->grid_y);
+		if (data->turn == 0 && (data->player_x == 0 || data->ennemy_x == 0) && \
+		(data->player_y == 0 || data->ennemy_y == 0))
+			token_coord(data, line, y);
 		data->grid[data->line_helper] = data->grid_helper;
 		data->line_helper++;
 		ft_strdel(&line);

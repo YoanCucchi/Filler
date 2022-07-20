@@ -40,6 +40,9 @@ typedef struct s_board
 	int		piece_offset;
 	int		player_piece;
 	int		ennemy_piece;
+	int		sum;
+	int		placable;
+	int		not_placable;
 	char	**grid;
 	char	*grid_helper;
 	char	**piece;
@@ -112,5 +115,7 @@ int		check_right(t_pos *pos2, t_pos pos1, int n);
 int		check_bottom(t_pos *pos2, t_pos pos1, int n);
 
 void	clean_all(t_board *data, t_pos *pos2, t_solved *sol, char *str);
+void		do_sum(t_board *data, int i, int j);
+void	do_algo(t_board *data, t_solved *sol, int i, int j);
 
 #endif

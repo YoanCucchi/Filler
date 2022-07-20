@@ -81,11 +81,10 @@ static void	dprint_grid(t_board *data)
 	int	i;
 
 	i = -1;
-
-	dprintf(2, "\n------------------------------------------------------------\n");
+	dprintf(2, "\n---------------------------------------------------------\n");
 	while (data->grid[++i])
 		dprintf(2, "[%s]\n", data->grid[i]);
-	dprintf(2, "------------------------------------------------------------\n");
+	dprintf(2, "-----------------------------------------------------------\n");
 }
 
 static void	print_solving_grid(t_board *data)
@@ -186,7 +185,7 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	skip_line();
 	make_grid(data);
 	read_piece(data, pos2, sol);
-	data->piece = (char **)malloc(sizeof(char*) * (data->piece_x + 1));
+	data->piece = (char **)malloc(sizeof(char *) * (data->piece_x + 1));
 	if (!data->piece)
 		clean_all(data, pos2, sol, "Malloc error\n");
 	make_piece(data); // malloc chaque tour
@@ -196,6 +195,11 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	// print_piece(data);
 	// struc_print(data);
 	put_piece(data, sol);
+	if (!data->not_placable)
+	{
+		sol->x = 0;
+		sol->y = 0;
+	}
 	ft_printf("%d ", sol->x);
 	ft_printf("%d\n", sol->y);
 	if (data->piece)
@@ -207,11 +211,11 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	return (1);
 }
 
-int main(void)
+int	main(void)
 {
-	t_board	*data;
-	t_pos	*pos2;
-	t_solved *sol;
+	t_board		*data;
+	t_pos		*pos2;
+	t_solved	*sol;
 
 	data = NULL;
 	pos2 = NULL;
@@ -224,11 +228,11 @@ int main(void)
 	init_struct(data, pos2, sol);
 	player_piece(data, pos2, sol);
 	grid_size(data, pos2, sol);
-	data->grid = (char **)malloc(sizeof(char*) * (data->grid_x + 1));
-	data->solving_grid = (char **)malloc(sizeof(char*) * (data->grid_x + 1));
+	data->grid = (char **)malloc(sizeof(char *) * (data->grid_x + 1));
+	data->solving_grid = (char **)malloc(sizeof(char *) * (data->grid_x + 1));
 	if (!data->grid || !data->solving_grid)
 		clean_all(data, pos2, sol, "Malloc error\n");
-	while(1)
+	while (1)
 		filler_loop(data, pos2, sol);
 	clean_all(data, pos2, sol, "");
 	// system("leaks ycucchi.filler > leaks.out");
