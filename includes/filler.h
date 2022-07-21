@@ -117,7 +117,13 @@ int		check_right(t_board *data, t_pos *pos2, t_pos pos1, int n);
 int		check_bottom(t_board *data, t_pos *pos2, t_pos pos1, int n);
 
 void	clean_all(t_board *data, t_pos *pos2, t_solved *sol, char *str);
-void		do_sum(t_board *data, int i, int j);
+void	do_sum(t_board *data, int i, int j);
 void	do_algo(t_board *data, t_solved *sol, int i, int j);
+void	do_algo2(t_board *data, t_solved *sol, int i, int j);
+
+int	anyone_up(t_board *data, t_solved *sol, int i, int j);
+int	anyone_left(t_board *data, t_solved *sol, int i, int j);
+int	anyone_right(t_board *data, t_solved *sol, int i, int j);
+int	anyone_bottom(t_board *data, t_solved *sol, int i, int j);
 
 #endif
