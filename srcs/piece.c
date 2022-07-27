@@ -96,30 +96,40 @@ void	do_algo2(t_board *data, t_solved *sol, int i, int j)
 	// check si ya un truc au dessus si oui go left
 	// check si ya un truc au dessus et a gauche go bottom
 	// check si ya un truc au dessus et a droit go 
-	if (!anyone_left(data, sol, i, j) && anyone_up(data, sol, i, j) \
-	&& data->sum < sol->sum + 4 && data->turn < 20)
-	{
-		dprintf(2, "!gauche mais dessus ==> go gauche\n");
-		// y'a rien a gauche mais y'a un truc au dessus on go le plus a gauche
-		if (j < sol->y)
-		{
-			sol->x = i;
-			sol->y = j;
-			sol->sum = data->sum;
-		}
-	}
-	else if (anyone_left(data, sol, i, j) && !anyone_up(data, sol, i, j) && \
-	(i < sol->y || sol->x == 0) && data->turn < 20)
-	{
-		dprintf(2, "y'a gauche mais !dessus ==> go up\n");
-		// y'a un truc a gauche mais y'a rien au dessus on go le plus haut
-		sol->x = i;
-		sol->y = j;
-		sol->sum = data->sum;
-	}
-	// else if (data->turn > 15 && data->turn < 30 && !anyone_right(data, sol, i, j) && \
-	// j > sol->y)
-	else if (data->sum < sol->sum || sol->sum == 0) // closest possible
+	// je fais quoi si sol sum = data sum
+	// if (data->turn < 15 && (j < sol->y || sol->sum == 0))
+	// {
+	// 	dprintf(2, "turn = %d\n", data->turn);
+	// 	dprintf(2, "10 premier tours ==> go gauche\n");
+	// 	dprintf(2, "sol sum = %d\n", sol->sum);
+	// 	// y'a rien a gauche mais y'a un truc au dessus on go le plus a gauche
+	// 	sol->x = i;
+	// 	sol->y = j;
+	// 	sol->sum = data->sum;
+	// 	dprintf(2, "i = %d\n", i);
+	// 	dprintf(2, "j = %d\n", j);
+	// 	dprintf(2, "sol->x = %d\n", sol->x);
+	// 	dprintf(2, "sol->y = %d\n", sol->y);
+	// }
+	// else if (!anyone_left(data, sol, i, j) && anyone_up(data, sol, i, j) \
+	//  && data->turn < 20 && j < sol->y && (data->sum < sol->sum + 10 || sol->sum == 0))
+	// {
+	// 	dprintf(2, "!gauche mais dessus ==> go gauche\n");
+	// 	// y'a rien a gauche mais y'a un truc au dessus on go le plus a gauche
+	// 	sol->x = i;
+	// 	sol->y = j;
+	// 	sol->sum = data->sum;
+	// }
+	// else if (anyone_left(data, sol, i, j) && !anyone_up(data, sol, i, j) && \
+	// data->turn < 25 && i < sol->y && data->sum < sol->sum + 1)
+	// {
+	// 	dprintf(2, "y'a gauche mais !dessus ==> go up\n");
+	// 	// y'a un truc a gauche mais y'a rien au dessus on go le plus haut
+	// 	sol->x = i;
+	// 	sol->y = j;
+	// 	sol->sum = data->sum;
+	// }
+	if ((data->sum < sol->sum || sol->sum == 0)) // closest possible
 	{
 		sol->x = i;
 		sol->y = j;
@@ -129,6 +139,55 @@ void	do_algo2(t_board *data, t_solved *sol, int i, int j)
 	// dprintf(2, "j = %d\n", j);
 	// dprintf(2, "sol->x = %d\n", sol->x);
 	// dprintf(2, "sol->y = %d\n", sol->y);
+}
+
+void	do_algo3(t_board *data, t_solved *sol, int i, int j)
+{
+	// il faudrait voir comme faire pour trouver le plus proche
+	// mais aussi le plus haut gauche possible
+	// j < sol->y ==> plus a gauche
+	// i < sol->x ==> plus en haut
+	// plus en haut a gauche = ???
+	// if (j < sol->y && i < sol->x)
+	if ((j < sol->y || sol->sum == 0) && data->turn < 15 && !anyone_up(data, sol, i, j))
+	{
+		dprintf(2, "turn = %d\n", data->turn);
+		dprintf(2, "10 premier tours ==> go gauche\n");
+		dprintf(2, "sol sum = %d\n", sol->sum);
+		sol->x = i;
+		sol->y = j;
+		sol->sum = data->sum;
+		dprintf(2, "i = %d\n", i);
+		dprintf(2, "j = %d\n", j);
+		dprintf(2, "sol->x = %d\n", sol->x);
+		dprintf(2, "sol->y = %d\n", sol->y);
+	}
+	else if (((j < sol->y && i < sol->x) || sol->sum == 0) && data->turn < 25)
+	{
+		dprintf(2, "turn = %d\n", data->turn);
+		dprintf(2, "25 premier tours ==> go haut gauche \n");
+		dprintf(2, "sol sum = %d\n", sol->sum);
+		sol->x = i;
+		sol->y = j;
+		sol->sum = data->sum;
+		dprintf(2, "i = %d\n", i);
+		dprintf(2, "j = %d\n", j);
+		dprintf(2, "sol->x = %d\n", sol->x);
+		dprintf(2, "sol->y = %d\n", sol->y);
+	}
+		else if ((data->sum < sol->sum || sol->sum == 0) && data->turn >= 25)
+	{
+		dprintf(2, "turn = %d\n", data->turn);
+		dprintf(2, "le reste du temps  ==> au plus proche\n");
+		dprintf(2, "sol sum = %d\n", sol->sum);
+		sol->x = i;
+		sol->y = j;
+		sol->sum = data->sum;
+		dprintf(2, "i = %d\n", i);
+		dprintf(2, "j = %d\n", j);
+		dprintf(2, "sol->x = %d\n", sol->x);
+		dprintf(2, "sol->y = %d\n", sol->y);
+	}
 }
 
 void	do_sum(t_board *data, int i, int j)
@@ -174,11 +233,16 @@ void	put_piece(t_board *data, t_solved *sol)
 			{
 				data->not_placable = 1;
 				do_sum(data, i, j);
-				// do_algo(data, sol, i, j);
-				do_algo2(data, sol, i, j);
+				if (data->grid_x > 40 || im_top_left(data))
+					do_algo2(data, sol, i, j);
+				else
+					do_algo3(data, sol, i, j);
 			}
 		}
 	}
+	dprintf(2, "final sol->x = %d\n", sol->x);
+	dprintf(2, "final sol->y = %d\n", sol->y);
+	dprintf(2, "final turn = %d\n", data->turn);
 }
 
 int	is_placable(t_board *data, int i, int j)
@@ -211,4 +275,14 @@ int	is_placable(t_board *data, int i, int j)
 	if (x_count != 1)
 		return (0);
 	return (1);
+}
+
+int	im_top_left(t_board *data)
+{
+	if (data->turn > 1)
+		return (1);
+	if (data->player_x > data->ennemy_x)
+		return (1);
+	else
+		return (0);
 }
