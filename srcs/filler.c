@@ -206,7 +206,7 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	ft_printf("%d\n", sol->y);
 	if (data->piece)
 		free_piece(data);
-	if (sol->x == 0 && sol->y == 0)
+	if (sol->x == 0 && sol->y == 0 && !data->not_placable)
 		clean_all(data, pos2, sol, "");
 	data->turn++;
 	skip_line();

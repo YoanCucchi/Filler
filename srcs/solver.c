@@ -17,29 +17,6 @@ long	ft_absolute_distance(t_pos pos1, t_pos *pos2)
 	return (ft_sqrt(ft_pow(pos1.x - pos2->x, 2) + ft_pow(pos1.y - pos2->y, 2)));
 }
 
-static void	check_corners(t_board *data, int i, int j, int n)
-{
-	int	tmp;
-	int	s;
-	int	p;
-
-	p = data->ennemy_piece;
-	s = ft_tolower(p);
-	tmp = n / 2;
-	if (i - tmp >= 0 && j - tmp >= 0 && \
-	(data->grid[i - tmp][j - tmp] == p || data->grid[i - tmp][j - tmp] == s))
-		data->dist = n;
-	else if (i - tmp >= 0 && j + tmp >= 0 && \
-	(data->grid[i - tmp][j + tmp] == p || data->grid[i - tmp][j + tmp] == s))
-		data->dist = n;
-	else if (i + tmp >= 0 && j + tmp >= 0 && \
-	(data->grid[i + tmp][j + tmp] == p || data->grid[i + tmp][j + tmp] == s))
-		data->dist = n;
-	else if (i + tmp >= 0 && j - tmp >= 0 && \
-	(data->grid[i + tmp][j - tmp] == p || data->grid[i + tmp][j - tmp] == s))
-		data->dist = n;
-}
-
 static int	closest(t_pos pos1, t_pos *pos2, t_board *data, int i)
 {
 	int	j;
@@ -55,16 +32,16 @@ static int	closest(t_pos pos1, t_pos *pos2, t_board *data, int i)
 	{
 		if (i >= 0 && j - n >= 0 && \
 		(data->grid[i][j - n] == p || data->grid[i][j - n] == ft_tolower(p)))
-			return (check_left(data, pos2, pos1, n));
+			return (check_left(pos2, pos1, n));
 		if (i - n >= 0 && j >= 0 && \
 		(data->grid[i - n][j] == p || data->grid[i - n][j] == ft_tolower(p)))
-			return (check_top(data, pos2, pos1, n));
+			return (check_top(pos2, pos1, n));
 		if (i >= 0 && j >= 0 && \
 		(data->grid[i][j + n] == p || data->grid[i][j + n] == ft_tolower(p)))
-			return (check_right(data, pos2, pos1, n));
+			return (check_right(pos2, pos1, n));
 		if (i >= 0 && j >= 0 && \
 		(data->grid[i + n][j] == p || data->grid[i + n][j] == ft_tolower(p)))
-			return (check_bottom(data, pos2, pos1, n));
+			return (check_bottom(pos2, pos1, n));
 		if (n % 2 == 0)
 		{
 			tmp = n / 2;

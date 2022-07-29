@@ -1,6 +1,6 @@
 #include ".././includes/filler.h"
 
-int	anyone_up(t_board *data, t_solved *sol, int i, int j)
+int	anyone_up(t_board *data, int i, int j)
 {
 	int	tmp;
 
@@ -19,7 +19,7 @@ int	anyone_up(t_board *data, t_solved *sol, int i, int j)
 	return (0);
 }
 
-int	anyone_left(t_board *data, t_solved *sol, int i, int j)
+int	anyone_left(t_board *data, int i, int j)
 {
 	int	tmp;
 
@@ -37,7 +37,7 @@ int	anyone_left(t_board *data, t_solved *sol, int i, int j)
 	return (0);
 }
 
-int	anyone_right(t_board *data, t_solved *sol, int i, int j)
+int	anyone_right(t_board *data, int i, int j)
 {
 	int	tmp;
 
@@ -56,7 +56,7 @@ int	anyone_right(t_board *data, t_solved *sol, int i, int j)
 	return (0);
 }
 
-int	anyone_bottom(t_board *data, t_solved *sol, int i, int j)
+int	anyone_bottom(t_board *data, int i, int j)
 {
 	int	tmp;
 
