@@ -62,164 +62,6 @@ int	make_piece(t_board *data)
 	return (1);
 }
 
-void	do_algo(t_board *data, t_solved *sol, int i, int j)
-{
-	if (sol->sum == 0 || (data->sum < sol->sum && data->turn > 20)) // closest possible
-	{
-		dprintf(2, "closest || sum == 0\n");
-		sol->x = i;
-		sol->y = j;
-		sol->sum = data->sum;
-		dprintf(2, "i = %d\n", i);
-		dprintf(2, "j = %d\n", j);
-		dprintf(2, "sol->x = %d\n", sol->x);
-		dprintf(2, "sol->y = %d\n", sol->y);
-	}
-	else if (data->turn <= 10 && sol->sum != 0)
-	{
-		dprintf(2, "10 premier tours : ==> ");
-		if (!anyone_left(data, i, j) && j < sol->y && j < 3)
-		{
-			dprintf(2, "go gauche\n");
-			dprintf(2, "sol sum = %d\n", sol->sum);
-			sol->x = i;
-			sol->y = j;
-			sol->sum = data->sum;
-			dprintf(2, "i = %d\n", i);
-			dprintf(2, "j = %d\n", j);
-			dprintf(2, "sol->x = %d\n", sol->x);
-			dprintf(2, "sol->y = %d\n", sol->y);
-		}
-		else if (anyone_left(data, i, j) && i < sol->x)
-		{
-			dprintf(2, "go top\n");
-			dprintf(2, "sol sum = %d\n", sol->sum);
-			sol->x = i;
-			sol->y = j;
-			sol->sum = data->sum;
-			dprintf(2, "i = %d\n", i);
-			dprintf(2, "j = %d\n", j);
-			dprintf(2, "sol->x = %d\n", sol->x);
-			dprintf(2, "sol->y = %d\n", sol->y);
-		}
-		else if (anyone_left(data, i, j) && anyone_up(data, i, j) && j > sol->y)
-		{
-			dprintf(2, "go right\n");
-			dprintf(2, "sol sum = %d\n", sol->sum);
-			sol->x = i;
-			sol->y = j;
-			sol->sum = data->sum;
-			dprintf(2, "i = %d\n", i);
-			dprintf(2, "j = %d\n", j);
-			dprintf(2, "sol->x = %d\n", sol->x);
-			dprintf(2, "sol->y = %d\n", sol->y);
-		}
-	}
-	else if (data->turn <= 20 && sol->sum != 0)
-	{
-		if (!anyone_left(data, i, j) && j < sol->y)
-		{
-			dprintf(2, "go gauche\n");
-			dprintf(2, "sol sum = %d\n", sol->sum);
-			sol->x = i;
-			sol->y = j;
-			sol->sum = data->sum;
-			dprintf(2, "i = %d\n", i);
-			dprintf(2, "j = %d\n", j);
-			dprintf(2, "sol->x = %d\n", sol->x);
-			dprintf(2, "sol->y = %d\n", sol->y);
-		}
-		else if (anyone_left(data, i, j) && i < sol->x)
-		{
-			dprintf(2, "go top\n");
-			dprintf(2, "sol sum = %d\n", sol->sum);
-			sol->x = i;
-			sol->y = j;
-			sol->sum = data->sum;
-			dprintf(2, "i = %d\n", i);
-			dprintf(2, "j = %d\n", j);
-			dprintf(2, "sol->x = %d\n", sol->x);
-			dprintf(2, "sol->y = %d\n", sol->y);
-		}
-		else if (anyone_left(data, i, j) && anyone_up(data, i, j) && j > sol->y)
-		{
-			dprintf(2, "go right\n");
-			dprintf(2, "sol sum = %d\n", sol->sum);
-			sol->x = i;
-			sol->y = j;
-			sol->sum = data->sum;
-			dprintf(2, "i = %d\n", i);
-			dprintf(2, "j = %d\n", j);
-			dprintf(2, "sol->x = %d\n", sol->x);
-			dprintf(2, "sol->y = %d\n", sol->y);
-		}
-	}
-}
-
-void	do_algo_closest(t_board *data, t_solved *sol, int i, int j)
-{
-	if ((data->sum < sol->sum || sol->sum == 0)) // closest possible
-	{
-		dprintf(2, "closest\n");
-		sol->x = i;
-		sol->y = j;
-		sol->sum = data->sum;
-		dprintf(2, "i = %d\n", i);
-		dprintf(2, "j = %d\n", j);
-		dprintf(2, "sol->x = %d\n", sol->x);
-		dprintf(2, "sol->y = %d\n", sol->y);
-	}
-}
-
-void	do_algo3(t_board *data, t_solved *sol, int i, int j)
-{
-	// il faudrait voir comme faire pour trouver le plus proche
-	// mais aussi le plus haut gauche possible
-	// j < sol->y ==> plus a gauche
-	// i < sol->x ==> plus en haut
-	// plus en haut a gauche = ???
-	// if (j < sol->y && i < sol->x)
-	if ((j < sol->y || sol->sum == 0) && data->turn < 15)
-	{
-		dprintf(2, "turn = %d\n", data->turn);
-		dprintf(2, "10 premier tours ==> go gauche\n");
-		dprintf(2, "sol sum = %d\n", sol->sum);
-		sol->x = i;
-		sol->y = j;
-		sol->sum = data->sum;
-		dprintf(2, "i = %d\n", i);
-		dprintf(2, "j = %d\n", j);
-		dprintf(2, "sol->x = %d\n", sol->x);
-		dprintf(2, "sol->y = %d\n", sol->y);
-	}
-	else if (((j < sol->y && i < sol->x) || sol->sum == 0) && data->turn < 20)
-	{
-		dprintf(2, "turn = %d\n", data->turn);
-		dprintf(2, "20 premier tours ==> go haut gauche \n");
-		dprintf(2, "sol sum = %d\n", sol->sum);
-		sol->x = i;
-		sol->y = j;
-		sol->sum = data->sum;
-		dprintf(2, "i = %d\n", i);
-		dprintf(2, "j = %d\n", j);
-		dprintf(2, "sol->x = %d\n", sol->x);
-		dprintf(2, "sol->y = %d\n", sol->y);
-	}
-	else if ((data->sum < sol->sum || sol->sum == 0) || data->turn >= 20)
-	{
-		dprintf(2, "turn = %d\n", data->turn);
-		dprintf(2, "le reste du temps  ==> au plus proche\n");
-		dprintf(2, "sol sum = %d\n", sol->sum);
-		sol->x = i;
-		sol->y = j;
-		sol->sum = data->sum;
-		dprintf(2, "i = %d\n", i);
-		dprintf(2, "j = %d\n", j);
-		dprintf(2, "sol->x = %d\n", sol->x);
-		dprintf(2, "sol->y = %d\n", sol->y);
-	}
-}
-
 void	do_sum(t_board *data, int i, int j)
 {
 	int	k;
@@ -235,7 +77,9 @@ void	do_sum(t_board *data, int i, int j)
 		{
 			if (data->piece[k][l] == '*')
 			{
-				if ((data->solving_grid[i + k][j + l] != data->player_piece || data->solving_grid[i + k][j + l] != ft_tolower(data->player_piece)))
+				if ((data->solving_grid[i + k][j + l] != data->player_piece || \
+				data->solving_grid[i + k][j + l] != \
+				ft_tolower(data->player_piece)))
 					data->sum += data->solving_grid[i + k][j + l] - '0';
 			}
 			l++;
@@ -253,6 +97,7 @@ void	put_piece(t_board *data, t_solved *sol)
 	data->placable = 0;
 	data->not_placable = 0;
 	sol->sum = 0;
+	sol->special_case = 0; // to get out of the loop when special case
 	while (data->solving_grid[++i] != NULL)
 	{
 		j = -1;
@@ -266,8 +111,10 @@ void	put_piece(t_board *data, t_solved *sol)
 				// p 2 = X p1 = O
 				if (data->grid_x > 40) // im_top_left(data)) return 1 if true
 					do_algo_closest(data, sol, i, j);
-				else
-					do_algo(data, sol, i, j);
+				else if (data->turn < 20 && anyone_left(data, i, j))
+					do_algo_top_right(data, sol, i, j);
+				else if (!sol->special_case)
+					do_algo_top_left(data, sol, i, j);
 			}
 		}
 	}

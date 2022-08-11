@@ -27,7 +27,7 @@ static int	closest(t_pos pos1, t_pos *pos2, t_board *data, int i)
 	n = 0;
 	tmp = 0;
 	j = pos1.y;
-	p = data->ennemy_piece;;
+	p = data->ennemy_piece;
 	while (i + ++n < data->grid_x && j + n < data->grid_y)
 	{
 		if (i >= 0 && j - n >= 0 && \
@@ -46,13 +46,13 @@ static int	closest(t_pos pos1, t_pos *pos2, t_board *data, int i)
 		{
 			tmp = n / 2;
 			if (i - tmp >= 0 && j - tmp >= 0 && (data->grid[i - tmp][j - tmp] == p || data->grid[i - tmp][j - tmp] == ft_tolower(p)))
-				return(n);
+				return (n);
 			if (i - tmp >= 0 && j + tmp >= 0 && (data->grid[i - tmp][j + tmp] == p || data->grid[i - tmp][j + tmp] == ft_tolower(p)))
-				return(n);
+				return (n);
 			if (i + tmp >= 0 && j + tmp >= 0 && (data->grid[i + tmp][j + tmp] == p || data->grid[i + tmp][j + tmp] == ft_tolower(p)))
-				return(n);
+				return (n);
 			if (i + tmp >= 0 && j - tmp >= 0 && (data->grid[i + tmp][j - tmp] == p || data->grid[i + tmp][j - tmp] == ft_tolower(p)))
-				return(n);
+				return (n);
 		}
 	}
 	return (ft_absolute_distance(pos1, pos2));

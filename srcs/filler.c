@@ -210,7 +210,6 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 		clean_all(data, pos2, sol, "");
 	data->turn++;
 	skip_line();
-	// sleep(2);
 	return (1);
 }
 

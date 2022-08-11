@@ -6,9 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
 
-# Make data base, printed on Fri Jul 22 14:47:28 2022
+# Make data base, printed on Thu Aug 11 11:06:07 2022
 
 # Variables
 
@@ -16,11 +15,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
-# makefile (from `Makefile', line 32)
+# makefile (from `Makefile', line 33)
 GRAY = \033[0;90m
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
-# makefile (from `Makefile', line 21)
+# makefile (from `Makefile', line 22)
 INCLUDES = -I ./includes/
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
@@ -48,14 +47,14 @@ PATH = /Users/yoancucchi/.brew/bin:/Users/yoancucchi/venv/bin:/Library/Framework
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
 VIRTUAL_ENV = /Users/yoancucchi/venv
-# makefile (from `Makefile', line 19)
+# makefile (from `Makefile', line 20)
 SRCS_DIR = ./srcs/
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.H6eJnwQUj4/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.Q9GptpwQ0j/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -64,7 +63,7 @@ PWD = /Users/yoancucchi/Hive/Filler
 HOMEBREW_CELLAR = /opt/homebrew/Cellar
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
-# makefile (from `Makefile', line 33)
+# makefile (from `Makefile', line 34)
 GREEN = \033[0;92m
 # environment
 MANPATH = /opt/homebrew/share/man::
@@ -77,11 +76,11 @@ HOME = /Users/yoancucchi
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/yoancucchi/Library/Application Support/Code/CachedData/3b889b090b5ad5793f524b5d1d39fda662b96a2a
+VSCODE_CODE_CACHE_PATH = /Users/yoancucchi/Library/Application Support/Code/CachedData/da76f93349a72022ca4670c1b84860304616aaa2
 # environment
 LOGNAME = yoancucchi
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 ZSH = /Users/yoancucchi/.oh-my-zsh
 # environment
@@ -95,12 +94,12 @@ MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # makefile (from `Makefile', line 15)
-SRCS = filler.c grid.c piece.c struct.c solver.c solver_help.c algo_helper.c
+SRCS = filler.c grid.c piece.c struct.c solver.c solver_help.c algo_helper.c algo.c
 # environment
 SHLVL = 1
-# makefile (from `Makefile', line 25)
+# makefile (from `Makefile', line 26)
 LIBFT = ./libft/libft.a
-# makefile (from `Makefile', line 29)
+# makefile (from `Makefile', line 30)
 CC = gcc
 # default
 MAKE_VERSION := 3.81
@@ -123,7 +122,7 @@ TMPDIR = /var/folders/zg/9rqb7x5n1tx5xrr5ywjxd9j80000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/yoancucchi/Library/Application Support/Code/1.69.2-main.sock
+VSCODE_IPC_HOOK = /Users/yoancucchi/Library/Application Support/Code/1.70.0-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -133,12 +132,12 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.11526375.11526381
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.11936051.11936057
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
-# makefile (from `Makefile', line 34)
+# makefile (from `Makefile', line 35)
 CYAN = \033[0;96m
 # automatic
 +F = $(notdir $+)
@@ -152,28 +151,28 @@ COMMAND_MODE = unix2003
 MAKEFILES := 
 # automatic
 <F = $(notdir $<)
-# makefile (from `Makefile', line 17)
+# makefile (from `Makefile', line 18)
 SRCS_PATH = $(addprefix $(SRCS_DIR), $(SRCS))
-# makefile (from `Makefile', line 23)
+# makefile (from `Makefile', line 24)
 LIBFT_PATH = ./libft/
 # environment
 PAGER = less
 # environment
 LC_ALL = C
-# makefile (from `Makefile', line 31)
+# makefile (from `Makefile', line 32)
 DEFAULT = \033[0;39m
 # automatic
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
-# makefile (from `Makefile', line 27)
+# makefile (from `Makefile', line 28)
 FLAGS = -Wall -Wextra 
 # environment
 MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 66875
+VSCODE_PID = 17881
 # variable set hash-table stats:
 # Load=81/1024=8%, Rehash=0, Collisions=2/106=2%
 
@@ -183,9 +182,9 @@ VSCODE_PID = 66875
 
 # Directories
 
-# . (device 16777230, inode 9881112): 19 files, no impossibilities.
+# . (device 16777234, inode 9881112): 20 files, no impossibilities.
 
-# 19 files, no impossibilities in 1 directories.
+# 20 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -208,10 +207,10 @@ all: ycucchi.filler
 
 ycucchi.filler:
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-22 13:08:52
+#  Last modified 2022-08-11 11:05:07
 #  File has been updated.
 #  Successfully updated.
-#  commands to execute (from `Makefile', line 39):
+#  commands to execute (from `Makefile', line 40):
 	@make -C $(LIBFT_PATH)
 	@$(CC) $(FLAGS) $(INCLUDES) $(SRCS_PATH) $(LIBFT) -o $(NAME)
 	@echo "$(CYAN) $(NAME) compiled!$(DEFAULT)"
@@ -221,7 +220,7 @@ git:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 44):
+#  commands to execute (from `Makefile', line 45):
 	git add -A
 	git commit -m "$m"
 	git push
@@ -236,7 +235,7 @@ git:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 15:21:52
+#  Last modified 2022-08-11 11:02:17
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -247,7 +246,7 @@ fclean: clean
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 54):
+#  commands to execute (from `Makefile', line 55):
 	@rm -rf $(NAME)
 	@echo "$(GRAY)$(NAME) cleaned!$(DEFAULT)"
 	@make fclean -C $(LIBFT_PATH)
@@ -271,7 +270,7 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 49):
+#  commands to execute (from `Makefile', line 50):
 	@rm -rf filler.trace
 	@echo "$(GRAY) filler.trace cleaned!$(DEFAULT)"
 	@make clean -C libft/
@@ -290,6 +289,6 @@ clean:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Jul 22 14:47:28 2022
+# Finished Make data base on Thu Aug 11 11:06:07 2022
 
  
