@@ -121,12 +121,34 @@ void	do_algo_closest(t_board *data, t_solved *sol, int i, int j)
 	}
 }
 
+void	do_algo_expand(t_board *data, t_solved *sol, int i, int j)
+{
+	// cherche a aller le plus sur le coté avec i ou j le plus proche de 0
+	// comment etre le plus a gauche ou a droite possible ? ...
+	// qui dirait en gros que si la distance la piece pose et lennemib est de :::
+// tu peux poser
+	if (sol->sum == 0) // haut gauche
+	{
+		dprintf(2, "expand up\n");
+		sol->x = i;
+		sol->y = j;
+		sol->sum = data->sum;
+		dprintf(2, "i = %d\n", i);
+		dprintf(2, "j = %d\n", j);
+		dprintf(2, "sol->x = %d\n", sol->x);
+		dprintf(2, "sol->y = %d\n", sol->y);
+	}
+}
+
 void	do_algo_top_right(t_board *data, t_solved *sol, int i, int j)
 {
-	if ((j > sol->y || sol->sum == 0) && anyone_up(data, i ,j))
+	// 
+	//
+	//
+	if (((j > sol->y && i <= sol->x) || sol->sum == 0) && (anyone_up(data, i, j) && anyone_left(data, i, j)))
 	{
 		dprintf(2, "turn = %d\n", data->turn);
-		dprintf(2, "quelqu'un au dessus ==> go droite\n");
+		dprintf(2, "PB GAUCHE/TOP ==> go haut droite \n");
 		dprintf(2, "sol sum = %d\n", sol->sum);
 		sol->x = i;
 		sol->y = j;
@@ -137,15 +159,52 @@ void	do_algo_top_right(t_board *data, t_solved *sol, int i, int j)
 		dprintf(2, "sol->x = %d\n", sol->x);
 		dprintf(2, "sol->y = %d\n", sol->y);
 	}
-	else if ((i > sol->x || sol->sum == 0) && !anyone_up(data, i, j) && !sol->special_case)
+	else if (((j > sol->y && i < sol->x) || sol->sum == 0) && (anyone_up(data, i, j) && anyone_left(data, i, j)) && sol->special_case)
 	{
 		dprintf(2, "turn = %d\n", data->turn);
-		dprintf(2, "personne au dessus ==> go haut \n");
+		dprintf(2, "PB GAUCHE/TOP ==> go haut droite \n");
+		dprintf(2, "sol sum = %d\n", sol->sum);
+		sol->x = i;
+		sol->y = j;
+		sol->sum = data->sum;
+		dprintf(2, "i = %d\n", i);
+		dprintf(2, "j = %d\n", j);
+		dprintf(2, "sol->x = %d\n", sol->x);
+		dprintf(2, "sol->y = %d\n", sol->y);
+	}
+	else if ((i < sol->x || sol->sum == 0) && anyone_left(data, i, j))
+	{
+		dprintf(2, "turn = %d\n", data->turn);
+		dprintf(2, "PB GAUCHE ==> go haut \n");
 		dprintf(2, "sol sum = %d\n", sol->sum);
 		sol->x = i;
 		sol->y = j;
 		sol->sum = data->sum;
 		sol->special_case = 1;
+		dprintf(2, "i = %d\n", i);
+		dprintf(2, "j = %d\n", j);
+		dprintf(2, "sol->x = %d\n", sol->x);
+		dprintf(2, "sol->y = %d\n", sol->y);
+	}
+	else if ((i < sol->x || sol->sum == 0) && anyone_left(data, i, j) && sol->special_case)
+	{
+		dprintf(2, "turn = %d\n", data->turn);
+		dprintf(2, "PB GAUCHE ==> go haut \n");
+		dprintf(2, "sol sum = %d\n", sol->sum);
+		sol->x = i;
+		sol->y = j;
+		sol->sum = data->sum;
+		dprintf(2, "i = %d\n", i);
+		dprintf(2, "j = %d\n", j);
+		dprintf(2, "sol->x = %d\n", sol->x);
+		dprintf(2, "sol->y = %d\n", sol->y);
+	}
+	else if ((data->sum < sol->sum || sol->sum == 0) && !sol->special_case) // closest possible
+	{
+		dprintf(2, "closest\n");
+		sol->x = i;
+		sol->y = j;
+		sol->sum = data->sum;
 		dprintf(2, "i = %d\n", i);
 		dprintf(2, "j = %d\n", j);
 		dprintf(2, "sol->x = %d\n", sol->x);

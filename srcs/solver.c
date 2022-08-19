@@ -17,7 +17,7 @@ long	ft_absolute_distance(t_pos pos1, t_pos *pos2)
 	return (ft_sqrt(ft_pow(pos1.x - pos2->x, 2) + ft_pow(pos1.y - pos2->y, 2)));
 }
 
-static int	closest(t_pos pos1, t_pos *pos2, t_board *data, int i)
+int	closest(t_pos pos1, t_pos *pos2, t_board *data, int i)
 {
 	int	j;
 	int	n;
@@ -79,7 +79,8 @@ void	solving_grid(t_board *data, t_pos *pos2, t_pos pos1)
 				pos1.x = i;
 				pos1.y = j;
 				data->dist = closest(pos1, pos2, data, i);
-				if (data->dist + '0' == 79 || data->dist + '0' == 111 || data->dist + '0' == 88 || data->dist + '0' == 120)
+				if (data->dist + '0' == 79 || data->dist + '0' == 111 \
+				|| data->dist + '0' == 88 || data->dist + '0' == 120)
 					data->solving_grid_helper[j] = data->dist + '1';
 				else
 					data->solving_grid_helper[j] = data->dist + '0';

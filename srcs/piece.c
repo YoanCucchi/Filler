@@ -109,18 +109,20 @@ void	put_piece(t_board *data, t_solved *sol)
 				data->not_placable = 1;
 				do_sum(data, i, j);
 				// p 2 = X p1 = O
-				if (data->grid_x > 40) // im_top_left(data)) return 1 if true
+				dprintf(2, "piece placable at i = [%d] ", i);
+				dprintf(2, "and j = [%d] ", j);
+				dprintf(2, "sum = [%d]\n", data->sum);
+				if (!data->im_bottom_right) // top left easy win no strat
 					do_algo_closest(data, sol, i, j);
-				else if (data->turn < 20 && anyone_left(data, i, j))
-					do_algo_top_right(data, sol, i, j);
-				else if (!sol->special_case)
-					do_algo_top_left(data, sol, i, j);
+				else if (data->im_bottom_right) // bottom right
+					do_algo_closest(data, sol, i, j);
 			}
 		}
 	}
 	dprintf(2, "final sol->x = %d\n", sol->x);
 	dprintf(2, "final sol->y = %d\n", sol->y);
 	dprintf(2, "final turn = %d\n", data->turn);
+	dprintf(2, "-----------------------------------------------------------\n");
 }
 
 int	is_placable(t_board *data, int i, int j)
@@ -153,14 +155,4 @@ int	is_placable(t_board *data, int i, int j)
 	if (x_count != 1)
 		return (0);
 	return (1);
-}
-
-int	im_top_left(t_board *data)
-{
-	if (data->turn > 1)
-		return (1);
-	if (data->player_x > data->ennemy_x)
-		return (1);
-	else
-		return (0);
 }

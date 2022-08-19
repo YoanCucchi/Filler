@@ -27,13 +27,11 @@ void	init_struct(t_board *data, t_pos *pos2, t_solved *sol)
 	data->grid_y = 0;
 	data->piece_x = 0;
 	data->piece_y = 0;
-	data->piece_offset = 0;
 	data->player_piece = 0;
 	data->ennemy_piece = 0;
 	data->sum = 0;
 	data->placable = 0;
 	data->not_placable = 0;
-	data->dist = 0;
 	data->im_bottom_right = 0;
 	data->grid = NULL;
 	data->grid_helper = NULL;

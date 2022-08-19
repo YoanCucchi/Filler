@@ -98,6 +98,17 @@ static void	print_solving_grid(t_board *data)
 	ft_printf("------------------------------------------------------------\n");
 }
 
+static void	dprint_solving_grid(t_board *data)
+{
+	int	i;
+
+	i = -1;
+	dprintf(2, "------------------------------------------------------------\n");
+	while (data->solving_grid[++i])
+		dprintf(2, "%s\n", data->solving_grid[i]);
+	dprintf(2, "------------------------------------------------------------\n");
+}
+
 static void	struc_print(t_board *data)
 {
 	ft_printf("------------------------------------------------------------\n");
@@ -186,7 +197,6 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 
 	pos1.x = 0;
 	pos1.y = 0;
-	data->dist = 0;
 	skip_line();
 	make_grid(data);
 	read_piece(data, pos2, sol);
@@ -194,6 +204,7 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	solving_grid(data, pos2, pos1);
 	// print_grid(data);
 	// print_solving_grid(data);
+	// dprint_solving_grid(data);
 	// print_piece(data);
 	// struc_print(data);
 	put_piece(data, sol);

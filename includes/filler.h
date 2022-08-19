@@ -37,7 +37,6 @@ typedef struct s_board
 	int		grid_y;
 	int		piece_x;
 	int		piece_y;
-	int		piece_offset;
 	int		player_piece;
 	int		ennemy_piece;
 	int		sum;
@@ -123,12 +122,13 @@ void	do_algo(t_board *data, t_solved *sol, int i, int j);
 void	do_algo_closest(t_board *data, t_solved *sol, int i, int j);
 void	do_algo_top_left(t_board *data, t_solved *sol, int i, int j);
 
-int	anyone_up(t_board *data, int i, int j);
-int	anyone_left(t_board *data, int i, int j);
-int	anyone_right(t_board *data, int i, int j);
-int	anyone_bottom(t_board *data, int i, int j);
-int	im_top_left(t_board *data);
+int		anyone_up(t_board *data, int i, int j);
+int		anyone_left(t_board *data, int i, int j);
+int		anyone_right(t_board *data, int i, int j);
+int		anyone_bottom(t_board *data, int i, int j);
 
 void	do_algo_top_right(t_board *data, t_solved *sol, int i, int j);
+void	do_algo_expand(t_board *data, t_solved *sol, int i, int j);
+int		closest(t_pos pos1, t_pos *pos2, t_board *data, int i);
 
 #endif
