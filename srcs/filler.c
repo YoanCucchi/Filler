@@ -111,22 +111,22 @@ static void	dprint_solving_grid(t_board *data)
 
 static void	struc_print(t_board *data)
 {
-	ft_printf("------------------------------------------------------------\n");
-	ft_printf("data->player_x = %d\n", data->player_x);
-	ft_printf("data->player_y = %d\n", data->player_y);
-	ft_printf("------------------------------------------------------------\n");
-	ft_printf("data->ennemy_x = %d\n", data->ennemy_x);
-	ft_printf("data->ennemy_y = %d\n", data->ennemy_y);
-	ft_printf("------------------------------------------------------------\n");
-	ft_printf("data->grid_x = %d\n", data->grid_x);
-	ft_printf("data->grid_y = %d\n", data->grid_y);
-	ft_printf("------------------------------------------------------------\n");
-	ft_printf("data->piece_x = %d\n", data->piece_x);
-	ft_printf("data->piece_y = %d\n", data->piece_y);
-	ft_printf("------------------------------------------------------------\n");
-	ft_printf("data->player_piece = %c\n", data->player_piece);
-	ft_printf("data->ennemy_piece = %c\n", data->ennemy_piece);
-	ft_printf("------------------------------------------------------------\n");
+	dprintf(2, "------------------------------------------------------------\n");
+	dprintf(2, "data->player_x = %d\n", data->player_x);
+	dprintf(2, "data->player_y = %d\n", data->player_y);
+	dprintf(2, "------------------------------------------------------------\n");
+	dprintf(2, "data->ennemy_x = %d\n", data->ennemy_x);
+	dprintf(2, "data->ennemy_y = %d\n", data->ennemy_y);
+	dprintf(2, "------------------------------------------------------------\n");
+	dprintf(2, "data->grid_x = %d\n", data->grid_x);
+	dprintf(2, "data->grid_y = %d\n", data->grid_y);
+	dprintf(2, "------------------------------------------------------------\n");
+	dprintf(2, "data->piece_x = %d\n", data->piece_x);
+	dprintf(2, "data->piece_y = %d\n", data->piece_y);
+	dprintf(2, "------------------------------------------------------------\n");
+	dprintf(2, "data->player_piece = %c\n", data->player_piece);
+	dprintf(2, "data->ennemy_piece = %c\n", data->ennemy_piece);
+	dprintf(2, "------------------------------------------------------------\n");
 }
 
 static void	player_piece(t_board *data, t_pos *pos2, t_solved *sol)
@@ -206,7 +206,7 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	// print_solving_grid(data);
 	// dprint_solving_grid(data);
 	// print_piece(data);
-	// struc_print(data);
+	struc_print(data);
 	put_piece(data, sol);
 	if (!data->not_placable)
 	{
