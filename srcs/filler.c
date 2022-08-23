@@ -206,7 +206,7 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	// print_solving_grid(data);
 	// dprint_solving_grid(data);
 	// print_piece(data);
-	struc_print(data);
+	// struc_print(data);
 	put_piece(data, sol);
 	if (!data->not_placable)
 	{

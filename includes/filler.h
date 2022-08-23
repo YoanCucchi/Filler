@@ -131,4 +131,8 @@ void	do_algo_top_right(t_board *data, t_solved *sol, int i, int j);
 void	do_algo_expand(t_board *data, t_solved *sol, int i, int j);
 int		closest(t_pos pos1, t_pos *pos2, t_board *data, int i);
 
+void	do_algo_test(t_board *data, t_solved *sol, int i, int j);
+int in_the_middle(t_board *data);
+int	bot_right_clean(t_board *data);
+
 #endif

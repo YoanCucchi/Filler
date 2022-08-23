@@ -121,6 +121,50 @@ void	do_algo_closest(t_board *data, t_solved *sol, int i, int j)
 	}
 }
 
+void	do_algo_test(t_board *data, t_solved *sol, int i, int j)
+{
+	// le but serait si au milieu go top left sinon go au plus proche
+	if (data->turn < 15 && (i < sol->x || sol->sum == 0) && !sol->special_case)
+	{
+		dprintf(2, "go top\n");
+		dprintf(2, "sol sum = %d\n", sol->sum);
+		sol->x = i;
+		sol->y = j;
+		sol->sum = data->sum;
+		sol->special_case = 1;
+		dprintf(2, "i = %d\n", i);
+		dprintf(2, "j = %d\n", j);
+		dprintf(2, "sol->x = %d\n", sol->x);
+		dprintf(2, "sol->y = %d\n", sol->y);
+	}
+	else if (in_the_middle(data) && (i < sol->x || j < sol->y) && data->turn < 50 && data->turn > 15)
+	{
+		dprintf(2, "ALGO TEST\n");
+		sol->x = i;
+		sol->y = j;
+		sol->sum = data->sum;
+		sol->special_case = 1;
+		dprintf(2, "i = %d\n", i);
+		dprintf(2, "j = %d\n", j);
+		dprintf(2, "sol->x = %d\n", sol->x);
+		dprintf(2, "sol->y = %d\n", sol->y);
+	}
+	else if ((data->sum < sol->sum || sol->sum == 0) && !sol->special_case)
+	{
+		dprintf(2, "closest no choice\n");
+		sol->x = i;
+		sol->y = j;
+		sol->sum = data->sum;
+		dprintf(2, "i = %d\n", i);
+		dprintf(2, "j = %d\n", j);
+		dprintf(2, "sol->x = %d\n", sol->x);
+		dprintf(2, "sol->y = %d\n", sol->y);
+	}
+	dprintf(2, "data turn = [%d]\n", data->turn);
+	dprintf(2, "sol x = [%d]\n", sol->x);
+	dprintf(2, "sol y = [%d]\n", sol->y);
+}
+
 void	do_algo_expand(t_board *data, t_solved *sol, int i, int j)
 {
 	// cherche a aller le plus sur le coté avec i ou j le plus proche de 0
