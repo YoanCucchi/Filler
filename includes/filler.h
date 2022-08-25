@@ -134,4 +134,7 @@ int		closest(t_pos pos1, t_pos *pos2, t_board *data, int i);
 int		in_the_middle(t_board *data);
 int		bot_right_clean(t_board *data);
 
+void	sol_store_spe(t_board *data, t_solved *sol, int i, int j);
+void	sol_store(t_board *data, t_solved *sol, int i, int j);
+
 #endif
