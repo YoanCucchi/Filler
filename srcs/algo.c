@@ -29,7 +29,8 @@ void	do_algo_closest(t_board *data, t_solved *sol, int i, int j)
 
 void	do_algo_bot_right_small(t_board *data, t_solved *sol, int i, int j)
 {
-	if (data->turn < 15 && (i < sol->x || sol->sum == 0))
+	
+	if (data->turn <= 25 && (i <= sol->x || sol->sum == 0))
 	{
 		dprintf(2, "go top\n");
 		dprintf(2, "sol sum = %d\n", sol->sum);
@@ -42,7 +43,7 @@ void	do_algo_bot_right_small(t_board *data, t_solved *sol, int i, int j)
 		dprintf(2, "sol->x = %d\n", sol->x);
 		dprintf(2, "sol->y = %d\n", sol->y);
 	}
-	else if (in_the_middle(data) && (i < sol->x || j < sol->y) && data->turn < 50 && data->turn > 15)
+	else if (in_the_middle(data) && (i < sol->x || j < sol->y) && data->turn < 55 && data->turn > 25)
 	{
 		dprintf(2, "go top left\n");
 		sol->x = i;
