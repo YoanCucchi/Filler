@@ -56,24 +56,54 @@ void	do_algo_bot_right_small(t_board *data, t_solved *sol, int i, int j)
 
 void	do_algo_bot_right_medium(t_board *data, t_solved *sol, int i, int j)
 {
-	if (data->turn < 10 && ((i < sol->x || j < sol->y) || sol->sum == 0))
+	if (data->turn <= 5 && (i < sol->x || sol->sum == 0))
+		sol_store_spe(data, sol, i, j);
+	else if (data->turn > 5 && data->turn <= 15 && data->piece_x > data->piece_y && (i < sol->x || sol->sum == 0))
+		sol_store_spe(data, sol, i, j);
+	else if (data->turn > 5 && data->turn <= 15 && data->piece_x <= data->piece_y && (j <= sol->y || sol->sum == 0))
+		sol_store_spe(data, sol, i, j);
+	else if (data->turn % 2 == 1 && \
+	((i >= sol->x && j < sol->y) || sol->sum == 0) && data->turn < 55 && data->turn > 5)
+		sol_store_spe(data, sol, i, j);
+	else if (data->turn % 2 == 0 && ((i <= sol->x && j > sol->y) || sol->sum == 0) && data->turn < 55 && data->turn > 5)
+		sol_store_spe(data, sol, i, j);
+	else if ((data->sum < sol->sum || sol->sum == 0) && \
+	(!sol->special_case || data->bot_closed == 1))
+		sol_store(data, sol, i, j);
+}
+
+void	do_algo_bot_right_huge(t_board *data, t_solved *sol, int i, int j)
+{
+	// marche pas mal mais il faut bloquer le coté bas droite pour win plus souv
+	if (data->turn <= 10 && (j < sol->y || sol->sum == 0))
 	{
-		dprintf(2, "go top left 10 premiers tours\n");
+		dprintf(2, "test1\n");
 		sol_store_spe(data, sol, i, j);
 	}
-	else if (data->turn % 2 == 1 && (j < sol->y))
+	else if (data->turn > 5 && data->turn <= 20 && data->piece_x > data->piece_y && (i < sol->x || sol->sum == 0))
 	{
-		dprintf(2, "go left\n");
+		dprintf(2, "test2\n");
 		sol_store_spe(data, sol, i, j);
 	}
-	else if (data->turn % 2 == 0 && (i < sol->x || j > sol->y))
+	else if (data->turn > 5 && data->turn <= 20 && data->piece_x <= data->piece_y && (j <= sol->y || sol->sum == 0))
 	{
-		dprintf(2, "go top right\n");
+		dprintf(2, "test3\n");
+		sol_store_spe(data, sol, i, j);
+	}
+	else if (data->turn % 2 == 1 && \
+	((i >= sol->x && j < sol->y) || sol->sum == 0) && data->turn < 100 && data->turn > 10)
+	{
+		dprintf(2, "test4\n");
+		sol_store_spe(data, sol, i, j);
+	}
+	else if (data->turn % 2 == 0 && ((i <= sol->x && j > sol->y) || sol->sum == 0) && data->turn < 55 && data->turn > 10)
+	{
+		dprintf(2, "test5\n");
 		sol_store_spe(data, sol, i, j);
 	}
 	else if ((data->sum < sol->sum || sol->sum == 0) && !sol->special_case)
 	{
-		dprintf(2, "closest no choice\n");
+		dprintf(2, "test6\n");
 		sol_store(data, sol, i, j);
 	}
 }

@@ -127,6 +127,11 @@ void put_piece(t_board *data, t_solved *sol)
 					dprintf(2, "\n===>MEDIUM<===\n");
 					do_algo_bot_right_medium(data, sol, i, j);
 				}
+				else if (data->grid_x > 50) // bottom right recherche haut et gauche une fois le milieu atteint ?
+				{
+					dprintf(2, "\n===>HUGE<===\n");
+					do_algo_bot_right_huge(data, sol, i, j);
+				}
 			}
 		}
 	}

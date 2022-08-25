@@ -123,6 +123,7 @@ void	do_sum(t_board *data, int i, int j);
 void	do_algo_closest(t_board *data, t_solved *sol, int i, int j);
 void	do_algo_bot_right_small(t_board *data, t_solved *sol, int i, int j);
 void	do_algo_bot_right_medium(t_board *data, t_solved *sol, int i, int j);
+void	do_algo_bot_right_huge(t_board *data, t_solved *sol, int i, int j);
 
 int		anyone_up(t_board *data, int i, int j);
 int		anyone_left(t_board *data, int i, int j);
