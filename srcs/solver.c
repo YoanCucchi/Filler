@@ -90,3 +90,36 @@ void	solving_grid(t_board *data, t_pos *pos2, t_pos pos1)
 	}
 	data->solving_grid[i] = NULL;
 }
+
+void	solving_grid_test(t_board *data, t_pos *pos2, t_pos pos1)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	pos2->x = 0;
+	pos2->y = data->grid_y;
+	while (data->grid[++i])
+	{
+		data->solving_grid_helper = ft_strnew(data->grid_y);
+		data->solving_grid_helper = \
+		ft_strcpy(data->solving_grid_helper, data->grid[i]);
+		j = -1;
+		while (data->grid[i][++j] != '\0')
+		{
+			if (data->solving_grid_helper[j] == '.')
+			{
+				pos1.x = i;
+				pos1.y = j;
+				data->dist = closest(pos1, pos2, data, i);
+				if (data->dist + '0' == 79 || data->dist + '0' == 111 \
+				|| data->dist + '0' == 88 || data->dist + '0' == 120)
+					data->solving_grid_helper[j] = data->dist + '1';
+				else
+					data->solving_grid_helper[j] = data->dist + '0';
+			}
+		}
+		data->solving_grid[i] = data->solving_grid_helper;
+	}
+	data->solving_grid[i] = NULL;
+}

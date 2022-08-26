@@ -225,7 +225,7 @@ int	bot_right_clean(t_board *data)
 		if (data->grid[i][data->grid_y - 1] == data->player_piece || \
 		data->grid[i][data->grid_y - 1] == ft_tolower(data->player_piece))
 		{
-			dprintf(2, "bot right clean = 1\n");
+			dprintf(2, "fefeofjeofbot right clean = 1\n");
 			data->bot_closed = 1;
 			return (1); // si personne au dessus
 		}
