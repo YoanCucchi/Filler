@@ -52,7 +52,7 @@ typedef struct s_board
 	char	**piece;
 	char	*piece_helper;
 	char	**solving_grid;
-	char	*solving_grid_helper;
+	char	*solving_help;
 	int		closed;
 	int		bot_closed;
 }			t_board;
@@ -137,5 +137,7 @@ void	sol_store_spe(t_board *data, t_solved *sol, int i, int j);
 void	sol_store(t_board *data, t_solved *sol, int i, int j);
 void reset_some_params(t_board *data, t_solved *sol);
 int	is_placable_helper(t_board *data, int i, int j);
+void	init_struct_utils(t_board *data);
+int	check_diagonal(t_board *data, int i, int j, int n);
 
 #endif

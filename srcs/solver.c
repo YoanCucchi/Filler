@@ -43,83 +43,62 @@ int	closest(t_pos pos1, t_pos *pos2, t_board *data, int i)
 		(data->grid[i + n][j] == p || data->grid[i + n][j] == ft_tolower(p)))
 			return (check_bottom(pos2, pos1, n));
 		if (n % 2 == 0)
-		{
-			tmp = n / 2;
-			if (i - tmp >= 0 && j - tmp >= 0 && (data->grid[i - tmp][j - tmp] == p || data->grid[i - tmp][j - tmp] == ft_tolower(p)))
+			if (check_diagonal(data, i, j, n) == 1)
 				return (n);
-			if (i - tmp >= 0 && j + tmp >= 0 && (data->grid[i - tmp][j + tmp] == p || data->grid[i - tmp][j + tmp] == ft_tolower(p)))
-				return (n);
-			if (i + tmp >= 0 && j + tmp >= 0 && (data->grid[i + tmp][j + tmp] == p || data->grid[i + tmp][j + tmp] == ft_tolower(p)))
-				return (n);
-			if (i + tmp >= 0 && j - tmp >= 0 && (data->grid[i + tmp][j - tmp] == p || data->grid[i + tmp][j - tmp] == ft_tolower(p)))
-				return (n);
-		}
 	}
 	return (ft_absolute_distance(pos1, pos2));
 }
 
+int	check_diagonal(t_board *data, int i, int j, int n)
+{
+	int	p;
+	int	tmp;
+
+	p = data->ennemy_piece;
+	tmp = n / 2;
+	if (i - tmp >= 0 && j - tmp >= 0 && (data->grid[i - tmp][j - tmp] == p || \
+	data->grid[i - tmp][j - tmp] == ft_tolower(p)))
+		return (1);
+	if (i - tmp >= 0 && j + tmp >= 0 && (data->grid[i - tmp][j + tmp] == p || \
+	data->grid[i - tmp][j + tmp] == ft_tolower(p)))
+		return (1);
+	if (i + tmp >= 0 && j + tmp >= 0 && (data->grid[i + tmp][j + tmp] == p || \
+	data->grid[i + tmp][j + tmp] == ft_tolower(p)))
+		return (1);
+	if (i + tmp >= 0 && j - tmp >= 0 && (data->grid[i + tmp][j - tmp] == p || \
+	data->grid[i + tmp][j - tmp] == ft_tolower(p)))
+		return (1);
+	return (0);
+}
+
 void	solving_grid(t_board *data, t_pos *pos2, t_pos pos1)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = -1;
 	pos2->x = data->ennemy_x;
 	pos2->y = data->ennemy_y;
 	while (data->grid[++i])
 	{
-		data->solving_grid_helper = ft_strnew(data->grid_y);
-		data->solving_grid_helper = \
-		ft_strcpy(data->solving_grid_helper, data->grid[i]);
+		data->solving_help = ft_strnew(data->grid_y);
+		data->solving_help = ft_strcpy(data->solving_help, data->grid[i]);
 		j = -1;
 		while (data->grid[i][++j] != '\0')
 		{
-			if (data->solving_grid_helper[j] == '.')
+			if (data->solving_help[j] == '.')
 			{
 				pos1.x = i;
 				pos1.y = j;
 				data->dist = closest(pos1, pos2, data, i);
 				if (data->dist + '0' == 79 || data->dist + '0' == 111 \
 				|| data->dist + '0' == 88 || data->dist + '0' == 120)
-					data->solving_grid_helper[j] = data->dist + '1';
+					data->solving_help[j] = data->dist + '1';
 				else
-					data->solving_grid_helper[j] = data->dist + '0';
+					data->solving_help[j] = data->dist + '0';
 			}
 		}
-		data->solving_grid[i] = data->solving_grid_helper;
-	}
-	data->solving_grid[i] = NULL;
-}
-
-void	solving_grid_test(t_board *data, t_pos *pos2, t_pos pos1)
-{
-	int		i;
-	int		j;
-
-	i = -1;
-	pos2->x = 0;
-	pos2->y = data->grid_y;
-	while (data->grid[++i])
-	{
-		data->solving_grid_helper = ft_strnew(data->grid_y);
-		data->solving_grid_helper = \
-		ft_strcpy(data->solving_grid_helper, data->grid[i]);
-		j = -1;
-		while (data->grid[i][++j] != '\0')
-		{
-			if (data->solving_grid_helper[j] == '.')
-			{
-				pos1.x = i;
-				pos1.y = j;
-				data->dist = closest(pos1, pos2, data, i);
-				if (data->dist + '0' == 79 || data->dist + '0' == 111 \
-				|| data->dist + '0' == 88 || data->dist + '0' == 120)
-					data->solving_grid_helper[j] = data->dist + '1';
-				else
-					data->solving_grid_helper[j] = data->dist + '0';
-			}
-		}
-		data->solving_grid[i] = data->solving_grid_helper;
+		data->solving_grid[i] = data->solving_help;
 	}
 	data->solving_grid[i] = NULL;
 }

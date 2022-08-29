@@ -14,30 +14,20 @@
 
 void	sol_store_spe(t_board *data, t_solved *sol, int i, int j)
 {
-		sol->x = i;
-		sol->y = j;
-		sol->sum = data->sum;
-		sol->special_case = 1;
-		dprintf(2, "i = %d\n", i);
-		dprintf(2, "j = %d\n", j);
-		dprintf(2, "sol->x = %d\n", sol->x);
-		dprintf(2, "sol->y = %d\n", sol->y);
-		dprintf(2, "sol sum = %d\n", sol->sum);
+	sol->x = i;
+	sol->y = j;
+	sol->sum = data->sum;
+	sol->special_case = 1;
 }
 
 void	sol_store(t_board *data, t_solved *sol, int i, int j)
 {
-		sol->x = i;
-		sol->y = j;
-		sol->sum = data->sum;
-		dprintf(2, "i = %d\n", i);
-		dprintf(2, "j = %d\n", j);
-		dprintf(2, "sol->x = %d\n", sol->x);
-		dprintf(2, "sol->y = %d\n", sol->y);
-		dprintf(2, "sol sum = %d\n", sol->sum);
+	sol->x = i;
+	sol->y = j;
+	sol->sum = data->sum;
 }
 
-void reset_some_params(t_board *data, t_solved *sol)
+void	reset_some_params(t_board *data, t_solved *sol)
 {
 	data->placable = 0;
 	data->not_placable = 0;

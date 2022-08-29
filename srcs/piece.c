@@ -116,6 +116,9 @@ void	put_piece(t_board *data, t_solved *sol)
 			}
 		}
 	}
+	dprintf(2, "final sol : sum = %d\n", sol->sum);
+	dprintf(2, "final sol : x = %d\n", sol->x);
+	dprintf(2, "final sol : y = %d\n", sol->y);
 }
 
 int	is_placable(t_board *data, int i, int j)
@@ -145,18 +148,18 @@ int	is_placable(t_board *data, int i, int j)
 
 int	is_placable_helper(t_board *data, int i, int j)
 {
-	if (j + data->piece_y > data->grid_y)
-		return (0);
-	if (i + data->k > data->grid_x || j + data->l > data->grid_y)
-		return (0);
-	if (data->solving_grid[i + data->k][j + data->l] == data->ennemy_piece || \
-	data->solving_grid[i + data->k][j + data->l] == \
-	ft_tolower(data->ennemy_piece))
-		return (0);
 	if ((data->solving_grid[i + data->k][j + data->l] == data->player_piece || \
 	data->solving_grid[i + data->k][j + data->l] == \
 	ft_tolower(data->player_piece)) && data->piece[data->k][data->l] == '*')
 		data->x_count++;
+	if (j + data->piece_y > data->grid_y)
+		return (0);
+	else if (i + data->k > data->grid_x || j + data->l > data->grid_y)
+		return (0);
+	else if (data->solving_grid[i + data->k][j + data->l] == \
+	data->ennemy_piece || data->solving_grid[i + data->k][j + data->l] == \
+	ft_tolower(data->ennemy_piece))
+		return (0);
 	else
 		return (1);
 }
@@ -200,6 +203,7 @@ int	bot_right_clean(t_board *data)
 		if (data->grid[i][data->grid_y - 1] == data->player_piece || \
 		data->grid[i][data->grid_y - 1] == ft_tolower(data->player_piece))
 		{
+			dprintf(2, "bot closed = 1\n");
 			data->bot_closed = 1;
 			return (1);
 		}
@@ -210,6 +214,7 @@ int	bot_right_clean(t_board *data)
 			data->grid[i - 1][data->grid_y - 1] == \
 			ft_tolower(data->player_piece))
 			{
+				dprintf(2, "bot closed = 1\n");
 				data->bot_closed = 1;
 				return (1);
 			}

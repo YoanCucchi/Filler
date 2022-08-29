@@ -54,81 +54,6 @@ static void	free_piece(t_board *data)
 	data->piece = NULL;
 }
 
-static void	print_piece(t_board *data)
-{
-	int	i;
-
-	i = -1;
-	ft_printf("------------------------------------------------------------\n");
-	while (data->piece[++i])
-		ft_printf("%s\n", data->piece[i]);
-	ft_printf("------------------------------------------------------------\n");
-}
-
-static void	print_grid(t_board *data)
-{
-	int	i;
-
-	i = -1;
-	ft_printf("------------------------------------------------------------\n");
-	while (data->grid[++i])
-		ft_printf("%s\n", data->grid[i]);
-	ft_printf("------------------------------------------------------------\n");
-}
-
-static void	dprint_grid(t_board *data)
-{
-	int	i;
-
-	i = -1;
-	dprintf(2, "\n---------------------------------------------------------\n");
-	while (data->grid[++i])
-		dprintf(2, "[%s]\n", data->grid[i]);
-	dprintf(2, "-----------------------------------------------------------\n");
-}
-
-static void	print_solving_grid(t_board *data)
-{
-	int	i;
-
-	i = -1;
-	ft_printf("------------------------------------------------------------\n");
-	while (data->solving_grid[++i])
-		ft_printf("%s\n", data->solving_grid[i]);
-	ft_printf("------------------------------------------------------------\n");
-}
-
-static void	dprint_solving_grid(t_board *data)
-{
-	int	i;
-
-	i = -1;
-	dprintf(2, "------------------------------------------------------------\n");
-	while (data->solving_grid[++i])
-		dprintf(2, "%s\n", data->solving_grid[i]);
-	dprintf(2, "------------------------------------------------------------\n");
-}
-
-static void	struc_print(t_board *data)
-{
-	dprintf(2, "------------------------------------------------------------\n");
-	dprintf(2, "data->player_x = %d\n", data->player_x);
-	dprintf(2, "data->player_y = %d\n", data->player_y);
-	dprintf(2, "------------------------------------------------------------\n");
-	dprintf(2, "data->ennemy_x = %d\n", data->ennemy_x);
-	dprintf(2, "data->ennemy_y = %d\n", data->ennemy_y);
-	dprintf(2, "------------------------------------------------------------\n");
-	dprintf(2, "data->grid_x = %d\n", data->grid_x);
-	dprintf(2, "data->grid_y = %d\n", data->grid_y);
-	dprintf(2, "------------------------------------------------------------\n");
-	dprintf(2, "data->piece_x = %d\n", data->piece_x);
-	dprintf(2, "data->piece_y = %d\n", data->piece_y);
-	dprintf(2, "------------------------------------------------------------\n");
-	dprintf(2, "data->player_piece = %c\n", data->player_piece);
-	dprintf(2, "data->ennemy_piece = %c\n", data->ennemy_piece);
-	dprintf(2, "------------------------------------------------------------\n");
-}
-
 static void	player_piece(t_board *data, t_pos *pos2, t_solved *sol)
 {
 	int		ret;
@@ -191,6 +116,17 @@ void	skip_line(void)
 	ft_strdel(&line);
 }
 
+static void	dprint_solving_grid(t_board *data)
+{
+	int	i;
+
+	i = -1;
+	dprintf(2, "------------------------------------------------------------\n");
+	while (data->solving_grid[++i])
+		dprintf(2, "%s\n", data->solving_grid[i]);
+	dprintf(2, "------------------------------------------------------------\n");
+}
+
 static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 {
 	t_pos	pos1;
@@ -202,11 +138,7 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	read_piece(data, pos2, sol);
 	make_piece(data);
 	solving_grid(data, pos2, pos1);
-	// print_grid(data);
-	// print_solving_grid(data);
-	// dprint_solving_grid(data);
-	// print_piece(data);
-	// struc_print(data);
+	dprint_solving_grid(data);
 	put_piece(data, sol);
 	if (!data->not_placable)
 	{
@@ -215,8 +147,6 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	}
 	ft_printf("%d ", sol->x);
 	ft_printf("%d\n", sol->y);
-	if (data->piece)
-		free_piece(data);
 	if (sol->x == 0 && sol->y == 0 && !data->not_placable)
 		clean_all(data, pos2, sol, "");
 	data->turn++;
@@ -248,6 +178,5 @@ int	main(void)
 	while (1)
 		filler_loop(data, pos2, sol);
 	clean_all(data, pos2, sol, "");
-	// system("leaks ycucchi.filler > leaks.out");
 	return (0);
 }
