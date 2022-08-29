@@ -39,6 +39,9 @@ void	init_struct(t_board *data, t_pos *pos2, t_solved *sol)
 	data->piece_helper = NULL;
 	data->closed = 0;
 	data->bot_closed = 0;
+	data->k = 0;
+	data->l = 0;
+	data->x_count = 0;
 }
 
 void	free_struct(t_board *data)

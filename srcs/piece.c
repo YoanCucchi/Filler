@@ -12,12 +12,12 @@
 
 #include ".././includes/filler.h"
 
-void read_piece(t_board *data, t_pos *pos2, t_solved *sol)
+void	read_piece(t_board *data, t_pos *pos2, t_solved *sol)
 {
-	int len;
-	int ret;
-	char *tmp;
-	char *line;
+	int		len;
+	int		ret;
+	char	*tmp;
+	char	*line;
 
 	line = NULL;
 	len = 0;
@@ -40,10 +40,10 @@ void read_piece(t_board *data, t_pos *pos2, t_solved *sol)
 		clean_all(data, pos2, sol, "Malloc error\n");
 }
 
-int make_piece(t_board *data)
+int	make_piece(t_board *data)
 {
-	int ret;
-	char *line;
+	int		ret;
+	char	*line;
 
 	line = NULL;
 	data->line_helper = 0;
@@ -62,24 +62,25 @@ int make_piece(t_board *data)
 	return (1);
 }
 
-void do_sum(t_board *data, int i, int j)
+void	do_sum(t_board *data, int i, int j)
 {
-	int k;
-	int l;
+	int	k;
+	int	l;
 
 	data->sum = 0;
+	data->not_placable = 1;
 	k = 0;
 	while (data->piece[k] != NULL)
 	{
 		l = 0;
 		while (data->piece[k][l] != '\0' &&
-			   i + k <= data->grid_x && j + l <= data->grid_y)
+			i + k <= data->grid_x && j + l <= data->grid_y)
 		{
 			if (data->piece[k][l] == '*')
 			{
-				if ((data->solving_grid[i + k][j + l] != data->player_piece ||
-					 data->solving_grid[i + k][j + l] !=
-						 ft_tolower(data->player_piece)))
+				if ((data->solving_grid[i + k][j + l] != data->player_piece || \
+					data->solving_grid[i + k][j + l] != \
+					ft_tolower(data->player_piece)))
 					data->sum += data->solving_grid[i + k][j + l] - '0';
 			}
 			l++;
@@ -88,16 +89,13 @@ void do_sum(t_board *data, int i, int j)
 	}
 }
 
-void put_piece(t_board *data, t_solved *sol)
+void	put_piece(t_board *data, t_solved *sol)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
-	data->placable = 0;
-	data->not_placable = 0;
-	sol->sum = 0;
-	sol->special_case = 0;
+	reset_some_params(data, sol);
 	while (data->solving_grid[++i] != NULL)
 	{
 		j = -1;
@@ -106,74 +104,64 @@ void put_piece(t_board *data, t_solved *sol)
 			data->placable = is_placable(data, i, j);
 			if (data->placable == 1)
 			{
-				data->not_placable = 1;
 				do_sum(data, i, j);
-				// p 2 = X p1 = O
-				dprintf(2, "piece placable at i = [%d] ", i);
-				dprintf(2, "and j = [%d] ", j);
-				dprintf(2, "sum = [%d]\n", data->sum);
-				if (!data->im_bottom_right) // top left easy win no strat
-				{
-					dprintf(2, "\n===>CLOSEST<===\n");
+				if (!data->im_bottom_right)
 					do_algo_closest(data, sol, i, j);
-				}
-				else if (data->im_bottom_right && data->grid_x < 20) // bottom right recherche haut et gauche une fois le milieu atteint ?
-				{
-					dprintf(2, "\n===>SMALL<===\n");
+				else if (data->im_bottom_right && data->grid_x < 20)
 					do_algo_bot_right_small(data, sol, i, j);
-				}
-				else if (data->im_bottom_right && data->grid_x < 50) // bottom right recherche haut et gauche une fois le milieu atteint ?
-				{
-					dprintf(2, "\n===>MEDIUM<===\n");
+				else if (data->im_bottom_right && data->grid_x < 50)
 					do_algo_bot_right_medium(data, sol, i, j);
-				}
-				else if (data->grid_x > 50) // bottom right recherche haut et gauche une fois le milieu atteint ?
-				{
-					dprintf(2, "\n===>HUGE<===\n");
+				else if (data->grid_x > 50)
 					do_algo_bot_right_huge(data, sol, i, j);
-				}
 			}
 		}
 	}
-	dprintf(2, "final sol->x = %d\n", sol->x);
-	dprintf(2, "final sol->y = %d\n", sol->y);
-	dprintf(2, "final turn = %d\n", data->turn);
-	dprintf(2, "-----------------------------------------------------------\n");
 }
 
-int is_placable(t_board *data, int i, int j)
+int	is_placable(t_board *data, int i, int j)
 {
-	int k;
-	int l;
-	int x_count;
+	int	k;
+	int	l;
 
 	k = -1;
-	l = -1;
-	x_count = 0;
+	data->x_count = 0;
 	while (++k < data->piece_x)
 	{
+		data->k = k;
 		if (i + data->piece_x > data->grid_x)
 			return (0);
 		l = -1;
 		while (++l < data->piece_y)
 		{
-			if (j + data->piece_y > data->grid_y)
+			data->l = l;
+			if (!is_placable_helper(data, i, j))
 				return (0);
-			if (i + k > data->grid_x || j + l > data->grid_y)
-				return (0);
-			if (data->solving_grid[i + k][j + l] == data->ennemy_piece ||
-				data->solving_grid[i + k][j + l] == ft_tolower(data->ennemy_piece))
-				return (0);
-			if ((data->solving_grid[i + k][j + l] == data->player_piece || data->solving_grid[i + k][j + l] == ft_tolower(data->player_piece)) && data->piece[k][l] == '*')
-				x_count++;
 		}
 	}
-	if (x_count != 1)
+	if (data->x_count != 1)
 		return (0);
 	return (1);
 }
 
-int in_the_middle(t_board *data)
+int	is_placable_helper(t_board *data, int i, int j)
+{
+	if (j + data->piece_y > data->grid_y)
+		return (0);
+	if (i + data->k > data->grid_x || j + data->l > data->grid_y)
+		return (0);
+	if (data->solving_grid[i + data->k][j + data->l] == data->ennemy_piece || \
+	data->solving_grid[i + data->k][j + data->l] == \
+	ft_tolower(data->ennemy_piece))
+		return (0);
+	if ((data->solving_grid[i + data->k][j + data->l] == data->player_piece || \
+	data->solving_grid[i + data->k][j + data->l] == \
+	ft_tolower(data->player_piece)) && data->piece[data->k][data->l] == '*')
+		data->x_count++;
+	else
+		return (1);
+}
+
+int	in_the_middle(t_board *data)
 {
 	int	i;
 	int	j;
@@ -182,62 +170,48 @@ int in_the_middle(t_board *data)
 
 	k = data->grid_x / 2 + 1;
 	l = data->grid_y / 2 + 1;
-	i = 0;
-	j = 0;
-	while(i <= k)
+	i = -1;
+	while (++i <= k)
 	{
-		j = 0;
-		while(j <= l)
+		j = -1;
+		while (++j <= l)
 		{
 			if (i == 0 && j == 0 && (data->grid[i][j] == data->player_piece || \
 			data->grid[i][j] == ft_tolower(data->player_piece)))
 			{
-				dprintf(2, "in middle return = 0\n");
 				data->closed = 1;
 				return (0);
 			}
-			if(i < k && j < l && (data->grid[i][j] == data->player_piece || \
+			if (i < k && j < l && (data->grid[i][j] == data->player_piece || \
 			data->grid[i][j] == ft_tolower(data->player_piece)))
-			{
-				dprintf(2, "data->grid[i][j] = %c ", data->grid[i][j]);
-				dprintf(2, "at [%d] ", i);
-				dprintf(2, "at [%d]\n", j);
-				dprintf(2, "in middle return = 1");
 				return (1);
-			}
-			j++;
 		}
-		i++;
 	}
 	return (0);
 }
 
 int	bot_right_clean(t_board *data)
 {
-	// return 0 if someth
 	int	i;
 
 	i = data->grid_x - 1;
-	while(i >= 1)
+	while (i >= 1)
 	{
-		dprintf(2, "i in bot right clean = %d\n", i);
-		// si ma piece ok /// si ennemy check au dessus : si ma piece OK
 		if (data->grid[i][data->grid_y - 1] == data->player_piece || \
 		data->grid[i][data->grid_y - 1] == ft_tolower(data->player_piece))
 		{
-			dprintf(2, "fefeofjeofbot right clean = 1\n");
 			data->bot_closed = 1;
-			return (1); // si personne au dessus
+			return (1);
 		}
 		if (data->grid[i][data->grid_y - 1] == data->ennemy_piece || \
 		data->grid[i][data->grid_y - 1] == ft_tolower(data->ennemy_piece))
 		{
 			if (data->grid[i - 1][data->grid_y - 1] == data->player_piece || \
-			data->grid[i - 1][data->grid_y - 1] == ft_tolower(data->player_piece))
+			data->grid[i - 1][data->grid_y - 1] == \
+			ft_tolower(data->player_piece))
 			{
-				dprintf(2, "bot right clean = 1\n");
 				data->bot_closed = 1;
-				return (1); // si personne au dessus
+				return (1);
 			}
 		}
 		i--;

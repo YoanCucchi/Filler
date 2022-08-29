@@ -27,6 +27,9 @@
 
 typedef struct s_board
 {
+	int		k;
+	int		l;
+	int		x_count;
 	int		turn;
 	int		player_x;
 	int		player_y;
@@ -125,11 +128,6 @@ void	do_algo_bot_right_small(t_board *data, t_solved *sol, int i, int j);
 void	do_algo_bot_right_medium(t_board *data, t_solved *sol, int i, int j);
 void	do_algo_bot_right_huge(t_board *data, t_solved *sol, int i, int j);
 
-int		anyone_up(t_board *data, int i, int j);
-int		anyone_left(t_board *data, int i, int j);
-int		anyone_right(t_board *data, int i, int j);
-int		anyone_bottom(t_board *data, int i, int j);
-
 int		closest(t_pos pos1, t_pos *pos2, t_board *data, int i);
 
 int		in_the_middle(t_board *data);
@@ -137,5 +135,7 @@ int		bot_right_clean(t_board *data);
 
 void	sol_store_spe(t_board *data, t_solved *sol, int i, int j);
 void	sol_store(t_board *data, t_solved *sol, int i, int j);
+void reset_some_params(t_board *data, t_solved *sol);
+int	is_placable_helper(t_board *data, int i, int j);
 
 #endif
