@@ -38,6 +38,7 @@ void	init_struct(t_board *data, t_pos *pos2, t_solved *sol)
 
 void	init_struct_utils(t_board *data)
 {
+	data->dist = 0;
 	data->closed = 0;
 	data->bot_closed = 0;
 	data->k = 0;
@@ -47,16 +48,4 @@ void	init_struct_utils(t_board *data)
 	data->not_placable = 0;
 	data->im_bottom_right = 0;
 	data->sum = 0;
-}
-
-void	free_struct(t_board *data)
-{
-	if (data->grid)
-		free(data->grid);
-	if (data->grid_helper)
-		free(data->grid_helper);
-	if (data->piece)
-		free(data->piece);
-	if (data->piece_helper)
-		free(data->piece_helper);
 }

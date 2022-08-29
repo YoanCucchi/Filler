@@ -22,16 +22,14 @@ int	closest(t_pos pos1, t_pos *pos2, t_board *data, int i)
 	int	j;
 	int	n;
 	int	p;
-	int	tmp;
 
 	n = 0;
-	tmp = 0;
 	j = pos1.y;
 	p = data->ennemy_piece;
 	while (i + ++n < data->grid_x && j + n < data->grid_y)
 	{
-		if (i >= 0 && j - n >= 0 && \
-		(data->grid[i][j - n] == p || data->grid[i][j - n] == ft_tolower(p)))
+		if (i >= 0 && (data->grid[i][j - n] == data->ennemy_piece || \
+		data->grid[i][j - n] == ft_tolower(data->ennemy_piece)) && j - n >= 0)
 			return (check_left(pos2, pos1, n));
 		if (i - n >= 0 && j >= 0 && \
 		(data->grid[i - n][j] == p || data->grid[i - n][j] == ft_tolower(p)))
@@ -42,9 +40,8 @@ int	closest(t_pos pos1, t_pos *pos2, t_board *data, int i)
 		if (i >= 0 && j >= 0 && \
 		(data->grid[i + n][j] == p || data->grid[i + n][j] == ft_tolower(p)))
 			return (check_bottom(pos2, pos1, n));
-		if (n % 2 == 0)
-			if (check_diagonal(data, i, j, n) == 1)
-				return (n);
+		if (n % 2 == 0 && check_diagonal(data, i, j, n) == 1)
+			return (n);
 	}
 	return (ft_absolute_distance(pos1, pos2));
 }
@@ -91,14 +88,19 @@ void	solving_grid(t_board *data, t_pos *pos2, t_pos pos1)
 				pos1.x = i;
 				pos1.y = j;
 				data->dist = closest(pos1, pos2, data, i);
-				if (data->dist + '0' == 79 || data->dist + '0' == 111 \
-				|| data->dist + '0' == 88 || data->dist + '0' == 120)
-					data->solving_help[j] = data->dist + '1';
-				else
-					data->solving_help[j] = data->dist + '0';
+				dist_exception_ox(data, j);
 			}
 		}
 		data->solving_grid[i] = data->solving_help;
 	}
 	data->solving_grid[i] = NULL;
+}
+
+void	dist_exception_ox(t_board *data, int j)
+{
+	if (data->dist + '0' == 79 || data->dist + '0' == 111 \
+	|| data->dist + '0' == 88 || data->dist + '0' == 120)
+		data->solving_help[j] = data->dist + '1';
+	else
+		data->solving_help[j] = data->dist + '0';
 }

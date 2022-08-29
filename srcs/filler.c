@@ -12,48 +12,6 @@
 
 #include ".././includes/filler.h"
 
-static void	free_solving_grid(t_board *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->grid_x)
-	{
-		ft_strdel(&data->solving_grid[i]);
-		i++;
-	}
-	free(data->solving_grid);
-	data->solving_grid = NULL;
-}
-
-static void	free_grid(t_board *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->grid_x)
-	{
-		ft_strdel(&data->grid[i]);
-		i++;
-	}
-	free(data->grid);
-	data->grid = NULL;
-}
-
-static void	free_piece(t_board *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->piece_x)
-	{
-		ft_strdel(&data->piece[i]);
-		i++;
-	}
-	free(data->piece);
-	data->piece = NULL;
-}
-
 static void	player_piece(t_board *data, t_pos *pos2, t_solved *sol)
 {
 	int		ret;
@@ -82,31 +40,7 @@ static void	player_piece(t_board *data, t_pos *pos2, t_solved *sol)
 	ft_strdel(&line);
 }
 
-void	clean_all(t_board *data, t_pos *pos2, t_solved *sol, char *str)
-{
-	if (!data)
-		exit (0);
-	if (data->piece)
-		free_piece(data);
-	if (data->grid)
-		free_grid(data);
-	if (data->solving_grid)
-		free_solving_grid(data);
-	if (pos2)
-		free(pos2);
-	if (sol)
-		free(sol);
-	if (data)
-		free(data);
-	if (ft_strcmp(str, ""))
-	{
-		ft_putendl_fd(str, 2);
-		exit(EXIT_FAILURE);
-	}
-	exit(EXIT_SUCCESS);
-}
-
-void	skip_line(void)
+static void	skip_line(void)
 {
 	int		ret;
 	char	*line;
@@ -114,17 +48,6 @@ void	skip_line(void)
 	line = NULL;
 	ret = get_next_line(0, &line);
 	ft_strdel(&line);
-}
-
-static void	dprint_solving_grid(t_board *data)
-{
-	int	i;
-
-	i = -1;
-	dprintf(2, "------------------------------------------------------------\n");
-	while (data->solving_grid[++i])
-		dprintf(2, "%s\n", data->solving_grid[i]);
-	dprintf(2, "------------------------------------------------------------\n");
 }
 
 static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
@@ -138,7 +61,6 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	read_piece(data, pos2, sol);
 	make_piece(data);
 	solving_grid(data, pos2, pos1);
-	dprint_solving_grid(data);
 	put_piece(data, sol);
 	if (!data->not_placable)
 	{
