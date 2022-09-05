@@ -20,9 +20,9 @@ void	do_algo_closest(t_board *data, t_solved *sol, int i, int j)
 
 void	do_algo_bot_right_small(t_board *data, t_solved *sol, int i, int j)
 {
-	if (data->turn <= 15 && (i < sol->x || sol->sum == 0))
+	if (data->turn <= 25 && (i < sol->x || sol->sum == 0))
 		sol_store_spe(data, sol, i, j);
-	else if (in_the_middle(data) && data->turn < 45 && data->turn > 15 && \
+	else if (in_the_middle(data) && data->turn < 45 && data->turn > 25 && \
 	(i <= sol->x || j < sol->y || sol->sum == 0))
 		sol_store_spe(data, sol, i, j);
 	else if (data->closed && j >= sol->y && !data->bot_closed)
