@@ -22,7 +22,7 @@ static void	player_piece(t_board *data, t_pos *pos2, t_solved *sol)
 	line = NULL;
 	ret = get_next_line(0, &line);
 	player = ft_atoi(line + 10);
-	if (ft_strncmp(line, "$$$ exec p", 10 || !(player == 1 || player == 2)))
+	if (ft_strncmp(line, "$$$ exec p", 10) || !(player == 1 || player == 2))
 		clean_all(data, pos2, sol, "Wrong player\n");
 	if (player == 1)
 	{
