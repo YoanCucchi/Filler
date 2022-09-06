@@ -36,7 +36,7 @@ CYAN = \033[0;96m
 
 all: $(NAME)
 
-$(NAME):
+$(NAME):$(SRCS_PATH)
 	@make -C $(LIBFT_PATH)
 	@$(CC) $(FLAGS) $(INCLUDES) $(SRCS_PATH) $(LIBFT) -o $(NAME)
 	@echo "$(CYAN) $(NAME) compiled!$(DEFAULT)"
