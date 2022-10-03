@@ -1,0 +1,16 @@
+ON map02 FOR 5 GAME:
+DETAILS GAMES:
+GAME 1     P1: ycucchi.filler 923 VS 978 P2: carli
+GAME 2     P1: carli 1841 VS 88 P2: ycucchi.filler
+GAME 3     P1: ycucchi.filler 243 VS 1677 P2: carli
+GAME 4     P1: carli 285 VS 1386 P2: ycucchi.filler
+GAME 5     P1: ycucchi.filler 597 VS 33 P2: carli
+---------------------------------------------------
+PLAYER              |    %v   |    victory - game |
+--------------------------------------------------
+ycucchi.filler     |    40%    |       2 - 5   |
+--------------------------------------------------
+carli               |   60%  |           3 - 5   |
+--------------------------------------------------
+
+
