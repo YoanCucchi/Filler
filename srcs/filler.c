@@ -12,7 +12,7 @@
 
 #include ".././includes/filler.h"
 
-static int	player_piece(t_board *data, t_pos *pos2, t_solved *sol)
+static int	player_piece(t_board *data)
 {
 	int		ret;
 	char	*line;
@@ -64,7 +64,7 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	pos1.y = 0;
 	if (!skip_line())
 		return (0);
-	if (!make_grid(data) || !read_piece(data, pos2, sol) || !make_piece(data))
+	if (!make_grid(data) || !read_piece(data) || !make_piece(data))
 		return (0);
 	solving_grid(data, pos2, pos1);
 	put_piece(data, sol);
@@ -81,6 +81,24 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	return (1);
 }
 
+static int	is_everything_ok(t_board *data, t_pos *pos2, t_solved *sol)
+{
+	if (!data || !pos2 || !sol)
+		return (0);
+	init_struct(data, pos2, sol);
+	data->all_good = player_piece(data);
+	if (!data->all_good)
+		return (0);
+	data->all_good = grid_size(data);
+	if (!data->all_good)
+		return (0);
+	data->grid = (char **)malloc(sizeof(char *) * (data->grid_x + 1));
+	data->solving_grid = (char **)malloc(sizeof(char *) * (data->grid_x + 1));
+	if (!data->grid || !data->solving_grid)
+		return (0);
+	return (1);
+}
+
 int	main(void)
 {
 	t_board		*data;
@@ -93,22 +111,13 @@ int	main(void)
 	data = (t_board *)malloc(sizeof(t_board));
 	pos2 = (t_pos *)malloc(sizeof(t_pos));
 	sol = (t_solved *)malloc(sizeof(t_solved));
-	if (!data || !pos2 || !sol)
-		return (clean_all(data, pos2, sol, "Struct malloc error\n"));
-	init_struct(data, pos2, sol);
-	data->all_good = player_piece(data, pos2, sol);
-	if (!data->all_good)
-		return (clean_all(data, pos2, sol, "Player error"));
-	grid_size(data, pos2, sol);
-	data->grid = (char **)malloc(sizeof(char *) * (data->grid_x + 1));
-	data->solving_grid = (char **)malloc(sizeof(char *) * (data->grid_x + 1));
-	if (!data->grid || !data->solving_grid)
-		return (clean_all(data, pos2, sol, "Malloc error\n"));
+	if (!is_everything_ok(data, pos2, sol))
+		return (clean_all(data, pos2, sol));
 	while (1)
 	{
 		data->all_good = filler_loop(data, pos2, sol);
 		if (!data->all_good)
 			break ;
 	}
-	return (clean_all(data, pos2, sol, ""));
+	return (clean_all(data, pos2, sol));
 }

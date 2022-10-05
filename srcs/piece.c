@@ -12,7 +12,7 @@
 
 #include ".././includes/filler.h"
 
-int	read_piece(t_board *data, t_pos *pos2, t_solved *sol)
+int	read_piece(t_board *data)
 {
 	int		len;
 	int		ret;

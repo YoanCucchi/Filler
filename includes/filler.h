@@ -99,7 +99,7 @@ void	do_algo_bot_right_huge(t_board *data, t_solved *sol, int i, int j);
 ** clean.c
 */
 
-int		clean_all(t_board *data, t_pos *pos2, t_solved *sol, char *str);
+int		clean_all(t_board *data, t_pos *pos2, t_solved *sol);
 void	free_solving_grid(t_board *data);
 void	free_grid(t_board *data);
 void	free_piece(t_board *data);
@@ -108,14 +108,14 @@ void	free_piece(t_board *data);
 ** grid.c
 */
 
-int		grid_size(t_board *data, t_pos *pos2, t_solved *sol);
+int		grid_size(t_board *data);
 int		make_grid(t_board *data);
 
 /*
 ** piece.c
 */
 
-int		read_piece(t_board *data, t_pos *pos2, t_solved *sol);
+int		read_piece(t_board *data);
 int		make_piece(t_board *data);
 void	put_piece(t_board *data, t_solved *sol);
 int		is_placable(t_board *data, int i, int j);

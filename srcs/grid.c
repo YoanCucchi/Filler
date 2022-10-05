@@ -39,7 +39,7 @@ static void	token_coord(t_board *data, char *line, int y)
 	}
 }
 
-int	grid_size(t_board *data, t_pos *pos2, t_solved *sol)
+int	grid_size(t_board *data)
 {
 	int		ret;
 	char	*line;
