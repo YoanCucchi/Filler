@@ -23,7 +23,7 @@ int	read_piece(t_board *data, t_pos *pos2, t_solved *sol)
 	len = 0;
 	ret = get_next_line(0, &line);
 	if (ret < 0)
-		return (0);
+		return (ft_strdel(&line), 0);
 	tmp = line;
 	while (!ft_isdigit(*line))
 		line++;
@@ -33,11 +33,11 @@ int	read_piece(t_board *data, t_pos *pos2, t_solved *sol)
 		line++;
 	data->piece_y = ft_atoi(line);
 	if (data->piece_x == 0 || data->piece_y == 0)
-		clean_all(data, pos2, sol, "Grid size error\n");
-	free(tmp);
+		return (ft_strdel(&tmp), 0);
+	ft_strdel(&tmp);
 	data->piece = (char **)malloc(sizeof(char *) * (data->piece_x + 1));
 	if (!data->piece)
-		clean_all(data, pos2, sol, "Malloc error\n");
+		return (ft_strdel(&line), 0);
 	return (1);
 }
 
@@ -52,7 +52,7 @@ int	make_piece(t_board *data)
 	{
 		ret = get_next_line(0, &line);
 		if (ret < 0)
-			return (0);
+			return (ft_strdel(&line), 0);
 		data->piece_helper = ft_strnew(data->piece_y);
 		while (*line && *line != '.' && *line != '*')
 			line++;

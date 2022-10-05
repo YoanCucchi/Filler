@@ -49,18 +49,18 @@ int	grid_size(t_board *data, t_pos *pos2, t_solved *sol)
 	len = 0;
 	ret = get_next_line(0, &line);
 	if (ret < 0)
-		return (0);
+		return (ft_strdel(&line), 0);
 	if (ft_strncmp(line, "Plateau ", 8) || !ft_isdigit(*(line + 8)))
-		clean_all(data, pos2, sol, "Grid size error\n");
+		return (ft_strdel(&line), 0);
 	data->grid_x = ft_atoi(line + 8);
 	len = ft_nbrlen(data->grid_x, 10) + 1;
 	if (!ft_isdigit(*(line + 8 + len)))
-		clean_all(data, pos2, sol, "Grid size error\n");
+		return (ft_strdel(&line), 0);
 	data->grid_y = ft_atoi(line + 8 + len);
 	if (line[ft_strlen(line) - 1] != ':')
-		clean_all(data, pos2, sol, "Grid size error\n");
+		return (ft_strdel(&line), 0);
 	if (data->grid_x < 1 || data->grid_y < 1)
-		clean_all(data, pos2, sol, "Grid size error\n");
+		return (ft_strdel(&line), 0);
 	ft_strdel(&line);
 	return (1);
 }

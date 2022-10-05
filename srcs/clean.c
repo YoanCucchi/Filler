@@ -60,17 +60,35 @@ int	clean_all(t_board *data, t_pos *pos2, t_solved *sol, char *str)
 	if (!data)
 		return (0);
 	if (data->piece)
+	{
 		free_piece(data);
+		dprintf(2, "1");
+	}
 	if (data->grid)
+	{
 		free_grid(data);
+		dprintf(2, "2");
+	}
 	if (data->solving_grid)
+	{
 		free_solving_grid(data);
+		dprintf(2, "3");
+	}
 	if (pos2)
+	{
 		free(pos2);
+		dprintf(2, "4");
+	}
 	if (sol)
+	{
 		free(sol);
+		dprintf(2, "5");
+	}
 	if (data)
+	{
 		free(data);
+		dprintf(2, "6");
+	}
 	if (ft_strcmp(str, ""))
 		ft_putendl_fd(str, 2);
 	dprintf(2, "end of clean all\n");
