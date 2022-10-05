@@ -49,6 +49,7 @@ typedef struct s_board
 	int		piece_y;
 	int		player_piece;
 	int		ennemy_piece;
+	int		nb;
 	int		all_good;
 	char	**grid;
 	char	*grid_helper;
@@ -128,7 +129,7 @@ int		is_placable_helper(t_board *data, int i, int j);
 long	ft_absolute_distance(t_pos pos1, t_pos *pos2);
 int		closest(t_pos pos1, t_pos *pos2, t_board *data, int i);
 int		check_diagonal(t_board *data, int i, int j, int n);
-void	solving_grid(t_board *data, t_pos *pos2, t_pos pos1);
+int		solving_grid(t_board *data, t_pos *pos2, t_pos pos1);
 void	dist_exception_ox(t_board *data, int j);
 
 /*

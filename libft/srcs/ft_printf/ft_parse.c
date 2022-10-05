@@ -99,6 +99,8 @@ static int	ft_parse_length(char *str, t_parameter *p)
 	if (!tmp)
 		return (EXIT_FAILURE);
 	clear_mem = ft_memset(tmp, 0, ft_strlen(str));
+	if (!clear_mem)
+		return (0);
 	i = 0;
 	while (!ft_strchr(SPECIFIERS, str[i]))
 	{

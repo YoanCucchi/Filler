@@ -25,7 +25,7 @@ LIBFT_PATH = ./libft/
 
 LIBFT = ./libft/libft.a
 
-FLAGS = -Wall -Wextra #-Werror
+FLAGS = -Wall -Wextra -Werror
 
 CC = gcc
 

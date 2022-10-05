@@ -68,25 +68,25 @@ int	check_diagonal(t_board *data, int i, int j, int n)
 	return (0);
 }
 
-void	solving_grid(t_board *data, t_pos *pos2, t_pos pos1)
+int	solving_grid(t_board *data, t_pos *pos2, t_pos pos1)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	pos2->x = data->ennemy_x;
-	pos2->y = data->ennemy_y;
+	*pos2 = (t_pos){data->ennemy_x, data->ennemy_y};
 	while (data->grid[++i])
 	{
 		data->solving_help = ft_strnew(data->grid_y);
 		data->solving_help = ft_strcpy(data->solving_help, data->grid[i]);
+		if (!data->solving_help)
+			return (0);
 		j = -1;
 		while (data->grid[i][++j] != '\0')
 		{
 			if (data->solving_help[j] == '.')
 			{
-				pos1.x = i;
-				pos1.y = j;
+				pos1 = (t_pos){i, j};
 				data->dist = closest(pos1, pos2, data, i);
 				dist_exception_ox(data, j);
 			}
@@ -94,6 +94,7 @@ void	solving_grid(t_board *data, t_pos *pos2, t_pos pos1)
 		data->solving_grid[i] = data->solving_help;
 	}
 	data->solving_grid[i] = NULL;
+	return (1);
 }
 
 void	dist_exception_ox(t_board *data, int j)

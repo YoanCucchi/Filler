@@ -16,22 +16,20 @@ static int	player_piece(t_board *data)
 {
 	int		ret;
 	char	*line;
-	int		player;
 
-	player = 0;
 	line = NULL;
 	ret = get_next_line(0, &line);
 	if (ret < 0)
 		return (ft_strdel(&line), 0);
-	player = ft_atoi(line + 10);
-	if (ft_strncmp(line, "$$$ exec p", 10) || !(player == 1 || player == 2))
+	data->nb = ft_atoi(line + 10);
+	if (ft_strncmp(line, "$$$ exec p", 10) || !(data->nb == 1 || data->nb == 2))
 		return (ft_strdel(&line), 0);
-	if (player == 1)
+	if (data->nb == 1)
 	{
 		data->player_piece = 'O';
 		data->ennemy_piece = 'X';
 	}
-	else if (player == 2)
+	else if (data->nb == 2)
 	{
 		data->player_piece = 'X';
 		data->ennemy_piece = 'O';
@@ -66,7 +64,8 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 		return (0);
 	if (!make_grid(data) || !read_piece(data) || !make_piece(data))
 		return (0);
-	solving_grid(data, pos2, pos1);
+	if (!solving_grid(data, pos2, pos1))
+		return (0);
 	put_piece(data, sol);
 	if (!data->not_placable)
 	{
