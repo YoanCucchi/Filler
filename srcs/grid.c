@@ -39,7 +39,7 @@ static void	token_coord(t_board *data, char *line, int y)
 	}
 }
 
-void	grid_size(t_board *data, t_pos *pos2, t_solved *sol)
+int	grid_size(t_board *data, t_pos *pos2, t_solved *sol)
 {
 	int		ret;
 	char	*line;
@@ -48,6 +48,8 @@ void	grid_size(t_board *data, t_pos *pos2, t_solved *sol)
 	line = NULL;
 	len = 0;
 	ret = get_next_line(0, &line);
+	if (ret < 0)
+		return (0);
 	if (ft_strncmp(line, "Plateau ", 8) || !ft_isdigit(*(line + 8)))
 		clean_all(data, pos2, sol, "Grid size error\n");
 	data->grid_x = ft_atoi(line + 8);
@@ -60,11 +62,11 @@ void	grid_size(t_board *data, t_pos *pos2, t_solved *sol)
 	if (data->grid_x < 1 || data->grid_y < 1)
 		clean_all(data, pos2, sol, "Grid size error\n");
 	ft_strdel(&line);
+	return (1);
 }
 
-void	make_grid(t_board *data)
+int	make_grid(t_board *data)
 {
-	int		ret;
 	char	*line;
 	int		y;
 
@@ -73,7 +75,8 @@ void	make_grid(t_board *data)
 	while (data->line_helper < data->grid_x)
 	{
 		y = 0;
-		ret = get_next_line(0, &line);
+		if (get_next_line(0, &line) < 0)
+			return (0);
 		data->grid_helper = ft_strnew(data->grid_y);
 		data->grid_helper = \
 		ft_memcpy(data->grid_helper, (const char *)(line + 4), data->grid_y);
@@ -88,4 +91,5 @@ void	make_grid(t_board *data)
 	if (data->ennemy_x < data->player_x && data->ennemy_y < data->player_y && \
 	data->turn == 1)
 		data->im_bottom_right = 1;
+	return (1);
 }

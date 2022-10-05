@@ -49,6 +49,7 @@ typedef struct s_board
 	int		piece_y;
 	int		player_piece;
 	int		ennemy_piece;
+	int		all_good;
 	char	**grid;
 	char	*grid_helper;
 	char	**piece;
@@ -98,7 +99,7 @@ void	do_algo_bot_right_huge(t_board *data, t_solved *sol, int i, int j);
 ** clean.c
 */
 
-void	clean_all(t_board *data, t_pos *pos2, t_solved *sol, char *str);
+int		clean_all(t_board *data, t_pos *pos2, t_solved *sol, char *str);
 void	free_solving_grid(t_board *data);
 void	free_grid(t_board *data);
 void	free_piece(t_board *data);
@@ -107,14 +108,14 @@ void	free_piece(t_board *data);
 ** grid.c
 */
 
-void	grid_size(t_board *data, t_pos *pos2, t_solved *sol);
-void	make_grid(t_board *data);
+int		grid_size(t_board *data, t_pos *pos2, t_solved *sol);
+int		make_grid(t_board *data);
 
 /*
 ** piece.c
 */
 
-void	read_piece(t_board *data, t_pos *pos2, t_solved *sol);
+int		read_piece(t_board *data, t_pos *pos2, t_solved *sol);
 int		make_piece(t_board *data);
 void	put_piece(t_board *data, t_solved *sol);
 int		is_placable(t_board *data, int i, int j);
@@ -145,6 +146,5 @@ void	do_sum(t_board *data, int i, int j);
 */
 
 void	init_struct(t_board *data, t_pos *pos2, t_solved *sol);
-void	init_struct_utils(t_board *data);
 
 #endif

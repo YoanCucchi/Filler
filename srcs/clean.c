@@ -54,10 +54,11 @@ void	free_piece(t_board *data)
 	data->piece = NULL;
 }
 
-void	clean_all(t_board *data, t_pos *pos2, t_solved *sol, char *str)
+int	clean_all(t_board *data, t_pos *pos2, t_solved *sol, char *str)
 {
+	dprintf(2, "start of clean all\n");
 	if (!data)
-		exit (0);
+		return (0);
 	if (data->piece)
 		free_piece(data);
 	if (data->grid)
@@ -71,9 +72,7 @@ void	clean_all(t_board *data, t_pos *pos2, t_solved *sol, char *str)
 	if (data)
 		free(data);
 	if (ft_strcmp(str, ""))
-	{
 		ft_putendl_fd(str, 2);
-		exit(EXIT_FAILURE);
-	}
-	exit(EXIT_SUCCESS);
+	dprintf(2, "end of clean all\n");
+	return (0);
 }

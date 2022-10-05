@@ -12,7 +12,7 @@
 
 #include ".././includes/filler.h"
 
-static void	player_piece(t_board *data, t_pos *pos2, t_solved *sol)
+static int	player_piece(t_board *data, t_pos *pos2, t_solved *sol)
 {
 	int		ret;
 	char	*line;
@@ -21,9 +21,11 @@ static void	player_piece(t_board *data, t_pos *pos2, t_solved *sol)
 	player = 0;
 	line = NULL;
 	ret = get_next_line(0, &line);
+	if (ret < 0)
+		return (0);
 	player = ft_atoi(line + 10);
 	if (ft_strncmp(line, "$$$ exec p", 10) || !(player == 1 || player == 2))
-		clean_all(data, pos2, sol, "Wrong player\n");
+		return (0);
 	if (player == 1)
 	{
 		data->player_piece = 'O';
@@ -36,18 +38,22 @@ static void	player_piece(t_board *data, t_pos *pos2, t_solved *sol)
 	}
 	if (ft_strncmp(line + 11, " : [./ycucchi.filler]", 21) || \
 	line[ft_strlen(line) - 1] != ']')
-		clean_all(data, pos2, sol, "Wrong player\n");
+		return (0);
 	ft_strdel(&line);
+	return (1);
 }
 
-static void	skip_line(void)
+static int	skip_line(void)
 {
 	int		ret;
 	char	*line;
 
 	line = NULL;
 	ret = get_next_line(0, &line);
+	if (ret < 0)
+		return (0);
 	ft_strdel(&line);
+	return (1);
 }
 
 static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
@@ -56,10 +62,10 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 
 	pos1.x = 0;
 	pos1.y = 0;
-	skip_line();
-	make_grid(data);
-	read_piece(data, pos2, sol);
-	make_piece(data);
+	if (!skip_line())
+		return (0);
+	if (!make_grid(data) || !read_piece(data, pos2, sol) || !make_piece(data))
+		return (0);
 	solving_grid(data, pos2, pos1);
 	put_piece(data, sol);
 	if (!data->not_placable)
@@ -69,10 +75,10 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	}
 	ft_printf("%d ", sol->x);
 	ft_printf("%d\n", sol->y);
-	if (sol->x == 0 && sol->y == 0 && !data->not_placable)
-		clean_all(data, pos2, sol, "");
+	dprintf(2, "right after printing result\n");
 	data->turn++;
-	skip_line();
+	if ((sol->x == 0 && sol->y == 0 && !data->not_placable) || !skip_line())
+		return (0);
 	return (1);
 }
 
@@ -89,16 +95,21 @@ int	main(void)
 	pos2 = (t_pos *)malloc(sizeof(t_pos));
 	sol = (t_solved *)malloc(sizeof(t_solved));
 	if (!data || !pos2 || !sol)
-		clean_all(data, pos2, sol, "Struct malloc error\n");
+		return (clean_all(data, pos2, sol, "Struct malloc error\n"));
 	init_struct(data, pos2, sol);
-	player_piece(data, pos2, sol);
+	if (!player_piece(data, pos2, sol))
+		return (clean_all(data, pos2, sol, "Player error"));
 	grid_size(data, pos2, sol);
 	data->grid = (char **)malloc(sizeof(char *) * (data->grid_x + 1));
 	data->solving_grid = (char **)malloc(sizeof(char *) * (data->grid_x + 1));
 	if (!data->grid || !data->solving_grid)
-		clean_all(data, pos2, sol, "Malloc error\n");
+		return (clean_all(data, pos2, sol, "Malloc error\n"));
 	while (1)
-		filler_loop(data, pos2, sol);
-	clean_all(data, pos2, sol, "");
-	return (0);
+	{
+		data->all_good = filler_loop(data, pos2, sol);
+		if (!data->all_good)
+			break ;
+	}
+	dprintf(2, "just before end program (return clean all)\n");
+	return (clean_all(data, pos2, sol, ""));
 }
