@@ -11,24 +11,19 @@
 # **************************************************************************** #
 
 NAME = ycucchi.filler
-
-SRCS =  algo_helper.c algo.c clean.c filler.c grid.c piece.c solver.c \
+FILES =  algo_helper.c algo.c clean.c filler.c grid.c piece.c solver.c \
 solver_help.c struct.c
-
-SRCS_PATH = $(addprefix $(SRCS_DIR), $(SRCS))
-
-SRCS_DIR = ./srcs/
-
-INCLUDES = -I ./includes/
-
+SRCS_PATH = ./srcs/
+INCL	=	-I ./includes
+INCL_LFT=	-I ./libft/includes
 LIBFT_PATH = ./libft/
-
 LIBFT = ./libft/libft.a
-
-FLAGS = -Wall -Wextra -Werror
-
+LIB_LFT = -L ./libft/ -lft
+CCFLAGS = -Wall -Wextra -Werror
+SRCS = $(addprefix $(SRCS_PATH), $(FILES))
+OBJS = $(SRCS:.c=.o)
+OBJ_DIR = ./objects/
 CC = gcc
-
 DEFAULT = \033[0;39m
 GRAY = \033[0;90m
 GREEN = \033[0;92m
@@ -36,10 +31,15 @@ CYAN = \033[0;96m
 
 all: $(NAME)
 
-$(NAME):$(SRCS_PATH)
-	@make -C $(LIBFT_PATH)
-	@$(CC) $(FLAGS) $(INCLUDES) $(SRCS_PATH) $(LIBFT) -o $(NAME)
-	@echo "$(CYAN) $(NAME) compiled!$(DEFAULT)"
+$(LIBFT) :
+	make -C $(LIBFT_PATH)
+
+$(OBJ_DIR)%.o:$(SRC_PATH)%.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(FLAGS) $(INCL_LFT) $(INCL) -c -o $@ $<
+
+$(NAME): $(LIBFT) $(OBJS)
+	$(CC) $(FLAGS) -o $(NAME) $(INCL_LFT) $(INCL) $(OBJS) $(LIB_LFT)
 
 git:
 	git add -A
@@ -48,7 +48,9 @@ git:
 
 clean:
 	@rm -rf filler.trace
-	@echo "$(GRAY) filler.trace cleaned!$(DEFAULT)"
+	@echo "$(GRAY)filler.trace cleaned!$(DEFAULT)"
+	@rm -rf $(OBJ_DIR)
+	@echo "$(GRAY)$(OBJ_DIR) cleaned!$(DEFAULT)"
 	@make clean -C libft/
 
 fclean: clean
