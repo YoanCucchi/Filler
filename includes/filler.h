@@ -17,9 +17,9 @@
 ** Headers
 */
 
-# include "../libft/includes/libft.h"
-# include "../libft/includes/get_next_line.h"
-# include "../libft/includes/ft_printf.h"
+# include "libft.h"
+# include "get_next_line.h"
+# include "ft_printf.h"
 
 /*
 ** Structures

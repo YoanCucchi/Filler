@@ -11,16 +11,17 @@
 # **************************************************************************** #
 
 NAME = ycucchi.filler
-FILES =  algo_helper.c algo.c clean.c filler.c grid.c piece.c solver.c \
-solver_help.c
+FILES = algo_helper.c algo.c clean.c filler.c grid.c piece.c solver.c \
+solver_help.c clean_utils.c
 
 FLAGS = -Wall -Werror -Wextra
 INCLUDES = -I ./includes/
+LIBFT_INC = -I ./libft/includes/
 
 SRCS_PATH = srcs/
 OBJ_DIR  = objects/
 LIBFT_PATH = libft/
-LIB_LFT	=	-L ./libft/ -lft
+LIB_LFT = -L ./libft/ -lft
 
 SRCS = $(addprefix $(SRCS_PATH), $(FILES))
 OBJ = $(addprefix $(OBJ_DIR), $(FILES:.c=.o))
@@ -39,7 +40,7 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR)%.o: $(SRCS_PATH)%.c
 	@mkdir -p $(OBJ_DIR)
-	@gcc -c $(FLAGS) $(INCLUDES) $< -o $@
+	@gcc -c $(FLAGS) $(LIBFT_INC) $(INCLUDES) $< -o $@
 	@echo "$(GREEN)Compilation of $(notdir $<) done!$(DEFAULT)"
 
 git:
