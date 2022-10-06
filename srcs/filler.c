@@ -125,6 +125,5 @@ int	main(void)
 			break ;
 	}
 	clean_all(data, pos2, sol);
-	system("leaks ycucchi.filler >> leaks.report");
 	return (0);
 }

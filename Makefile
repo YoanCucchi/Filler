@@ -11,10 +11,13 @@
 # **************************************************************************** #
 
 NAME = ycucchi.filler
+
 FILES = algo_helper.c algo.c clean.c filler.c grid.c piece.c solver.c \
 solver_help.c clean_utils.c
 
+CC = gcc
 FLAGS = -Wall -Werror -Wextra
+
 INCLUDES = -I ./includes/
 LIBFT_INC = -I ./libft/includes/
 
@@ -29,18 +32,19 @@ OBJ = $(addprefix $(OBJ_DIR), $(FILES:.c=.o))
 DEFAULT = \033[0;39m
 GRAY = \033[0;90m
 GREEN = \033[0;92m
-CYAN = \033[0;96m
+PURPLE = \033[0;94m
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LIBFT_PATH)
-	@gcc $(FLAGS) -o $(NAME) $(OBJ) $(INCLUDES) $(LIB_LFT)
+	@$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(INCLUDES) $(LIB_LFT)
 	@echo "$(GREEN)Player ready!$(DEFAULT)"
 
 $(OBJ_DIR)%.o: $(SRCS_PATH)%.c
 	@mkdir -p $(OBJ_DIR)
-	@gcc -c $(FLAGS) $(LIBFT_INC) $(INCLUDES) $< -o $@
+	@echo "$(PURPLE)Compiling $(notdir $<)...$(DEFAULT)"
+	@$(CC) -c $(FLAGS) $(LIBFT_INC) $(INCLUDES) $< -o $@
 	@echo "$(GREEN)Compilation of $(notdir $<) done!$(DEFAULT)"
 
 git:

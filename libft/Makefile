@@ -12,6 +12,8 @@
 
 NAME = libft.a
 
+CC = gcc
+
 FLAGS = -Wall -Wextra -Werror
 
 SOURCES = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c\
@@ -61,7 +63,7 @@ $(NAME): $(OBJECTS)
 
 $(DIR_OBJ)%.o:$(DIR_SRC)%.c
 	@mkdir -p $(dir $@)
-	@gcc $(FLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) -c $< -o $@
 
 clean:
 	@echo "$(PURPLE)Cleaning all objects..$(DEFAULT)"
