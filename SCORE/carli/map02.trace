@@ -1,21 +1,16 @@
-ON map02 FOR 10 GAME:
+ON map02 FOR 5 GAME:
 DETAILS GAMES:
-GAME 1     P1: ycucchi.filler 189 VS 1806 P2: carli
-GAME 2     P1: carli 56 VS 1072 P2: ycucchi.filler
-GAME 3     P1: ycucchi.filler 49 VS 1938 P2: carli
-GAME 4     P1: carli 290 VS 1592 P2: ycucchi.filler
-GAME 5     P1: ycucchi.filler 77 VS 1333 P2: carli
-GAME 6     P1: carli 69 VS 109 P2: ycucchi.filler
-GAME 7     P1: ycucchi.filler 154 VS 1807 P2: carli
-GAME 8     P1: carli 1913 VS 81 P2: ycucchi.filler
-GAME 9     P1: ycucchi.filler 466 VS 1280 P2: carli
-GAME 10     P1: carli 358 VS 1468 P2: ycucchi.filler
+GAME 1     P1: ycucchi.filler 134 VS 1833 P2: carli
+GAME 2     P1: carli 344 VS 702 P2: ycucchi.filler
+GAME 3     P1: ycucchi.filler 740 VS 1168 P2: carli
+GAME 4     P1: carli 357 VS 1626 P2: ycucchi.filler
+GAME 5     P1: ycucchi.filler 616 VS 183 P2: carli
 ---------------------------------------------------
 PLAYER              |    %v   |    victory - game |
 --------------------------------------------------
-ycucchi.filler     |    40%    |       4 - 10   |
+ycucchi.filler     |    60%    |       3 - 5   |
 --------------------------------------------------
-carli               |   60%  |           6 - 10   |
+carli               |   40%  |           2 - 5   |
 --------------------------------------------------
 
 

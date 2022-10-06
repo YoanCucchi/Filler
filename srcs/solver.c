@@ -77,7 +77,7 @@ int	solving_grid(t_board *data, t_pos *pos2, t_pos pos1)
 	*pos2 = (t_pos){data->ennemy_x, data->ennemy_y};
 	while (data->grid[++i])
 	{
-		data->solving_help = ft_strnew(data->grid_y);
+		data->solving_help = ft_strnew(data->grid_y); // malloc
 		data->solving_help = ft_strcpy(data->solving_help, data->grid[i]);
 		if (!data->solving_help)
 			return (0);

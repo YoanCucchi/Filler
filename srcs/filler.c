@@ -77,6 +77,7 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	data->turn++;
 	if ((sol->x == 0 && sol->y == 0 && !data->not_placable) || !skip_line())
 		return (0);
+	free_piece(data);
 	return (1);
 }
 
@@ -118,5 +119,7 @@ int	main(void)
 		if (!data->all_good)
 			break ;
 	}
-	return (clean_all(data, pos2, sol));
+	clean_all(data, pos2, sol);
+	system("leaks ycucchi.filler >> leaks.report");
+	return (0);
 }

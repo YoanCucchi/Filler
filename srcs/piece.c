@@ -53,7 +53,7 @@ int	make_piece(t_board *data)
 		ret = get_next_line(0, &line);
 		if (ret < 0)
 			return (ft_strdel(&line), 0);
-		data->piece_helper = ft_strnew(data->piece_y);
+		data->piece_helper = ft_strnew(data->piece_y); // malloc
 		while (*line && *line != '.' && *line != '*')
 			line++;
 		data->piece_helper = ft_strcpy(data->piece_helper, line);

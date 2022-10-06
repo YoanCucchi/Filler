@@ -13,17 +13,19 @@
 NAME = ycucchi.filler
 FILES =  algo_helper.c algo.c clean.c filler.c grid.c piece.c solver.c \
 solver_help.c struct.c
-SRCS_PATH = ./srcs/
-INCL	=	-I ./includes
-INCL_LFT=	-I ./libft/includes
-LIBFT_PATH = ./libft/
-LIBFT = ./libft/libft.a
-LIB_LFT = -L ./libft/ -lft
-CCFLAGS = -Wall -Wextra -Werror
+
+FLAGS = -Wall #-Werror -Wextra
+INCLUDES = -I ./includes/
+
+### PATH ###
+SRCS_PATH = srcs/
+OBJ_DIR  = objects/
+LIBFT_PATH = libft/
+LIB_LFT	=	-L ./libft/ -lft
+
 SRCS = $(addprefix $(SRCS_PATH), $(FILES))
-OBJS = $(SRCS:.c=.o)
-OBJ_DIR = ./objects/
-CC = gcc
+OBJ = $(addprefix $(OBJ_DIR), $(FILES:.c=.o))
+
 DEFAULT = \033[0;39m
 GRAY = \033[0;90m
 GREEN = \033[0;92m
@@ -31,15 +33,15 @@ CYAN = \033[0;96m
 
 all: $(NAME)
 
-$(LIBFT) :
-	make -C $(LIBFT_PATH)
+$(NAME): $(OBJ)
+	@make -C $(LIBFT_PATH)
+	@gcc $(FLAGS) -o $(NAME) $(OBJ) $(INCLUDES) $(LIB_LFT)
+	@echo "$(GREEN)Player ready!$(DEFAULT)"
 
-$(OBJ_DIR)%.o:$(SRC_PATH)%.c
-	mkdir -p $(OBJ_DIR)
-	$(CC) $(FLAGS) $(INCL_LFT) $(INCL) -c -o $@ $<
-
-$(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(FLAGS) -o $(NAME) $(INCL_LFT) $(INCL) $(OBJS) $(LIB_LFT)
+$(OBJ_DIR)%.o: $(SRCS_PATH)%.c
+	@mkdir -p $(OBJ_DIR)
+	@gcc -c $(FLAGS) $(INCLUDES) $< -o $@
+	@echo "$(GREEN)Compilation of $(notdir $<) done!$(DEFAULT)"
 
 git:
 	git add -A
