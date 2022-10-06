@@ -77,7 +77,7 @@ int	make_grid(t_board *data)
 		y = 0;
 		if (get_next_line(0, &line) < 0)
 			return (ft_strdel(&line), 0);
-		data->grid_helper = ft_strnew(data->grid_y); // malloc
+		data->grid_helper = ft_strnew(data->grid_y);
 		data->grid_helper = \
 		ft_memcpy(data->grid_helper, (const char *)(line + 4), data->grid_y);
 		if (data->turn == 1 && (data->player_x == 0 || data->ennemy_x == 0) && \

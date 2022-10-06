@@ -37,7 +37,7 @@ int	read_piece(t_board *data)
 	ft_strdel(&tmp);
 	data->piece = (char **)malloc(sizeof(char *) * (data->piece_x + 1));
 	if (!data->piece)
-		return (ft_strdel(&line), 0);
+		return (0);
 	return (1);
 }
 
@@ -53,7 +53,7 @@ int	make_piece(t_board *data)
 		ret = get_next_line(0, &line);
 		if (ret < 0)
 			return (ft_strdel(&line), 0);
-		data->piece_helper = ft_strnew(data->piece_y); // malloc
+		data->piece_helper = ft_strnew(data->piece_y);
 		while (*line && *line != '.' && *line != '*')
 			line++;
 		data->piece_helper = ft_strcpy(data->piece_helper, line);

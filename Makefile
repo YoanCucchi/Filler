@@ -12,12 +12,11 @@
 
 NAME = ycucchi.filler
 FILES =  algo_helper.c algo.c clean.c filler.c grid.c piece.c solver.c \
-solver_help.c struct.c
+solver_help.c
 
-FLAGS = -Wall #-Werror -Wextra
+FLAGS = -Wall -Werror -Wextra
 INCLUDES = -I ./includes/
 
-### PATH ###
 SRCS_PATH = srcs/
 OBJ_DIR  = objects/
 LIBFT_PATH = libft/

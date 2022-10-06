@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.c                                           :+:      :+:    :+:   */
+/*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycucchi <yoan066@yahoo.fr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,10 +12,26 @@
 
 #include ".././includes/filler.h"
 
-void	init_struct(t_board *data, t_pos *pos2, t_solved *sol)
+void	reset_grid(t_board *data)
 {
-	ft_bzero(data, sizeof (t_board));
-	ft_bzero(pos2, sizeof (t_pos));
-	ft_bzero(sol, sizeof (t_solved));
-	data->turn = 1;
+	int	i;
+
+	i = 0;
+	while (i < data->grid_x)
+	{
+		ft_strdel(&data->grid[i]);
+		i++;
+	}
+}
+
+void	reset_solving_grid(t_board *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->grid_x)
+	{
+		ft_strdel(&data->solving_grid[i]);
+		i++;
+	}
 }

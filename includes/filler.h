@@ -106,6 +106,13 @@ void	free_grid(t_board *data);
 void	free_piece(t_board *data);
 
 /*
+** clean_utils.c
+*/
+
+void	reset_grid(t_board *data);
+void	reset_solving_grid(t_board *data);
+
+/*
 ** grid.c
 */
 
@@ -141,11 +148,5 @@ int		check_top(t_pos *pos2, t_pos pos1, int n);
 int		check_right(t_pos *pos2, t_pos pos1, int n);
 int		check_bottom(t_pos *pos2, t_pos pos1, int n);
 void	do_sum(t_board *data, int i, int j);
-
-/*
-** struct.c
-*/
-
-void	init_struct(t_board *data, t_pos *pos2, t_solved *sol);
 
 #endif

@@ -74,10 +74,12 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 	}
 	ft_printf("%d ", sol->x);
 	ft_printf("%d\n", sol->y);
-	data->turn++;
 	if ((sol->x == 0 && sol->y == 0 && !data->not_placable) || !skip_line())
 		return (0);
 	free_piece(data);
+	reset_grid(data);
+	reset_solving_grid(data);
+	data->turn++;
 	return (1);
 }
 
@@ -85,7 +87,10 @@ static int	is_everything_ok(t_board *data, t_pos *pos2, t_solved *sol)
 {
 	if (!data || !pos2 || !sol)
 		return (0);
-	init_struct(data, pos2, sol);
+	ft_bzero(data, sizeof (t_board));
+	ft_bzero(pos2, sizeof (t_pos));
+	ft_bzero(sol, sizeof (t_solved));
+	data->turn = 1;
 	data->all_good = player_piece(data);
 	if (!data->all_good)
 		return (0);
