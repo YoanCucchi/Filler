@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ".././includes/filler.h"
+#include "filler.h"
 
 int	check_left(t_pos *pos2, t_pos pos1, int n)
 {

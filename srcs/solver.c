@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ".././includes/filler.h"
+#include "filler.h"
 
 long	ft_absolute_distance(t_pos pos1, t_pos *pos2)
 {

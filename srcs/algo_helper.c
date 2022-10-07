@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ".././includes/filler.h"
+#include "filler.h"
 
 void	sol_store_spe(t_board *data, t_solved *sol, int i, int j)
 {

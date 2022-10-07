@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ".././includes/filler.h"
+#include "filler.h"
 
 void	free_solving_grid(t_board *data)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ".././includes/filler.h"
+#include "filler.h"
 
 int	read_piece(t_board *data)
 {

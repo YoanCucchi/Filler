@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ".././includes/filler.h"
+#include "filler.h"
 
 void	do_algo_closest(t_board *data, t_solved *sol, int i, int j)
 {
@@ -58,7 +58,7 @@ void	do_algo_bot_right_medium(t_board *data, t_solved *sol, int i, int j)
 
 void	do_algo_bot_right_huge(t_board *data, t_solved *sol, int i, int j)
 {
-	if (data->turn <= 10 && (j < sol->y || sol->sum == 0))
+	if (data->turn <= 5 && (j <= sol->y || sol->sum == 0))
 		sol_store_spe(data, sol, i, j);
 	else if (data->turn <= 20 && data->piece_x > data->piece_y && \
 	(i < sol->x || sol->sum == 0) && data->turn > 5)
@@ -66,14 +66,14 @@ void	do_algo_bot_right_huge(t_board *data, t_solved *sol, int i, int j)
 	else if (data->turn <= 20 && data->piece_x <= data->piece_y && \
 	(j <= sol->y || sol->sum == 0) && data->turn > 5)
 		sol_store_spe(data, sol, i, j);
-	else if (((i >= sol->x && j < sol->y) || sol->sum == 0) && \
-	data->turn < 100 && data->turn > 10 && data->turn % 2 == 1)
-		sol_store_spe(data, sol, i, j);
-	else if ((i <= sol->x || sol->sum == 0) && \
-	data->turn < 100 && data->turn > 10 && data->turn % 2 == 0)
-		sol_store_spe(data, sol, i, j);
 	else if ((j > sol->y || sol->sum == 0) && \
 	data->turn >= 35 && data->turn < 100 && data->turn % 2 == 0)
+		sol_store_spe(data, sol, i, j);
+	else if (((i >= sol->x && j < sol->y) || sol->sum == 0) && \
+	data->turn < 100 && data->turn > 20 && data->turn % 2 == 1)
+		sol_store_spe(data, sol, i, j);
+	else if ((i <= sol->x || sol->sum == 0) && \
+	data->turn < 100 && data->turn > 20 && data->turn % 2 == 0)
 		sol_store_spe(data, sol, i, j);
 	else if ((data->sum < sol->sum || sol->sum == 0) && !sol->special_case)
 		sol_store(data, sol, i, j);
