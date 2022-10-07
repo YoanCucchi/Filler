@@ -68,14 +68,12 @@ static int	filler_loop(t_board *data, t_pos *pos2, t_solved *sol)
 		return (0);
 	put_piece(data, sol);
 	if (!data->not_placable)
-	{
-		sol->x = 0;
-		sol->y = 0;
-	}
+		*sol = (t_solved){0, 0, 0, 0};
 	ft_printf("%d ", sol->x);
 	ft_printf("%d\n", sol->y);
 	if ((sol->x == 0 && sol->y == 0 && !data->not_placable) || !skip_line())
 		return (0);
+	*sol = (t_solved){0, 0, 0, 0};
 	free_piece(data);
 	reset_grid(data);
 	reset_solving_grid(data);

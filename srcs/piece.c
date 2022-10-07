@@ -88,7 +88,7 @@ void	put_piece(t_board *data, t_solved *sol)
 				else if (data->im_bottom_right && data->grid_x < 50)
 					do_algo_bot_right_medium(data, sol, i, j);
 				else if (data->grid_x > 50)
-					do_algo_bot_right_medium(data, sol, i, j);
+					do_algo_bot_right_huge(data, sol, i, j);
 			}
 		}
 	}
