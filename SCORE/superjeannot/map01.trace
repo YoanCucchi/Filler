@@ -1,0 +1,16 @@
+ON map01 FOR 5 GAME:
+DETAILS GAMES:
+GAME 1     P1: ycucchi.filler 0 VS 322 P2: superjeannot
+GAME 2     P1: superjeannot 155 VS 184 P2: ycucchi.filler
+GAME 3     P1: ycucchi.filler 268 VS 87 P2: superjeannot
+GAME 4     P1: superjeannot 172 VS 97 P2: ycucchi.filler
+GAME 5     P1: ycucchi.filler 236 VS 59 P2: superjeannot
+---------------------------------------------------
+PLAYER              |    %v   |    victory - game |
+--------------------------------------------------
+ycucchi.filler     |    60%    |       3 - 5   |
+--------------------------------------------------
+superjeannot               |   40%  |           2 - 5   |
+--------------------------------------------------
+
+

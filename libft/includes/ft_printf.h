@@ -6,7 +6,7 @@
 /*   By: ycucchi <yoan066@yahoo.fr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:17:40 by ycucchi           #+#    #+#             */
-/*   Updated: 2022/04/12 11:49:21 by ycucchi          ###   ########.fr       */
+/*   Updated: 2022/10/11 21:30:26 by ycucchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 
 # include "./libft.h"
 # include <stdarg.h>
-# include <stdio.h> // A VIRER !!!!!
 
 /*
 ** Prototypes
