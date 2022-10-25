@@ -6,7 +6,7 @@
 /*   By: ycucchi <yoan066@yahoo.fr>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 14:32:36 by ycucchi           #+#    #+#             */
-/*   Updated: 2022/06/21 14:32:37 by ycucchi          ###   ########.fr       */
+/*   Updated: 2022/10/25 16:16:23 by ycucchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 ** Headers
 */
 
-# include "libft.h"
 # include "get_next_line.h"
 # include "ft_printf.h"
 
